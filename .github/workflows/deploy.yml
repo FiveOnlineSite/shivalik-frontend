@@ -3,7 +3,7 @@ name: Deploy React to VPS
 on:
   push:
     branches:
-      - main   # change to master if needed
+      - main
 
 jobs:
   build-and-deploy:
@@ -25,20 +25,16 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      # Ensure target directory exists on VPS
       - name: Create target folder if not exists
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_KEY }}
-          port: 22
-          script: |
-            mkdir -p "${{ secrets.VPS_PATH }}"
+          script: mkdir -p ${{ secrets.VPS_PATH }}
 
-      # Deploy build folder using RSYNC
       - name: Deploy via RSYNC
-        uses: burnett01/rsync-deployments@v6.0.0
+        uses: burnett01/rsync-deployments@7.0.1
         with:
           switches: -avzr --delete
           path: build/
