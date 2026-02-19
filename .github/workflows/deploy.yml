@@ -25,7 +25,7 @@ jobs:
       # 👇 ADD THIS STEP
       - name: Create .env file
         run: |
-          echo "REACT_APP_API_URL=https://shivalik-backend.onrender.com" >> .env
+          echo "REACT_APP_API_URL=https://api.shivalikventures.com" >> .env
 
       - name: Build Project
         run: npm run build
