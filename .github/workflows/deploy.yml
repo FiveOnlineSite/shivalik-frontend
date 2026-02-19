@@ -45,7 +45,7 @@ jobs:
       - name: Deploy via RSYNC
         uses: burnett01/rsync-deployments@7.0.1
         with:
-          switches: -avzr --delete
+          switches: -avzr
           path: build/
           remote_path: ${{ secrets.VPS_PATH }}
           remote_host: ${{ secrets.VPS_HOST }}
