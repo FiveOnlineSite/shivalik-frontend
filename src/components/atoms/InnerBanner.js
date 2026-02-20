@@ -19,7 +19,7 @@ const InnerBanner = ({ page, gradient = 'white' }) => {
       try {
         const apiUrl = process.env.REACT_APP_API_URL;
         const response = await axios.get(
-          `${apiUrl}/api/banner/page/${encodeURIComponent(page)}`
+          `${apiUrl}/api/banner/page/${page}`
         );
         setBanner(response.data.banner);
       } catch (error) {

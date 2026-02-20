@@ -233,15 +233,15 @@ setValidationError("")
                     Select a Page
                   </option>
 
-                  <option value="/about-us">About Us</option>
-                  <option value="/projects">Projects</option>
-                  <option value="/csr">CSR</option>
-                  <option value="/faqs">FAQs</option>
+                  <option value="about-us">About Us</option>
+                  <option value="projects">Projects</option>
+                  {/* <option value="csr">CSR</option> */}
+                  <option value="faqs">FAQs</option>
                   {/* <option value="/emi-calculator">EMI Calculator</option> */}
                   {/* <option value="/stamp-duty-calculator">Stamp Duty Calculator</option> */}
                   {/* <option value="/news">News</option> */}
                   {/* <option value="/blogs">Blogs</option> */}
-                  <option value="/contact-us">Contact Us</option>
+                  <option value="contact-us">Contact Us</option>
                 
                 </select>
               </div>
