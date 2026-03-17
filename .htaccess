@@ -1,23 +1,15 @@
-<!-- <IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /shivaliknew
-  RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /shivalik/index.html [L]
-</IfModule> -->
-
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
   # ==========================
-  # FORCE WWW (ALL ROUTES)
+  # FORCE HTTPS + WWW
   # ==========================
-  RewriteCond %{HTTP_HOST} ^shivalikventures\.com$ [NC]
-  RewriteRule ^(.*)$ https://www.shivalikventures.com/$1 [R=301,L]
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} !^www\.shivalikventures\.com$ [NC]
+  RewriteRule ^ https://www.shivalikventures.com%{REQUEST_URI} [R=301,L]
 
   # ==========================
-  # YOUR EXISTING RULES
+  # SPA ROUTING
   # ==========================
   RewriteBase /shivaliknew
 
