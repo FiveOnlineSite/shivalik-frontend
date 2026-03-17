@@ -1,8 +1,30 @@
-<IfModule mod_rewrite.c>
+<!-- <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /shivaliknew
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /shivalik/index.html [L]
+</IfModule> -->
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # ==========================
+  # FORCE WWW (ALL ROUTES)
+  # ==========================
+  RewriteCond %{HTTP_HOST} ^shivalikventures\.com$ [NC]
+  RewriteRule ^(.*)$ https://www.shivalikventures.com/$1 [R=301,L]
+
+  # ==========================
+  # YOUR EXISTING RULES
+  # ==========================
+  RewriteBase /shivaliknew
+
+  RewriteRule ^index\.html$ - [L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /shivalik/index.html [L]
+
 </IfModule>
