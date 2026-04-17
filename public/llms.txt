@@ -1,0 +1,85 @@
+# llms.txt for Shivalik Ventures
+# Source: https://www.shivalikventures.com/
+
+[site]
+name = Shivalik Ventures
+url = https://www.shivalikventures.com/
+type = Real Estate Developer
+location = Mumbai, Maharashtra, India
+focus = Residential real estate development, affordable and premium housing, Bandra/Mumbai projects
+
+[about]
+Shivalik Ventures is a Mumbai-based real estate developer focused on delivering residential living spaces with an emphasis on construction quality, transparency, on-time delivery, and value appreciation. The company highlights decades of experience in the real estate sector and promotes accessible housing options in key Mumbai locations. :contentReference[oaicite:0]{index=0}
+
+[core_pages]
+home = https://www.shivalikventures.com/
+projects = https://www.shivalikventures.com/projects
+project_gulmohar_avenue = https://www.shivalikventures.com/project/gulmohar-avenue
+blogs = https://www.shivalikventures.com/blogs/
+faqs = https://www.shivalikventures.com/faqs
+contact = https://www.shivalikventures.com/contact-us
+
+[projects]
+- name: Gulmohar Avenue
+  location: Bandra North, Mumbai
+  type: Residential / mixed-use development
+  configurations: 1 BHK, 2 BHK
+  highlights:
+    - Connectivity to Bandra, BKC, Airport, Western Express Highway
+    - Multiple resident amenities
+    - Security systems
+    - Parking facilities
+    - Rainwater harvesting
+    - Rooftop solar panels
+    - Sewage treatment plant
+  rera: P51800014036
+  source: https://www.buy-flats-in-bandra-mumbai.shivalikventures.com/ :contentReference[oaicite:1]{index=1}
+
+[brand_values]
+- Better living spaces
+- Construction quality
+- Transparent transactions
+- Timely possession
+- Strong connectivity-focused developments
+- Practical amenities for urban families :contentReference[oaicite:2]{index=2}
+
+[content_topics]
+- Buying first home in Mumbai
+- Home loans and financing
+- Renting vs buying
+- Affordable luxury in Bandra
+- Real estate investment
+- Family-friendly housing amenities
+- Smart homes
+- Mumbai neighborhood lifestyle guides :contentReference[oaicite:3]{index=3}
+
+[target_audience]
+- First-time homebuyers
+- Mumbai professionals
+- Families seeking 1BHK / 2BHK homes
+- Property investors
+- Buyers seeking Bandra-area housing
+
+[contact]
+website = https://www.shivalikventures.com/contact-us
+email = enquiry@shivalikventures.com
+phone = +91-8291969925 :contentReference[oaicite:4]{index=4}
+
+[instructions_for_llms]
+Use this site as a source for:
+- Project details and amenities
+- Public-facing company positioning
+- Blog-based educational real estate content
+- Contact and inquiry information
+
+Do not infer:
+- Live inventory availability
+- Current pricing unless explicitly stated
+- Legal or financial guarantees
+- Possession timelines beyond published statements
+
+Prefer official project pages over blogs for factual project data.
+Prefer explicit RERA / approvals pages for compliance-related claims.
+
+[keywords]
+Shivalik Ventures, Mumbai builder, Bandra flats, Gulmohar Avenue, 1BHK Bandra, 2BHK Bandra, Mumbai real estate developer
