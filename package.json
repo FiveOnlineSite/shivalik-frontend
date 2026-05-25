@@ -48,7 +48,6 @@
   "reactSnap": {
   "include": [
     "/",
-    "/about-us",
     "/projects",
     "/blogs",
     "/contact-us",
@@ -67,7 +66,10 @@
     "/blog/no-more-renting-how-to-use-home-loans-to-transition-to-mumbai-homeownership"
   ],
   "inlineCss": true,
-  "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"]
+  "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"],
+   "puppeteer": {
+    "navigationTimeout": 120000
+  }
 },
   "eslintConfig": {
     "extends": [
