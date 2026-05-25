@@ -60,7 +60,7 @@ const Banner = () => {
   
           setHomeBanner(response.data.banners);
           // console.log(response.data.news);
-          console.log("filepath", response.data.banners.banner[0].filepath);
+          // console.log("filepath", response.data.banners.banner[0].filepath);
           // setHomeBanner(response.data.HomeBanner);
         } catch (error) {
           console.error("Error fetching Home Banner:", error);

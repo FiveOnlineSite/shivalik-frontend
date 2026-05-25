@@ -14,8 +14,8 @@ const OfficeLocation = () => {
       
               setContactContent(ContactContentData);
       
-              console.log("Fetched alt:", ContactContentData.social_media[0]?.alt);
-              console.log("Fetched ContactContent:", ContactContentData.social_media);
+              // console.log("Fetched alt:", ContactContentData.social_media[0]?.alt);
+              // console.log("Fetched ContactContent:", ContactContentData.social_media);
             } catch (error) {
               console.error("Error fetching ContactContent:", error);
             }

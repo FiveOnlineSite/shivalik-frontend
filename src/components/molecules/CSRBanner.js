@@ -32,7 +32,7 @@ const CSRBanner = () => {
   
           setCSRBanner(response.data.banners);
           // console.log(response.data.news);
-          console.log("filepath", response.data.banners.banner[0].filepath);
+          // console.log("filepath", response.data.banners.banner[0].filepath);
           // setCSRBanner(response.data.csrBanner);
         } catch (error) {
           console.error("Error fetching csr Banner:", error);
