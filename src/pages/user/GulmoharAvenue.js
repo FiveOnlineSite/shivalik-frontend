@@ -228,6 +228,9 @@ const {name} = useParams()
     fetchMetaTag();
   }, [location]);
 
+const isReactSnap =
+  typeof navigator !== "undefined" &&
+  navigator.userAgent === "ReactSnap";
 
   return (
     <Layout>
@@ -514,6 +517,7 @@ const {name} = useParams()
               </div>
             </div>
             <div className='col-lg-7'>
+               {!isReactSnap && (
               <iframe
                   src={location.map_link}
                   width="100%"
@@ -524,11 +528,13 @@ const {name} = useParams()
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Google Map"
                 />
+               )}
             </div>
               </div>
          
             ) : (
             <div className='col-lg-12'>
+               {!isReactSnap && (
               <iframe
                   src={location.map_link}
                   width="100%"
@@ -539,6 +545,7 @@ const {name} = useParams()
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Google Map"
                 />
+               )}
             </div>
             )}
           </div>
