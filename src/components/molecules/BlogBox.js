@@ -18,7 +18,7 @@ const BlogBox = () => {
           setBlogs(BlogsData);
           
         } catch (error) {
-          console.error("Error fetching Blogs:", error);
+          console.error("Error fetching Blogs", error);
         } 
       };
   
