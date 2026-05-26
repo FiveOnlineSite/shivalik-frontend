@@ -66,7 +66,9 @@
     "/blog/get-your-dream-home-in-mumbai-how-to-secure-the-right-home-loan",
     "/blog/no-more-renting-how-to-use-home-loans-to-transition-to-mumbai-homeownership"
   ],
-  "inlineCss": true,
+  "crawl": false,
+  "skipThirdPartyRequests": true,
+  "inlineCss": false,
   "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"],
    "puppeteer": {
     "navigationTimeout": 120000
