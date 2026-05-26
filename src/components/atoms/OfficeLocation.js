@@ -24,6 +24,13 @@ const OfficeLocation = () => {
           fetchContactContent();
         }, []);
 
+        const isReactSnap =
+    typeof navigator !== "undefined" && navigator.userAgent === "ReactSnap";
+
+  if (isReactSnap) {
+    return null;
+  }
+
   return (
 
     <>

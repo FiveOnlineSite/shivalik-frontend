@@ -48,6 +48,7 @@
   "reactSnap": {
   "include": [
     "/",
+    "/about-us",
     "/projects",
     "/blogs",
     "/contact-us",
