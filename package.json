@@ -69,6 +69,7 @@
   "crawl": false,
   "skipThirdPartyRequests": true,
   "inlineCss": false,
+  "waitFor": 8000,
   "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"],
    "puppeteer": {
     "navigationTimeout": 120000
