@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 
-const Banner = () => {
+const Banner = ({ banners = [] }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -45,35 +45,35 @@ const Banner = () => {
   // ];
 
 
-   const [homeBanner, setHomeBanner] = useState([])
+  //  const [homeBanner, setHomeBanner] = useState([])
 
-    useEffect(() => {
-      const fetchHomeBanner = async () => {
-        try {
-          const apiUrl = process.env.REACT_APP_API_URL;
+    // useEffect(() => {
+    //   const fetchHomeBanner = async () => {
+    //     try {
+    //       const apiUrl = process.env.REACT_APP_API_URL;
   
-          const response = await axios({
-            method: "GET",
-            baseURL: `${apiUrl}/api/`,
-            url: "home-banner",
-          });
+    //       const response = await axios({
+    //         method: "GET",
+    //         baseURL: `${apiUrl}/api/`,
+    //         url: "home-banner",
+    //       });
   
-          setHomeBanner(response.data.banners);
-          // console.log(response.data.news);
-          // console.log("filepath", response.data.banners.banner[0].filepath);
-          // setHomeBanner(response.data.HomeBanner);
-        } catch (error) {
-          console.error("Error fetching Home Banner:", error);
-        }
-      };
+    //       setHomeBanner(response.data.banners);
+    //       // console.log(response.data.news);
+    //       // console.log("filepath", response.data.banners.banner[0].filepath);
+    //       // setHomeBanner(response.data.HomeBanner);
+    //     } catch (error) {
+    //       console.error("Error fetching Home Banner:", error);
+    //     }
+    //   };
   
-      fetchHomeBanner();
-    }, []);
+    //   fetchHomeBanner();
+    // }, []);
 
   return (
     <section className="position-relative banner_Section">
       <Slider {...settings}>
-        {homeBanner && homeBanner.map((banner) => (
+        {banners && banners.map((banner) => (
           <div key={banner._id}>
             {banner.link && (
               <a href={banner.link} >

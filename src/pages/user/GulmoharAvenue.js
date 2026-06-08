@@ -27,157 +27,263 @@ const [projectAmenities, setProjectAmenities] = useState([])
 const [projectDisclaimer, setProjectDisclaimer] = useState([])
 const [projectLocation, setProjectLocation] = useState([])
   const [projectGallery, setProjectGallery] = useState([])
+  const [projectFaqs, setProjectFaqs] = useState([]);
+const [projectBanks, setProjectBanks] = useState([]);
+const [projectTestimonials, setProjectTestimonials] = useState([]);
+const [pageReady, setPageReady] = useState(false);
+const location = useLocation();
+  const currentPath = location.pathname;
+  const [metaData, setMetaData] = useState(null);
 
-const {name} = useParams()
+// const {name} = useParams()
+const params = useParams();
+const name = params.name || "gulmohar-avenue";
 
-  useEffect(() => {
+//   useEffect(() => {
 
-    const fetchProjectBanner = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/project/project/${name}`);
-        const ProjectBannerData = response.data.banner;
-        console.log("banner", ProjectBannerData)
-        setProjectBanner(ProjectBannerData);
-      } catch (error) {
-        console.error("Error fetching project banner:", error);
+//     const fetchProjectBanner = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/project/project/${name}`);
+//         const ProjectBannerData = response.data.banner;
+//         console.log("banner", ProjectBannerData)
+//         setProjectBanner(ProjectBannerData);
+//       } catch (error) {
+//         console.error("Error fetching project banner:", error);
+//       }
+//     };
+
+//     fetchProjectBanner();
+//   }, [name]);
+
+//    useEffect(() => {
+
+//     const fetchProjectAbout = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/about/project/${name}`);
+//         const ProjectAboutData = response.data.about;
+//         console.log("about", ProjectAboutData)
+//         setProjectAbout(ProjectAboutData);
+//       } catch (error) {
+//         console.error("Error fetching project about:", error);
+//       }
+//     };
+
+//     fetchProjectAbout();
+//   }, [name]);
+
+//   useEffect(() => {
+
+//     const fetchProjectFeatureContent = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/feature-content/project/${name}`);
+//         const ProjectContentData = response.data.content;
+//         console.log("content", ProjectContentData)
+//         setProjectContent(ProjectContentData);
+//       } catch (error) {
+//         console.error("Error fetching project content:", error);
+//       }
+//     };
+
+//     fetchProjectFeatureContent();
+//   }, [name]);
+
+//   useEffect(() => {
+
+//     const fetchProjectFeatures = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/feature/project/${name}`);
+//         const ProjectFeaturesData = response.data.features;
+//         console.log("feature", ProjectFeaturesData)
+//         setProjectFeatures(ProjectFeaturesData);
+//       } catch (error) {
+//         console.error("Error fetching project feature:", error);
+//       }
+//     };
+
+//     fetchProjectFeatures();
+//   }, [name]);
+
+//  useEffect(() => {
+//     const fetchProjectHighlights = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/highlight/project/${name}`);
+//         const ProjectAmenitiesData = response.data.Highlights;
+//         console.log("highlight", ProjectAmenitiesData)
+//         setProjectHighlight(ProjectAmenitiesData);
+//       } catch (error) {
+//         console.error("Error fetching project highlights:", error);
+//       }
+//     };
+
+//     fetchProjectHighlights();
+//   }, [name]);
+
+//   useEffect(() => {
+//     const fetchProjectAmenities = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/amenity/project/${name}`);
+//         const ProjectAmenitiesData = response.data.Amenities;
+//         console.log("amenities", ProjectAmenitiesData)
+//         setProjectAmenities(ProjectAmenitiesData);
+//       } catch (error) {
+//         console.error("Error fetching project amenities:", error);
+//       }
+//     };
+//     fetchProjectAmenities();
+//   }, [name]);
+
+//   useEffect(() => {
+//     const fetchProjectDisclaimer = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/disclaimer/project/${name}`);
+//         const ProjectDisclaimerData = response.data.disclaimers;
+//         console.log("disclaimers", ProjectDisclaimerData)
+//         setProjectDisclaimer(ProjectDisclaimerData);
+//       } catch (error) {
+//         console.error("Error fetching project disclaimers:", error);
+//       }
+//     };
+//     fetchProjectDisclaimer();
+//   }, [name]);
+
+//   useEffect(() => {
+//     const fetchProjectLocation = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/location/project/${name}`);
+//         const ProjectLocationData = response.data.Location;
+//         console.log("Location", ProjectLocationData)
+//         setProjectLocation(ProjectLocationData);
+//       } catch (error) {
+//         console.error("Error fetching project Location:", error);
+//       }
+//     };
+//     fetchProjectLocation();
+//   }, [name]);
+
+//    useEffect(() => {
+//       const fetchProjectGallery = async () => {
+//         try {
+//           const apiUrl = process.env.REACT_APP_API_URL;
+//           const response = await axios.get(`${apiUrl}/api/gallery/project/${name}`);
+//           const ProjectGalleryData = response.data.Galleries;
+//           console.log("gallery", ProjectGalleryData)
+//           setProjectGallery(ProjectGalleryData);
+//         } catch (error) {
+//           console.error("Error fetching project gallery:", error);
+//         }
+//       };
+//       fetchProjectGallery();
+//     }, [name]);
+
+useEffect(() => {
+  const fetchAllProjectData = async () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    const getData = (res, fallback = {}) => {
+      if (res.status === "fulfilled") {
+        return res.value.data || fallback;
       }
+      return fallback;
     };
 
-    fetchProjectBanner();
-  }, [name]);
+    try {
+      const [
+        bannerRes,
+        aboutRes,
+        contentRes,
+        featuresRes,
+        highlightsRes,
+        amenitiesRes,
+        disclaimerRes,
+        locationRes,
+        galleryRes,
+        faqRes,
+        bankRes,
+        testimonialRes,
+        metaRes,
+      ] = await Promise.allSettled([
+        axios.get(`${apiUrl}/api/project/project/${name}`),
+        axios.get(`${apiUrl}/api/about/project/${name}`),
+        axios.get(`${apiUrl}/api/feature-content/project/${name}`),
+        axios.get(`${apiUrl}/api/feature/project/${name}`),
+        axios.get(`${apiUrl}/api/highlight/project/${name}`),
+        axios.get(`${apiUrl}/api/amenity/project/${name}`),
+        axios.get(`${apiUrl}/api/disclaimer/project/${name}`),
+        axios.get(`${apiUrl}/api/location/project/${name}`),
+        axios.get(`${apiUrl}/api/gallery/project/${name}`),
+        axios.get(`${apiUrl}/api/faq/project/${name}`),
+        axios.get(`${apiUrl}/api/bank/project/${name}`),
+        axios.get(`${apiUrl}/api/testimonial`),
+        axios.get(`${apiUrl}/api/meta-data/by-page${currentPath}`),
+      ]);
 
-   useEffect(() => {
+      const bannerData = getData(bannerRes);
+      const aboutData = getData(aboutRes);
+      const contentData = getData(contentRes);
+      const featuresData = getData(featuresRes);
+      const highlightsData = getData(highlightsRes);
+      const amenitiesData = getData(amenitiesRes);
+      const disclaimerData = getData(disclaimerRes);
+      const locationData = getData(locationRes);
+      const galleryData = getData(galleryRes);
+      const faqData = getData(faqRes);
+      const bankData = getData(bankRes);
+      const testimonialData = getData(testimonialRes);
 
-    const fetchProjectAbout = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/about/project/${name}`);
-        const ProjectAboutData = response.data.about;
-        console.log("about", ProjectAboutData)
-        setProjectAbout(ProjectAboutData);
-      } catch (error) {
-        console.error("Error fetching project about:", error);
-      }
-    };
+      const about = aboutData.about || [];
+      const content = contentData.content || [];
+      const amenities = amenitiesData.Amenities || [];
+      const gallery = galleryData.Galleries || [];
+      const faqs = faqData.FAQs || [];
+      const banks = bankData.Banks || [];
+      const testimonials = testimonialData.testimonials || [];
 
-    fetchProjectAbout();
-  }, [name]);
+      setProjectBanner(bannerData.banner || {});
+      setProjectAbout(about);
+      setProjectContent(content);
+      setProjectFeatures(featuresData.features || []);
+      setProjectHighlight(highlightsData.Highlights || []);
+      setProjectAmenities(amenities);
+      setProjectDisclaimer(disclaimerData.disclaimers || []);
+      setProjectLocation(locationData.Location || []);
+      setProjectGallery(gallery);
+      setProjectFaqs(faqs);
+      setProjectBanks(banks);
+      setProjectTestimonials(testimonials);
 
-  useEffect(() => {
+      setPageReady(true);
+    } catch (error) {
+      console.error("Project prerender failed:", error);
+      setPageReady(true);
+    }
+  };
 
-    const fetchProjectFeatureContent = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/feature-content/project/${name}`);
-        const ProjectContentData = response.data.content;
-        console.log("content", ProjectContentData)
-        setProjectContent(ProjectContentData);
-      } catch (error) {
-        console.error("Error fetching project content:", error);
-      }
-    };
-
-    fetchProjectFeatureContent();
-  }, [name]);
-
-  useEffect(() => {
-
-    const fetchProjectFeatures = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/feature/project/${name}`);
-        const ProjectFeaturesData = response.data.features;
-        console.log("feature", ProjectFeaturesData)
-        setProjectFeatures(ProjectFeaturesData);
-      } catch (error) {
-        console.error("Error fetching project feature:", error);
-      }
-    };
-
-    fetchProjectFeatures();
-  }, [name]);
-
- useEffect(() => {
-    const fetchProjectHighlights = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/highlight/project/${name}`);
-        const ProjectAmenitiesData = response.data.Highlights;
-        console.log("highlight", ProjectAmenitiesData)
-        setProjectHighlight(ProjectAmenitiesData);
-      } catch (error) {
-        console.error("Error fetching project highlights:", error);
-      }
-    };
-
-    fetchProjectHighlights();
-  }, [name]);
-
-  useEffect(() => {
-    const fetchProjectAmenities = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/amenity/project/${name}`);
-        const ProjectAmenitiesData = response.data.Amenities;
-        console.log("amenities", ProjectAmenitiesData)
-        setProjectAmenities(ProjectAmenitiesData);
-      } catch (error) {
-        console.error("Error fetching project amenities:", error);
-      }
-    };
-    fetchProjectAmenities();
-  }, [name]);
-
-  useEffect(() => {
-    const fetchProjectDisclaimer = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/disclaimer/project/${name}`);
-        const ProjectDisclaimerData = response.data.disclaimers;
-        console.log("disclaimers", ProjectDisclaimerData)
-        setProjectDisclaimer(ProjectDisclaimerData);
-      } catch (error) {
-        console.error("Error fetching project disclaimers:", error);
-      }
-    };
-    fetchProjectDisclaimer();
-  }, [name]);
-
-  useEffect(() => {
-    const fetchProjectLocation = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/location/project/${name}`);
-        const ProjectLocationData = response.data.Location;
-        console.log("Location", ProjectLocationData)
-        setProjectLocation(ProjectLocationData);
-      } catch (error) {
-        console.error("Error fetching project Location:", error);
-      }
-    };
-    fetchProjectLocation();
-  }, [name]);
-
-   useEffect(() => {
-      const fetchProjectGallery = async () => {
-        try {
-          const apiUrl = process.env.REACT_APP_API_URL;
-          const response = await axios.get(`${apiUrl}/api/gallery/project/${name}`);
-          const ProjectGalleryData = response.data.Galleries;
-          console.log("gallery", ProjectGalleryData)
-          setProjectGallery(ProjectGalleryData);
-        } catch (error) {
-          console.error("Error fetching project gallery:", error);
-        }
-      };
-      fetchProjectGallery();
-    }, [name]);
-
-    const location = useLocation(); // gives current URL (pathname, search, hash)
+  if (name) fetchAllProjectData();
+}, [name]);
 
   useEffect(() => {
     const fetchMetaTag = async () => {
+      let metaTitle = document.querySelector('meta[name="title"]');
+
+if (!metaTitle) {
+  metaTitle = document.createElement("meta");
+  metaTitle.name = "title";
+  document.head.appendChild(metaTitle);
+}
+
+metaTitle.setAttribute(
+  "content",
+  metaData.metaTitle || metaData.meta_title || "Shivalik Ventures"
+);
+
       // Add canonical tag
       const canonicalUrl = `${window.location.origin}${window.location.pathname}`;
       let linkCanonical = document.querySelector('link[rel="canonical"]');
@@ -553,13 +659,13 @@ const isReactSnap =
         </div>
       </section>
     
-            <GalleryGrid />
+            <GalleryGrid projectGallery={projectGallery} />
          
-      <TestimonialsSection />
+      <TestimonialsSection testimonials={projectTestimonials} />
       {/* Key Features Section Close */}
 
       {/* faq section start */}
-      <ProjectDetFaqSection />
+      <ProjectDetFaqSection faqs={projectFaqs} />
       {/* faq section close */}
 
       {/* /\ */}
@@ -571,7 +677,7 @@ const isReactSnap =
               <h2 className={styles.sectionTitle}>Current Status</h2>
             </div>
             <div className='col-lg-12'>
-              <HorizontalTimeline />
+              {/* <HorizontalTimeline /> */}
             </div>
           </div>
         </div>
@@ -586,7 +692,7 @@ const isReactSnap =
               <h2 className={styles.sectionTitle}>Bank Tie-Ups</h2>
             </div>
             <div className=''>
-              <ClientTieUps />
+              <ClientTieUps projectBanks={projectBanks}/>
             </div>
           </div>
         </div>
@@ -625,6 +731,9 @@ const isReactSnap =
       
       {/* rera section close */}
 
+{pageReady && (
+  <div id="react-snap-ready" style={{ display: "none" }} />
+)}
     </Layout>
   )
 }

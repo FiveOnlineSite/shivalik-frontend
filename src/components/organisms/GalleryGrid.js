@@ -23,26 +23,26 @@ import { useParams } from "react-router-dom";
 //   { src: "images/gallery/one-gallery1.png" },
 // ];
 
-const GalleryGrid = () => {
+const GalleryGrid = ({ projectGallery = [] }) => {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
-  const [projectGallery, setProjectGallery] = useState([])
+  // const [projectGallery, setProjectGallery] = useState([])
   const {name} = useParams()
 
-   useEffect(() => {
-      const fetchProjectGallery = async () => {
-        try {
-          const apiUrl = process.env.REACT_APP_API_URL;
-          const response = await axios.get(`${apiUrl}/api/gallery/project/${name}`);
-          const ProjectGalleryData = response.data.Galleries;
-          console.log("gallery", ProjectGalleryData)
-          setProjectGallery(ProjectGalleryData);
-        } catch (error) {
-          console.error("Error fetching project gallery:", error);
-        }
-      };
-      fetchProjectGallery();
-    }, [name]);
+  //  useEffect(() => {
+  //     const fetchProjectGallery = async () => {
+  //       try {
+  //         const apiUrl = process.env.REACT_APP_API_URL;
+  //         const response = await axios.get(`${apiUrl}/api/gallery/project/${name}`);
+  //         const ProjectGalleryData = response.data.Galleries;
+  //         console.log("gallery", ProjectGalleryData)
+  //         setProjectGallery(ProjectGalleryData);
+  //       } catch (error) {
+  //         console.error("Error fetching project gallery:", error);
+  //       }
+  //     };
+  //     fetchProjectGallery();
+  //   }, [name]);
 
 
  return (

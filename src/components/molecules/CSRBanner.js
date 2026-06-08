@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 
-const CSRBanner = () => {
+const CSRBanner = ({csrBanner = []}) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -17,30 +17,30 @@ const CSRBanner = () => {
     pauseOnHover: false, 
   };
 
-   const [csrBanner, setCSRBanner] = useState([])
+  //  const [csrBanner, setCSRBanner] = useState([])
 
-    useEffect(() => {
-      const fetchCSRBanner = async () => {
-        try {
-          const apiUrl = process.env.REACT_APP_API_URL;
+    // useEffect(() => {
+    //   const fetchCSRBanner = async () => {
+    //     try {
+    //       const apiUrl = process.env.REACT_APP_API_URL;
   
-          const response = await axios({
-            method: "GET",
-            baseURL: `${apiUrl}/api/`,
-            url: "csr-banner",
-          });
+    //       const response = await axios({
+    //         method: "GET",
+    //         baseURL: `${apiUrl}/api/`,
+    //         url: "csr-banner",
+    //       });
   
-          setCSRBanner(response.data.banners);
-          // console.log(response.data.news);
-          // console.log("filepath", response.data.banners.banner[0].filepath);
-          // setCSRBanner(response.data.csrBanner);
-        } catch (error) {
-          console.error("Error fetching csr Banner:", error);
-        }
-      };
+    //       setCSRBanner(response.data.banners);
+    //       // console.log(response.data.news);
+    //       // console.log("filepath", response.data.banners.banner[0].filepath);
+    //       // setCSRBanner(response.data.csrBanner);
+    //     } catch (error) {
+    //       console.error("Error fetching csr Banner:", error);
+    //     }
+    //   };
   
-      fetchCSRBanner();
-    }, []);
+    //   fetchCSRBanner();
+    // }, []);
 
   return (
     <section className="position-relative banner_Section">

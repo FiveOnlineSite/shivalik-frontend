@@ -3,7 +3,7 @@ import GradientLine from '../atoms/GradientLine';
 import styles from '../../style/Common.module.css';
 import FaqProjectDetail from '../molecules/FaqProjectDetail';
 
-const ProjectDetFaqSection = () => {
+const ProjectDetFaqSection = ({ faqs = [] }) => {
   return (
 
     <section className='pt-5 pb-5' id="faq">
@@ -14,7 +14,7 @@ const ProjectDetFaqSection = () => {
                         <h2 className={`${styles.sectionTitle}`}>Loan FAQs & Registration</h2>
                     </div>
                 </div>
-            <FaqProjectDetail />
+            <FaqProjectDetail FAQContent={faqs}/>
         </div>
     </section>
 

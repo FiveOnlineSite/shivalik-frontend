@@ -7,7 +7,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-const ClientTieUps = () => {
+const ClientTieUps = ({ projectBanks = [] }) => {
   const settings = {
     dots: false,
     infinite: false,
@@ -33,25 +33,25 @@ const ClientTieUps = () => {
     ],
   };
 
-  const [projectBanks, setProjectBanks] = useState([])
+  // const [projectBanks, setProjectBanks] = useState([])
   const {name} = useParams()
 
-  useEffect(() => {
+  // useEffect(() => {
   
-      const fetchProjectBank= async () => {
-        try {
-          const apiUrl = process.env.REACT_APP_API_URL;
-          const response = await axios.get(`${apiUrl}/api/bank/project/${name}`);
-          const ProjectBankData = response.data.Banks;
-          console.log("bank", ProjectBankData)
-          setProjectBanks(ProjectBankData);
-        } catch (error) {
-          console.error("Error fetching project bank:", error);
-        }
-      };
+  //     const fetchProjectBank= async () => {
+  //       try {
+  //         const apiUrl = process.env.REACT_APP_API_URL;
+  //         const response = await axios.get(`${apiUrl}/api/bank/project/${name}`);
+  //         const ProjectBankData = response.data.Banks;
+  //         console.log("bank", ProjectBankData)
+  //         setProjectBanks(ProjectBankData);
+  //       } catch (error) {
+  //         console.error("Error fetching project bank:", error);
+  //       }
+  //     };
   
-      fetchProjectBank();
-    }, [name]);    
+  //     fetchProjectBank();
+  //   }, [name]);    
 
   return (
     <Slider {...settings}>

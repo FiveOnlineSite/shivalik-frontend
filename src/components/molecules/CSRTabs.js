@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const CSRTabs = () => {
-  const [CSR, setCSR] = useState([]);
+const CSRTabs = ({CSR = []}) => {
+  // const [CSR, setCSR] = useState([]);
 
-  useEffect(() => {
-    const fetchCSR = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/csr`);
-        const CSRData = response.data.csr;
-        setCSR(CSRData);
-      } catch (error) {
-        console.error("Error fetching csr data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchCSR = async () => {
+  //     try {
+  //       const apiUrl = process.env.REACT_APP_API_URL;
+  //       const response = await axios.get(`${apiUrl}/api/csr`);
+  //       const CSRData = response.data.csr;
+  //       setCSR(CSRData);
+  //     } catch (error) {
+  //       console.error("Error fetching csr data:", error);
+  //     }
+  //   };
 
-    fetchCSR();
-  }, []);
+  //   fetchCSR();
+  // }, []);
 
   return (
     <div className='tabs-one-box'>

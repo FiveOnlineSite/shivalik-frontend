@@ -5,7 +5,7 @@ import styles from "../../style/Common.module.css";
 import axios from "axios";
 import Slider from "react-slick";
 
-const TestimonialBox = () => {
+const TestimonialBox = ({ testimonials = [] }) => {
   const settings = {
     dots: false,
     arrows: false,
@@ -16,7 +16,7 @@ const TestimonialBox = () => {
     autoplay: true,
   };
 
-  const [testimonials, setTestimonials] = useState([]);
+  // const [testimonials, setTestimonials] = useState([]);
   const [expandedIndex, setExpandedIndex] = useState(null);
 
   const getInitials = (name = "") =>
@@ -27,19 +27,19 @@ const TestimonialBox = () => {
       .map((w) => w[0]?.toUpperCase())
       .join("");
 
-  useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/testimonial`);
-        setTestimonials(response.data.testimonials || []);
-      } catch (error) {
-        console.error("Error fetching testimonials:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchTestimonials = async () => {
+  //     try {
+  //       const apiUrl = process.env.REACT_APP_API_URL;
+  //       const response = await axios.get(`${apiUrl}/api/testimonial`);
+  //       setTestimonials(response.data.testimonials || []);
+  //     } catch (error) {
+  //       console.error("Error fetching testimonials:", error);
+  //     }
+  //   };
 
-    fetchTestimonials();
-  }, []);
+  //   fetchTestimonials();
+  // }, []);
 
   return (
     <div className="container">
