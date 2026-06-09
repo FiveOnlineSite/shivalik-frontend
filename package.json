@@ -68,13 +68,11 @@
     "skipThirdPartyRequests": false,
     "inlineCss": false,
     "waitFor": "#react-snap-ready",
+     "navigationTimeout": 120000,
     "puppeteerArgs": [
       "--no-sandbox",
       "--disable-setuid-sandbox"
-    ],
-    "puppeteer": {
-      "navigationTimeout": 120000
-    }
+    ]
   },
   "eslintConfig": {
     "extends": [

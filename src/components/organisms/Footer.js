@@ -8,7 +8,6 @@ import axios from 'axios';
 const Footer = () => {
 
       const [Blogs, setBlogs] = useState([]);
-const [pageReady, setPageReady] = useState(false);
      useEffect(() => {
             const fetchHomeData = async () => {
               const apiUrl = process.env.REACT_APP_API_URL;
@@ -22,7 +21,6 @@ const [pageReady, setPageReady] = useState(false);
                 setBlogs(blogRes.value.data.Blogs || []);
               }
     
-              setPageReady(true);
             };
         
             fetchHomeData();
@@ -31,7 +29,7 @@ const [pageReady, setPageReady] = useState(false);
   return (
 <>
      {/* Blogs section start */}
-          <BlogBox />
+          <BlogBox Blogs={Blogs} />
      {/* Blogs section close */}
 
     <footer className='mt-5'>
@@ -80,7 +78,6 @@ const [pageReady, setPageReady] = useState(false);
           </div>
         </div>
       </div>
-      {pageReady && <div id="react-snap-ready" style={{ display: "none" }} />}
     </footer>
     </>
   )

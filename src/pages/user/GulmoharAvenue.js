@@ -32,6 +32,8 @@ const [projectLocation, setProjectLocation] = useState([])
   const [projectFaqs, setProjectFaqs] = useState([]);
 const [projectBanks, setProjectBanks] = useState([]);
 const [projectTestimonials, setProjectTestimonials] = useState([]);
+  
+  const [projectStatus, setProjectStatus] = useState([])
 const [pageReady, setPageReady] = useState(false);
 const location = useLocation();
   const currentPath = location.pathname;
@@ -217,6 +219,7 @@ useEffect(() => {
         faqData,
         bankData,
         testimonialData,
+        statusData,
         metaDataRes,
       ] = await Promise.all([
         safeGet(`${apiUrl}/api/project/project/${name}`, {}),
@@ -231,6 +234,7 @@ useEffect(() => {
         safeGet(`${apiUrl}/api/faq/project/${name}`, { FAQs: [] }),
         safeGet(`${apiUrl}/api/bank/project/${name}`, { Banks: [] }),
         safeGet(`${apiUrl}/api/testimonial`, { testimonials: [] }),
+        safeGet(`${apiUrl}/api/current-status/project/${name}`, { status: [] }),
         safeGet(`${apiUrl}/api/meta-data/by-page${currentPath}`, null),
       ]);
 
@@ -246,7 +250,7 @@ useEffect(() => {
       setProjectFaqs(faqData.FAQs || []);
       setProjectBanks(bankData.Banks || []);
       setProjectTestimonials(testimonialData.testimonials || []);
-
+      setProjectStatus(statusData.status || []);  
       setMetaData(metaDataRes || bannerData.banner || null);
 
       setPageReady(true);
@@ -602,7 +606,7 @@ const isReactSnap =
               <h2 className={styles.sectionTitle}>Current Status</h2>
             </div>
             <div className='col-lg-12'>
-              {/* <HorizontalTimeline /> */}
+              <HorizontalTimeline projectStatus={projectStatus} />
             </div>
           </div>
         </div>
