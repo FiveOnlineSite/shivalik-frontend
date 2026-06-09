@@ -43,29 +43,39 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-     "postbuild": "react-snap"
+    "postbuild": "react-snap"
   },
   "reactSnap": {
-  "include": [
-    "/",
+    "include": [
+      "/",
       "/about-us",
       "/projects",
       "/csr",
       "/faqs",
       "/news",
-     "/project/gulmohar-avenue",
-     "/project/prabhat-darshan"
-
-  ],
-  "crawl": false,
-  "skipThirdPartyRequests": false,
-  "inlineCss": false,
-  "waitFor": "#react-snap-ready",
-  "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"],
-   "puppeteer": {
-    "navigationTimeout": 120000
-  }
-},
+      "/project/gulmohar-avenue",
+      "/project/prabhat-darshan",
+      "/blogs",
+      "/blog/bandras-best-kept-secret-luxury-living-on-a-budget",
+      "/blog/investing-in-bandras-future-affordable-luxury-homes-by-shivalik-ventures",
+      "/blog/a-guide-to-buying-your-first-affordable-home-in-mumbai",
+      "/blog/top-10-reasons-to-buy-a-home-in-bandra",
+      "/blog/get-your-dream-home-in-mumbai-how-to-secure-the-right-home-loan",
+      "/blog/no-more-renting-how-to-use-home-loans-to-transition-to-mumbai-homeownership",
+      "/contact-us"
+    ],
+    "crawl": false,
+    "skipThirdPartyRequests": false,
+    "inlineCss": false,
+    "waitFor": "#react-snap-ready",
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ],
+    "puppeteer": {
+      "navigationTimeout": 120000
+    }
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -89,5 +99,8 @@
     "ajv-keywords": "^3.5.2",
     "html-webpack-plugin": "^5.6.4",
     "react-snap": "^1.23.0"
+  },
+  "allowScripts": {
+    "puppeteer@1.20.0": true
   }
 }

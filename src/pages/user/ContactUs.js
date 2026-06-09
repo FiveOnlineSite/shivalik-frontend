@@ -16,31 +16,43 @@ const ContactUs = () => {
 
     const [contactContent, setContactContent] = useState(null)
 
-     useEffect(() => {
-        const fetchContactContent = async () => {
-          try {
-            const apiUrl = process.env.REACT_APP_API_URL;
-            const response = await axios.get(`${apiUrl}/api/contact-content`);
-            const ContactContentData = response.data.ContactContents[0];
-    
-            setContactContent(ContactContentData);
-    
-            // console.log("Fetched alt:", ContactContentData.social_media[0]?.alt);
-            // console.log("Fetched ContactContent:", ContactContentData.social_media);
-          } catch (error) {
-            console.error("Error fetching ContactContent:", error);
+      const [pageReady, setPageReady] = useState(false);
+          const [metaData, setMetaData] = useState(null);
+          const [banner, setBanner] = useState(null);
+
+      useEffect(() => {
+  const fetchContactPageData = async () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    const [metaRes, contactRes, bannerRes] = await Promise.allSettled([
+      axios.get(`${apiUrl}/api/meta-data/by-page${currentPath}`),
+      axios.get(`${apiUrl}/api/contact-content`),
+       axios.get(`${apiUrl}/api/banner/page${currentPath}`),
+    ]);
+
+    if (metaRes.status === "fulfilled") {
+      setMetaData(metaRes.value.data || null);
+    }
+      if (bannerRes.status === "fulfilled") {
+            setBanner(bannerRes.value.data.banner || null);
           }
-        };
-    
-        fetchContactContent();
-      }, []);
+
+    if (contactRes.status === "fulfilled") {
+      setContactContent(contactRes.value.data.ContactContents?.[0] || null);
+    }
+
+    setPageReady(true);
+  };
+
+  fetchContactPageData();
+}, [currentPath]);
     
   return (
    <Layout>
-      <MetaDataComponent/>
+      <MetaDataComponent metaData={metaData} />
 
     {/* Contact us BANNER SECTION START */}
-        <InnerBanner page={currentPath}/>
+        <InnerBanner banner={banner} />
       {/* Contact us BANNER SECTION CLOSE */}
      <section className='cont-sec'>
         <div className='container'>
@@ -102,13 +114,15 @@ const ContactUs = () => {
     </div>
     <div className='container-fluid'>
             <div className='map-one'>
-                <OfficeLocation />
+                <OfficeLocation contactContent={contactContent} />
             </div>
     </div>
             
 
        
     </section>
+
+    {pageReady && <div id="react-snap-ready" style={{ display: "none" }} />}
    </Layout>
   )
 }

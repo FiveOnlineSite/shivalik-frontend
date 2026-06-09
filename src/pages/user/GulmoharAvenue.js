@@ -15,6 +15,8 @@ import BrochureModal from '../../components/organisms/BrochureModel';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
+import MetaDataComponent from "../../components/atoms/MetaDataComponent";
+
 const GulmoharAvenue = () => {
 
 const [showModal, setShowModal] = useState(false);
@@ -183,81 +185,69 @@ const name = params.name || "gulmohar-avenue";
 //       fetchProjectGallery();
 //     }, [name]);
 
+const safeGet = async (url, fallback = {}) => {
+  try {
+    const res = await axios.get(url);
+    return res.data || fallback;
+  } catch (error) {
+    if (error.response?.status === 404) {
+      return fallback;
+    }
+
+    console.error("API failed:", url, error);
+    return fallback;
+  }
+};
+
 useEffect(() => {
   const fetchAllProjectData = async () => {
     const apiUrl = process.env.REACT_APP_API_URL;
 
-    const getData = (res, fallback = {}) => {
-      if (res.status === "fulfilled") {
-        return res.value.data || fallback;
-      }
-      return fallback;
-    };
-
     try {
       const [
-        bannerRes,
-        aboutRes,
-        contentRes,
-        featuresRes,
-        highlightsRes,
-        amenitiesRes,
-        disclaimerRes,
-        locationRes,
-        galleryRes,
-        faqRes,
-        bankRes,
-        testimonialRes,
-        metaRes,
-      ] = await Promise.allSettled([
-        axios.get(`${apiUrl}/api/project/project/${name}`),
-        axios.get(`${apiUrl}/api/about/project/${name}`),
-        axios.get(`${apiUrl}/api/feature-content/project/${name}`),
-        axios.get(`${apiUrl}/api/feature/project/${name}`),
-        axios.get(`${apiUrl}/api/highlight/project/${name}`),
-        axios.get(`${apiUrl}/api/amenity/project/${name}`),
-        axios.get(`${apiUrl}/api/disclaimer/project/${name}`),
-        axios.get(`${apiUrl}/api/location/project/${name}`),
-        axios.get(`${apiUrl}/api/gallery/project/${name}`),
-        axios.get(`${apiUrl}/api/faq/project/${name}`),
-        axios.get(`${apiUrl}/api/bank/project/${name}`),
-        axios.get(`${apiUrl}/api/testimonial`),
-        axios.get(`${apiUrl}/api/meta-data/by-page${currentPath}`),
+        bannerData,
+        aboutData,
+        contentData,
+        featuresData,
+        highlightsData,
+        amenitiesData,
+        disclaimerData,
+        locationData,
+        galleryData,
+        faqData,
+        bankData,
+        testimonialData,
+        metaDataRes,
+      ] = await Promise.all([
+        safeGet(`${apiUrl}/api/project/project/${name}`, {}),
+        safeGet(`${apiUrl}/api/about/project/${name}`, {}),
+        safeGet(`${apiUrl}/api/feature-content/project/${name}`, {}),
+        safeGet(`${apiUrl}/api/feature/project/${name}`, {}),
+        safeGet(`${apiUrl}/api/highlight/project/${name}`, {}),
+        safeGet(`${apiUrl}/api/amenity/project/${name}`, {}),
+        safeGet(`${apiUrl}/api/disclaimer/project/${name}`, { disclaimers: [] }),
+        safeGet(`${apiUrl}/api/location/project/${name}`, {}),
+        safeGet(`${apiUrl}/api/gallery/project/${name}`, { Galleries: [] }),
+        safeGet(`${apiUrl}/api/faq/project/${name}`, { FAQs: [] }),
+        safeGet(`${apiUrl}/api/bank/project/${name}`, { Banks: [] }),
+        safeGet(`${apiUrl}/api/testimonial`, { testimonials: [] }),
+        safeGet(`${apiUrl}/api/meta-data/by-page${currentPath}`, null),
       ]);
 
-      const bannerData = getData(bannerRes);
-      const aboutData = getData(aboutRes);
-      const contentData = getData(contentRes);
-      const featuresData = getData(featuresRes);
-      const highlightsData = getData(highlightsRes);
-      const amenitiesData = getData(amenitiesRes);
-      const disclaimerData = getData(disclaimerRes);
-      const locationData = getData(locationRes);
-      const galleryData = getData(galleryRes);
-      const faqData = getData(faqRes);
-      const bankData = getData(bankRes);
-      const testimonialData = getData(testimonialRes);
-
-      const about = aboutData.about || [];
-      const content = contentData.content || [];
-      const amenities = amenitiesData.Amenities || [];
-      const gallery = galleryData.Galleries || [];
-      const faqs = faqData.FAQs || [];
-      const banks = bankData.Banks || [];
-      const testimonials = testimonialData.testimonials || [];
-
       setProjectBanner(bannerData.banner || {});
-      setProjectAbout(about);
-      setProjectContent(content);
+      setProjectAbout(aboutData.about || []);
+      setProjectContent(contentData.content || []);
       setProjectFeatures(featuresData.features || []);
       setProjectHighlight(highlightsData.Highlights || []);
-      setProjectAmenities(amenities);
+      setProjectAmenities(amenitiesData.Amenities || []);
       setProjectDisclaimer(disclaimerData.disclaimers || []);
       setProjectLocation(locationData.Location || []);
-      setProjectGallery(gallery);
-      setProjectFaqs(faqs);
-      setProjectBanks(banks);
-      setProjectTestimonials(testimonials);
+      setProjectGallery(galleryData.Galleries || []);
+      setProjectFaqs(faqData.FAQs || []);
+      setProjectBanks(bankData.Banks || []);
+      setProjectTestimonials(testimonialData.testimonials || []);
+
+      setMetaData(metaDataRes || bannerData.banner || null);
 
       setPageReady(true);
     } catch (error) {
@@ -267,72 +257,7 @@ useEffect(() => {
   };
 
   if (name) fetchAllProjectData();
-}, [name]);
-
-  useEffect(() => {
-    const fetchMetaTag = async () => {
-      let metaTitle = document.querySelector('meta[name="title"]');
-
-if (!metaTitle) {
-  metaTitle = document.createElement("meta");
-  metaTitle.name = "title";
-  document.head.appendChild(metaTitle);
-}
-
-metaTitle.setAttribute(
-  "content",
-  metaData.metaTitle || metaData.meta_title || "Shivalik Ventures"
-);
-
-      // Add canonical tag
-      const canonicalUrl = `${window.location.origin}${window.location.pathname}`;
-      let linkCanonical = document.querySelector('link[rel="canonical"]');
-      if (linkCanonical) {
-        linkCanonical.setAttribute("href", canonicalUrl);
-      } else {
-        linkCanonical = document.createElement("link");
-        linkCanonical.rel = "canonical";
-        linkCanonical.href = canonicalUrl;
-        document.head.appendChild(linkCanonical);
-      }
-
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-
-        let page = location.pathname;
-
-        const response = await axios.get(`${apiUrl}/api/project/project/${name}`);
-        const metaTag = response.data.banner;
-
-        document.title = metaTag.metaTitle || "Default Title";
-
-        let metaDescription = document.querySelector('meta[name="description"]');
-        if (metaDescription) {
-          metaDescription.setAttribute("content", metaTag.metaDescription || "");
-        } else {
-          metaDescription = document.createElement("meta");
-          metaDescription.name = "description";
-          metaDescription.content = metaTag.metaDescription || "";
-          document.head.appendChild(metaDescription);
-        }
-
-        // Meta keywords
-        let metaKeyword = document.querySelector('meta[name="keywords"]');
-        if (metaKeyword) {
-          metaKeyword.setAttribute("content", metaTag.metaKeyword || "");
-        } else {
-          metaKeyword = document.createElement("meta");
-          metaKeyword.name = "keywords"; 
-          metaKeyword.content = metaTag.metaKeyword || "";
-          document.head.appendChild(metaKeyword);
-        }
-      } catch (error) {
-        console.error("Error fetching meta tag:", error);
-      }
-    };
-
-    fetchMetaTag();
-  }, [location]);
+}, [name, currentPath]);
 
 const isReactSnap =
   typeof navigator !== "undefined" &&
@@ -340,7 +265,7 @@ const isReactSnap =
 
   return (
     <Layout>
-
+<MetaDataComponent metaData={metaData} />
       <section className={styles.projectDetHeader}>
         <div className='row'>
           <div className='col-lg-12'>

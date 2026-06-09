@@ -1,13 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from '../atoms/Logo';
 import styles from '../../style/Common.module.css';
 import BlogsSection from '../templates/BlogsSection';
+import BlogBox from '../molecules/BlogBox';
+import axios from 'axios';
 
 const Footer = () => {
+
+      const [Blogs, setBlogs] = useState([]);
+const [pageReady, setPageReady] = useState(false);
+     useEffect(() => {
+            const fetchHomeData = async () => {
+              const apiUrl = process.env.REACT_APP_API_URL;
+        
+              const [blogRes] =
+                await Promise.allSettled([
+                  axios.get(`${apiUrl}/api/blog`),
+                ]);
+        
+              if (blogRes.status === "fulfilled") {
+                setBlogs(blogRes.value.data.Blogs || []);
+              }
+    
+              setPageReady(true);
+            };
+        
+            fetchHomeData();
+          }, []);
+
   return (
 <>
      {/* Blogs section start */}
-          <BlogsSection />
+          <BlogBox />
      {/* Blogs section close */}
 
     <footer className='mt-5'>
@@ -56,6 +80,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      {pageReady && <div id="react-snap-ready" style={{ display: "none" }} />}
     </footer>
     </>
   )
