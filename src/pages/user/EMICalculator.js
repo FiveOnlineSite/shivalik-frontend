@@ -2,6 +2,9 @@ import React from 'react'
 import Layout from '../../components/templates/Layout'
 import EMICalculatorBox from '../../components/organisms/EMICalculatorBox'
 import MetaDataComponent from "../../components/atoms/MetaDataComponent"
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const EMICalculator = () => {
 
