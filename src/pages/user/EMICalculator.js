@@ -7,7 +7,8 @@ import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 const EMICalculator = () => {
-
+const location = useLocation();
+        const currentPath = location.pathname;
    const [pageReady, setPageReady] = useState(false);
             const [metaData, setMetaData] = useState(null);
   
@@ -17,13 +18,9 @@ const EMICalculator = () => {
       
             const [blogRes, metaRes] =
               await Promise.allSettled([
-                axios.get(`${apiUrl}/api/blog`),
                 axios.get(`${apiUrl}/api/meta-data/by-page${currentPath}`),
               ]);
       
-            if (blogRes.status === "fulfilled") {
-              setBlogs(blogRes.value.data.Blogs || []);
-            }
   
             if (metaRes.status === "fulfilled") {
               setMetaData(metaRes.value.data || null);
