@@ -16,7 +16,7 @@ const location = useLocation();
           const fetchHomeData = async () => {
             const apiUrl = process.env.REACT_APP_API_URL;
       
-            const [blogRes, metaRes] =
+            const [metaRes] =
               await Promise.allSettled([
                 axios.get(`${apiUrl}/api/meta-data/by-page${currentPath}`),
               ]);
