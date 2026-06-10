@@ -37,6 +37,8 @@ const location = useLocation();
       <MetaDataComponent metaData={metaData}/>
 
       <EMICalculatorBox />
+
+      {pageReady && <div id="react-snap-ready" style={{ display: "none" }} />}
     </Layout>
   )
 }
