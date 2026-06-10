@@ -4,9 +4,37 @@ import EMICalculatorBox from '../../components/organisms/EMICalculatorBox'
 import MetaDataComponent from "../../components/atoms/MetaDataComponent"
 
 const EMICalculator = () => {
+
+   const [pageReady, setPageReady] = useState(false);
+            const [metaData, setMetaData] = useState(null);
+  
+        useEffect(() => {
+          const fetchHomeData = async () => {
+            const apiUrl = process.env.REACT_APP_API_URL;
+      
+            const [blogRes, metaRes] =
+              await Promise.allSettled([
+                axios.get(`${apiUrl}/api/blog`),
+                axios.get(`${apiUrl}/api/meta-data/by-page${currentPath}`),
+              ]);
+      
+            if (blogRes.status === "fulfilled") {
+              setBlogs(blogRes.value.data.Blogs || []);
+            }
+  
+            if (metaRes.status === "fulfilled") {
+              setMetaData(metaRes.value.data || null);
+            }
+      
+            setPageReady(true);
+          };
+      
+          fetchHomeData();
+        }, []);
+
   return (
     <Layout>
-      <MetaDataComponent/>
+      <MetaDataComponent metaData={metaData}/>
 
       <EMICalculatorBox />
     </Layout>
