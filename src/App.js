@@ -1,9 +1,9 @@
 import React, { Suspense, lazy } from 'react';
+import Home from './pages/user/Home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Home = lazy(() => import('./pages/user/Home'));
 const Home1 = lazy(() => import('./pages/user/Home1'));
 const AboutUs = lazy(() => import('./pages/user/AboutUs'));
 const Blogs = lazy(() => import('./pages/user/Blogs'));

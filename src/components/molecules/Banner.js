@@ -5,6 +5,19 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 
+const fallbackBanners = [
+  {
+    _id: 'fallback-home-banner',
+    alt: 'Shivalik Ventures',
+    description: '',
+    image: [{ filepath: '/images/banner/banner1.jpg' }],
+    link: '',
+    mobile_alt: 'Shivalik Ventures',
+    mobile_image: [{ filepath: '/images/banner/banner1.jpg' }],
+    title: '',
+  },
+];
+
 const Banner = () => {
   const settings = {
     dots: true,
@@ -45,7 +58,7 @@ const Banner = () => {
   // ];
 
 
-   const [homeBanner, setHomeBanner] = useState([])
+   const [homeBanner, setHomeBanner] = useState(fallbackBanners)
 
     useEffect(() => {
       const fetchHomeBanner = async () => {
@@ -58,10 +71,9 @@ const Banner = () => {
             url: "home-banner",
           });
   
-          setHomeBanner(response.data.banners);
-          // console.log(response.data.news);
-          console.log("filepath", response.data.banners.banner[0].filepath);
-          // setHomeBanner(response.data.HomeBanner);
+          if (Array.isArray(response.data.banners) && response.data.banners.length > 0) {
+            setHomeBanner(response.data.banners);
+          }
         } catch (error) {
           console.error("Error fetching Home Banner:", error);
         }
@@ -80,10 +92,10 @@ const Banner = () => {
          <div className={`${styles.bannerBox} position-relative`}>
               <div className={styles.bannerImg}>
                 {/* Mobile Image */}
-                {banner.mobile_image[0].filepath && (
+                {banner.mobile_image?.[0]?.filepath && (
                   <img
-                  src={banner.mobile_image[0].filepath}
-                  className="img-fluid d-block d-sm-none mob-img" width='100%'
+                  src={banner.mobile_image?.[0]?.filepath}
+                  className="img-fluid d-block d-sm-none mob-img" width='1440' height='650'
                   alt={banner.mobile_alt}
                   loading={index === 0 ? "eager" : "lazy"}
                   decoding={index === 0 ? "sync" : "async"}
@@ -91,11 +103,11 @@ const Banner = () => {
                 />
                 )}
                 
-                {banner.image[0].filepath && (
+                {banner.image?.[0]?.filepath && (
 
                 <img
-                  src={banner.image[0].filepath}
-                  className="img-fluid d-none d-sm-block" width='100%'
+                  src={banner.image?.[0]?.filepath}
+                  className="img-fluid d-none d-sm-block" width='1440' height='650'
                   alt={banner.alt}
                   loading={index === 0 ? "eager" : "lazy"}
                   decoding={index === 0 ? "sync" : "async"}
@@ -114,10 +126,10 @@ const Banner = () => {
          <div className={`${styles.bannerBox} position-relative`}>
               <div className={styles.bannerImg}>
                 {/* Mobile Image */}
-                {banner.mobile_image[0].filepath && (
+                {banner.mobile_image?.[0]?.filepath && (
                   <img
-                  src={banner.mobile_image[0].filepath}
-                  className="img-fluid d-block d-sm-none mob-img" width='100%'
+                  src={banner.mobile_image?.[0]?.filepath}
+                  className="img-fluid d-block d-sm-none mob-img" width='1440' height='650'
                   alt={banner.mobile_alt}
                   loading={index === 0 ? "eager" : "lazy"}
                   decoding={index === 0 ? "sync" : "async"}
@@ -125,11 +137,11 @@ const Banner = () => {
                 />
                 )}
                 
-                {banner.image[0].filepath && (
+                {banner.image?.[0]?.filepath && (
 
                 <img
-                  src={banner.image[0].filepath}
-                  className="img-fluid d-none d-sm-block" width='100%'
+                  src={banner.image?.[0]?.filepath}
+                  className="img-fluid d-none d-sm-block" width='1440' height='650'
                   alt={banner.alt}
                   loading={index === 0 ? "eager" : "lazy"}
                   decoding={index === 0 ? "sync" : "async"}

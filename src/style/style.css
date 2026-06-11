@@ -1538,3 +1538,16 @@ background-color: transparent;
   justify-content: center;
   min-height: 50vh;
 }
+.icon-you-one svg,
+.accordion-icon {
+  color: currentColor;
+  display: inline-block;
+  height: 1em;
+  vertical-align: -0.125em;
+  width: 1em;
+}
+
+.icon-you-one svg {
+  color: #1E1E1E;
+  font-size: 23px;
+}
