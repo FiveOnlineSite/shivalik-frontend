@@ -9,6 +9,7 @@ import styles from '../../style/Common.module.css';
 import axios from 'axios';
 import MetaDataComponent from "../../components/atoms/MetaDataComponent"
 
+import { assetUrl } from '../../utils/media';
 const ContactUs = () => {
 
     const location = useLocation();
@@ -82,7 +83,7 @@ const ContactUs = () => {
                                             <li key={socialMedia._id}>
                                                 <a href={socialMedia.link} className='icon-you-one' rel='noreferrer' target='_blank'>
                                                 {socialMedia.icon?.[0]?.filepath && (
-                                                    <img src={socialMedia.icon?.[0]?.filepath} alt={socialMedia.alt} width="100px"/>
+                                                    <img src={assetUrl(socialMedia.icon?.[0]?.filepath)} alt={socialMedia.alt} width="100px"/>
                                                 )}
                                                 </a>
                                             </li>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Layout from '../templates/Layout';
 import Logo from '../atoms/Logo';
 import HeaderElements from '../molecules/HeaderElements';
 

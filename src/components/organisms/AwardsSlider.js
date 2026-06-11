@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
 
+import { assetUrl } from '../../utils/media';
 const AwardsSlider = () => {
 
   const [awards, setAwards] = useState([])
@@ -98,7 +99,7 @@ const AwardsSlider = () => {
           {awards && awards.map((award) => (
             <div key={award._id} className="slide-item">
               {award.image[0].filepath && (
-              <img src={award.image[0].filepath} alt={award.alt} style={{ width: "100%" }} />
+              <img src={assetUrl(award.image[0].filepath)} alt={award.alt} style={{ width: "100%" }} />
 
               )}
             </div>
@@ -112,7 +113,7 @@ const AwardsSlider = () => {
         {awards && awards.map((award) => (    
             <div key={award._id} className="slide-item">
                {award.image[0].filepath && (
-              <img src={award.image[0].filepath} alt={award.alt} style={{ width: "100%" }} />
+              <img src={assetUrl(award.image[0].filepath)} alt={award.alt} style={{ width: "100%" }} />
                )}
             </div>
           ))}

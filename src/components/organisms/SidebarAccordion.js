@@ -1,3 +1,4 @@
+import { ChevronDown, ChevronUp } from '../atoms/Icons';
 import { NavLink } from "react-router-dom";
 
 const SidebarAccordion = ({
@@ -16,9 +17,7 @@ const SidebarAccordion = ({
       <span className={`${iconClass} me-2`}></span>
       <div className="d-flex align-items-center justify-content-between w-100 accordion-title px-2">
         <span>{title}</span>
-        <i
-          className={`lni ${isOpen ? "lni-chevron-up" : "lni-chevron-down"}`}
-        ></i>
+        {isOpen ? <ChevronUp className="accordion-icon" /> : <ChevronDown className="accordion-icon" />}
       </div>
     </button>
 

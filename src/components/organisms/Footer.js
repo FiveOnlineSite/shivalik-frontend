@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import Logo from '../atoms/Logo';
 import styles from '../../style/Common.module.css';
-import BlogsSection from '../templates/BlogsSection';
+import { YouTubeIcon } from '../atoms/Icons';
+const BlogsSection = lazy(() => import('../templates/BlogsSection'));
 
 const Footer = () => {
   return (
 <>
      {/* Blogs section start */}
-          <BlogsSection />
+          <Suspense fallback={null}>
+            <BlogsSection />
+          </Suspense>
      {/* Blogs section close */}
 
     <footer className='mt-5'>
@@ -18,10 +21,10 @@ const Footer = () => {
             <p className='mb-3'>Shivalik Venture’s New residential projects in Bandra and Khar, built with integrity, driven by purpose.</p>
             <div className={styles.socialIcon}>
               <ul className='d-flex'>
-              <li><a href='https://www.youtube.com/channel/UCzGodQJIXPM4yUl4BHY1Hug' className='icon-you-one' target='_blank'><i class="fa-brands fa-youtube"></i></a></li>
-              <li><a href='https://www.facebook.com/shivalikventures/' target='_blank'><img src="/images/fb.svg" /></a></li>
-              <li><a href='https://www.instagram.com/shivalik_ventures/' target='_blank'><img src="/images/insta.svg" /></a></li>
-              <li><a href='https://www.linkedin.com/company/shivalik-ventures-1/' target='_blank'><img src="/images/linkedin.svg" /></a></li>
+              <li><a href='https://www.youtube.com/channel/UCzGodQJIXPM4yUl4BHY1Hug' className='icon-you-one' target='_blank' rel='noreferrer'><YouTubeIcon /></a></li>
+              <li><a href='https://www.facebook.com/shivalikventures/' target='_blank' rel='noreferrer'><img src="/images/fb.svg" alt="Facebook" loading="lazy" /></a></li>
+              <li><a href='https://www.instagram.com/shivalik_ventures/' target='_blank' rel='noreferrer'><img src="/images/insta.svg" alt="Instagram" loading="lazy" /></a></li>
+              <li><a href='https://www.linkedin.com/company/shivalik-ventures-1/' target='_blank' rel='noreferrer'><img src="/images/linkedin.svg" alt="LinkedIn" loading="lazy" /></a></li>
             </ul>
             </div>
           </div>

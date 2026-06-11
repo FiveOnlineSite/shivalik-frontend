@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 
+import { assetUrl } from '../../utils/media';
 const BlogDetailOne = () => {
 
   const [blog, setBlog] = useState([]);
@@ -42,7 +43,7 @@ const BlogDetailOne = () => {
           <div className={`${styles.blogInnerBanner} position-relative`}>
            <div className='position-relative'>
             {blog.image?.[0]?.filepath && (
-            <img src={blog.image?.[0]?.filepath} width='100%' alt={blog.alt}/>
+            <img src={assetUrl(blog.image?.[0]?.filepath)} width='100%' alt={blog.alt}/>
             )}
             </div>
            

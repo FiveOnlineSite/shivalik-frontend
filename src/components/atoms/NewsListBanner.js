@@ -1,3 +1,4 @@
+import { assetUrl } from '../../utils/media';
 // import axios from 'axios';
 // import React, { useEffect, useState } from 'react'
 
@@ -27,7 +28,7 @@
 //           {NewsWorthy && NewsWorthy.map((news) => (
 //             <>
 //             {news.image[0].filepath} && (
-//                <img src={news.image[0].filepath} alt={news.alt} width='100%' className="award-image"/>
+//                <img src={assetUrl(news.image[0].filepath)} alt={news.alt} width='100%' className="award-image"/>
 //             )
            
 //             <div className="award-info-box">

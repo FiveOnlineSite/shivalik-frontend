@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Layout from '../../components/templates/Layout';
 import styles from '../../style/Common.module.css';
 import GradientLine from '../../components/atoms/GradientLine';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../../components/atoms/Icons';
 import homestyles from '../../style/Home.module.css';
 import { Download, Phone } from 'react-feather';
 import GalleryGrid from '../../components/organisms/GalleryGrid';
@@ -15,6 +15,7 @@ import BrochureModal from '../../components/organisms/BrochureModel';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
+import { assetUrl } from '../../utils/media';
 const GulmoharAvenue = () => {
 
 const [showModal, setShowModal] = useState(false);
@@ -237,13 +238,13 @@ const {name} = useParams()
           <div className='col-lg-12'>
             <div className='d-lg-block d-none desktop-banner'>
               {projectBanner.banner?.[0]?.filepath && (
-                <img src={projectBanner.banner?.[0]?.filepath} width='100%' alt={projectBanner.banner_alt} />
+                <img src={assetUrl(projectBanner.banner?.[0]?.filepath)} width='100%' alt={projectBanner.banner_alt} />
               )}
             </div>
 
             <div className='d-lg-none d-block  mobile-banner'>
               {projectBanner.mobile_banner?.[0]?.filepath && (
-                <img src={projectBanner.mobile_banner?.[0]?.filepath} width='100%' alt={projectBanner.mobile_banner_alt} />
+                <img src={assetUrl(projectBanner.mobile_banner?.[0]?.filepath)} width='100%' alt={projectBanner.mobile_banner_alt} />
               )}
             </div>
           </div>
@@ -308,7 +309,7 @@ const {name} = useParams()
         <div className={`${homestyles.aboutImg} mb-3`}>
           {about.image?.[0]?.filepath && (
             <img
-              src={about.image?.[0]?.filepath}
+              src={assetUrl(about.image?.[0]?.filepath)}
               width='100%'
               alt={about.image?.[0]?.alt}
             />
@@ -356,7 +357,7 @@ const {name} = useParams()
 
             <div className='col-lg-4 position-relative'>
               {content.image?.[0]?.filepath && (
-              <img className={`${styles.borderRadius} border-radius-left position-relative`} src={content.image?.[0]?.filepath} width='100%' alt={content.alt} />
+              <img className={`${styles.borderRadius} border-radius-left position-relative`} src={assetUrl(content.image?.[0]?.filepath)} width='100%' alt={content.alt} />
               )}
               <span className='overlayText'>
            Artistic impression for representation purpose only
@@ -372,7 +373,7 @@ const {name} = useParams()
                   <div className={`${styles.iconsProjectList} row align-items-center g-0`}>
                         <div className='col-lg-2 col-2 pe-2'>
                           {feature.image?.[0]?.filepath && (
-                          <img src={feature.image?.[0]?.filepath} width="100%" alt={feature.alt} />
+                          <img src={assetUrl(feature.image?.[0]?.filepath)} width="100%" alt={feature.alt} />
                           )} 
                           
                         </div>
@@ -408,7 +409,7 @@ const {name} = useParams()
   <div className={`${styles.highlightBox} position-relative`}>
     {highlight.image?.[0]?.filepath && (
       <img
-        src={highlight.image[0].filepath}
+        src={assetUrl(highlight.image[0].filepath)}
         className="mb-1 position-relative"
         width="100%"
         alt={highlight.alt}
@@ -445,7 +446,7 @@ const {name} = useParams()
                 <div className='row '>
                   <div className='col-lg-3 col-md-2 col-2'>
                     {amenities.image?.[0]?.filepath && (
-                    <img src={amenities.image?.[0]?.filepath} width="100%" alt={amenities.alt} />
+                    <img src={assetUrl(amenities.image?.[0]?.filepath)} width="100%" alt={amenities.alt} />
                     )} 
                   </div>
                   <div className='col-lg-9 col-md-10 col-10'>
@@ -601,7 +602,7 @@ const {name} = useParams()
             <div className='col-lg-5'>
               <div className='row align-items-center'>
                 <div className='col-lg-3 col-md-3 col-sm-3 col-4'>
-                  {disclaimer.qr?.[0]?.filepath && (<img src={disclaimer.qr?.[0]?.filepath} width='100%' alt={disclaimer.alt} />)}
+                  {disclaimer.qr?.[0]?.filepath && (<img src={assetUrl(disclaimer.qr?.[0]?.filepath)} width='100%' alt={disclaimer.alt} />)}
                   </div>
                 <div className='col-lg-3 col-md-3 col-sm-3 col-4'><img src='/images/maharera.png' width='100%' /></div>
                 <div className='col-lg-6'>

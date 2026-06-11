@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NewsColList from "../organisms/NewsColList";
 
+import { assetUrl } from '../../utils/media';
 const NewsTabsSection = () => {
  
 const [newsHero, setNewsHero] = useState(null);
@@ -88,7 +89,7 @@ useEffect(() => {
                 <div className="award-card-container">
                   {newsHero.image[0].filepath && (
                   <img
-                    src={newsHero.image[0].filepath}
+                    src={assetUrl(newsHero.image[0].filepath)}
                     alt={newsHero.alt}
                     width="100%"
                     className="award-image"
@@ -125,7 +126,7 @@ useEffect(() => {
               {worthyHero && (
                 <div className="award-card-container">
                   <img
-                    src={worthyHero.image[0].filepath}
+                    src={assetUrl(worthyHero.image[0].filepath)}
                     alt={worthyHero.alt}
                     width="100%"
                     className="award-image"
