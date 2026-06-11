@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import AdminHeader from "../molecules/AdminHeader";
 import AdminSidebar from "../molecules/AdminSidebar";
 import { AuthProvider } from "../../context/AuthContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../../style/admin.css";
 
 const AdminLayout = ({ children }) => {
@@ -21,6 +23,7 @@ const AdminLayout = ({ children }) => {
 
   return (
     <AuthProvider>
+      <ToastContainer position="top-right" style={{ marginTop: "70px" }} autoClose={3000} />
       <div>
         <input type="checkbox" id="nav-toggle" name="" />
         <div className="sidebar">
