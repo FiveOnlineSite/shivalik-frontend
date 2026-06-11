@@ -1,121 +1,115 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
+import Home from './pages/user/Home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// import pages
-import Home from './pages/user/Home'
-import Home1 from './pages/user/Home1'
+const Home1 = lazy(() => import('./pages/user/Home1'));
+const AboutUs = lazy(() => import('./pages/user/AboutUs'));
+const Blogs = lazy(() => import('./pages/user/Blogs'));
+const ContactUs = lazy(() => import('./pages/user/ContactUs'));
+const CSR = lazy(() => import('./pages/user/CSR'));
+const EMICalculator = lazy(() => import('./pages/user/EMICalculator'));
+const FAQs = lazy(() => import('./pages/user/FAQs'));
+const News = lazy(() => import('./pages/user/News'));
+const Projects = lazy(() => import('./pages/user/Projects'));
+const Resources = lazy(() => import('./pages/user/Resources'));
+const StampDutyCalculator = lazy(() => import('./pages/user/StampDutyCalculator'));
+const GulmoharAvenue = lazy(() => import('./pages/user/GulmoharAvenue'));
+const BlogDetailOne = lazy(() => import('./pages/user/BlogDetailOne'));
+const AdminRoutes = lazy(() => import("./route/AdminRoute"));
+const Login = lazy(() => import("./pages/admin/Login"));
+const DashBoard = lazy(() => import("./pages/admin/Dashboard"));
+const HomeBanner = lazy(() => import('./pages/admin/Home/HomeBanner/HomeBanner'));
+const AddHomeBanner = lazy(() => import('./pages/admin/Home/HomeBanner/AddHomeBanner'));
+const EditHomeBanner = lazy(() => import('./pages/admin/Home/HomeBanner/EditHomeBanner'));
+const Counter = lazy(() => import('./pages/admin/Home/Counter/Counter'));
+const AddCounter = lazy(() => import('./pages/admin/Home/Counter/AddCounter'));
+const EditCounter = lazy(() => import('./pages/admin/Home/Counter/EditCounter'));
+const Testimonials = lazy(() => import('./pages/admin/Home/Testimonials/Testimonials'));
+const AddTestimonial = lazy(() => import('./pages/admin/Home/Testimonials/AddTestimonial'));
+const EditTestimonial = lazy(() => import('./pages/admin/Home/Testimonials/EditTestimonial'));
+const Banners = lazy(() => import('./pages/admin/Banners/Banners'));
+const AddBanner = lazy(() => import('./pages/admin/Banners/AddBanner'));
+const EditBanner = lazy(() => import('./pages/admin/Banners/EditBanner'));
+const Awards = lazy(() => import('./pages/admin/Awards/Awards'));
+const AddAward = lazy(() => import('./pages/admin/Awards/AddAward'));
+const EditAward = lazy(() => import('./pages/admin/Awards/EditAward'));
+const FAQCategory = lazy(() => import('./pages/admin/FAQ/FAQCategory/FAQCategory'));
+const AddFAQCategory = lazy(() => import('./pages/admin/FAQ/FAQCategory/AddFAQCategory'));
+const EditFAQCategory = lazy(() => import('./pages/admin/FAQ/FAQCategory/EditFAQCategory'));
+const FAQContent = lazy(() => import('./pages/admin/FAQ/FAQContent/FAQContent'));
+const AddFAQContent = lazy(() => import('./pages/admin/FAQ/FAQContent/AddFAQContent'));
+const EditFAQContent = lazy(() => import('./pages/admin/FAQ/FAQContent/EditFAQContent'));
+const StampDuty = lazy(() => import('./pages/admin/StampDuty'));
+const NewsWorthy = lazy(() => import('./pages/admin/NewsWorthy/NewsWorthy'));
+const AddNewsWorthy = lazy(() => import('./pages/admin/NewsWorthy/AddNewsWorthy'));
+const EditNewsWorthy = lazy(() => import('./pages/admin/NewsWorthy/EditNewsWorthy'));
+const ContactResponse = lazy(() => import('./pages/admin/Contact/ContactResponse'));
+const AdminBlogs = lazy(() => import('./pages/admin/Blogs/Blog/Blogs'));
+const AddBlog = lazy(() => import('./pages/admin/Blogs/Blog/AddBlog'));
+const EditBlog = lazy(() => import('./pages/admin/Blogs/Blog/EditBlog'));
+const BlogFAQ = lazy(() => import('./pages/admin/Blogs/BlogFaq/BlogFaq'));
+const AddBlogFaq = lazy(() => import('./pages/admin/Blogs/BlogFaq/AddBlogFaq'));
+const EditBlogFaq = lazy(() => import('./pages/admin/Blogs/BlogFaq/EditBlogFaq'));
+const ContactContent = lazy(() => import('./pages/admin/Contact/ContactContent'));
+const Project = lazy(() => import('./pages/admin/Projects/Project/Project'));
+const AddProject = lazy(() => import('./pages/admin/Projects/Project/AddProject'));
+const EditProject = lazy(() => import('./pages/admin/Projects/Project/EditProject'));
+const About = lazy(() => import('./pages/admin/ProjectDetails/About/About'));
+const AddAbout = lazy(() => import('./pages/admin/ProjectDetails/About/AddAbout'));
+const EditAbout = lazy(() => import('./pages/admin/ProjectDetails/About/EditAbout'));
+const FeaturesContent = lazy(() => import('./pages/admin/Features/FeaturesContent/FeaturesContent'));
+const AddFeaturesContent = lazy(() => import('./pages/admin/Features/FeaturesContent/AddFeaturesContent'));
+const EditFeaturesContent = lazy(() => import('./pages/admin/Features/FeaturesContent/EditFeaturesContent'));
+const Features = lazy(() => import('./pages/admin/Features/Feature/Features'));
+const AddFeature = lazy(() => import('./pages/admin/Features/Feature/AddFeature'));
+const EditFeature = lazy(() => import('./pages/admin/Features/Feature/EditFeature'));
+const SitePlan = lazy(() => import('./pages/admin/ProjectDetails/SitePlan/SitePlan'));
+const AddSitePlan = lazy(() => import('./pages/admin/ProjectDetails/SitePlan/AddSitePlan'));
+const EditSitePlan = lazy(() => import('./pages/admin/ProjectDetails/SitePlan/EditSitePlan'));
+const Highlights = lazy(() => import('./pages/admin/ProjectDetails/Highlights/Highlights'));
+const AddHighlight = lazy(() => import('./pages/admin/ProjectDetails/Highlights/AddHighlight'));
+const EditHighlight = lazy(() => import('./pages/admin/ProjectDetails/Highlights/EditHighlight'));
+const Amenities = lazy(() => import('./pages/admin/ProjectDetails/Amenities/Amenities'));
+const AddAmenity = lazy(() => import('./pages/admin/ProjectDetails/Amenities/AddAmenity'));
+const EditAmenity = lazy(() => import('./pages/admin/ProjectDetails/Amenities/EditAmenity'));
+const Gallery = lazy(() => import('./pages/admin/ProjectDetails/Gallery/Gallery'));
+const AddGallery = lazy(() => import('./pages/admin/ProjectDetails/Gallery/AddGallery'));
+const EditGallery = lazy(() => import('./pages/admin/ProjectDetails/Gallery/EditGallery'));
+const Banks = lazy(() => import('./pages/admin/ProjectDetails/Banks/Banks'));
+const AddBank = lazy(() => import('./pages/admin/ProjectDetails/Banks/AddBank'));
+const EditBank = lazy(() => import('./pages/admin/ProjectDetails/Banks/EditBank'));
+const ProjectFAQ = lazy(() => import('./pages/admin/ProjectDetails/FAQ/FAQ'));
+const AddProjectFAQ = lazy(() => import('./pages/admin/ProjectDetails/FAQ/AddFAQ'));
+const EditProjectFAQ = lazy(() => import('./pages/admin/ProjectDetails/FAQ/EditFAQ'));
+const Disclaimers = lazy(() => import('./pages/admin/ProjectDetails/Disclaimers/Disclaimers'));
+const AddDisclaimer = lazy(() => import('./pages/admin/ProjectDetails/Disclaimers/AddDisclaimer'));
+const EditDisclaimer = lazy(() => import('./pages/admin/ProjectDetails/Disclaimers/EditDisclaimer'));
+const Status = lazy(() => import('./pages/admin/ProjectDetails/Status/Status'));
+const AddStatus = lazy(() => import('./pages/admin/ProjectDetails/Status/AddStatus'));
+const EditStatus = lazy(() => import('./pages/admin/ProjectDetails/Status/EditStatus'));
+const LocationInfo = lazy(() => import('./pages/admin/ProjectDetails/LocationInfo/LocationInfo'));
+const AddLocationInfo = lazy(() => import('./pages/admin/ProjectDetails/LocationInfo/AddLocationInfo'));
+const EditLocationInfo = lazy(() => import('./pages/admin/ProjectDetails/LocationInfo/EditLocationInfo'));
+const MetaData = lazy(() => import('./pages/admin/MetaData/MetaData'));
+const AddMetaData = lazy(() => import('./pages/admin/MetaData/AddMetaData'));
+const EditMetaData = lazy(() => import('./pages/admin/MetaData/EditMetaData'));
+const ProjectEnquiry = lazy(() => import('./pages/admin/Projects/ProjectEnquiry'));
+const CSRBanners = lazy(() => import('./pages/admin/CSRBanners/CSRBanners'));
+const AddCSRBanners = lazy(() => import('./pages/admin/CSRBanners/AddCSRBanners'));
+const EditCSRBanners = lazy(() => import('./pages/admin/CSRBanners/EditCSRBanners'));
+const AdminCSR = lazy(() => import('./pages/admin/CSR/CSR'));
+const AddCSR = lazy(() => import('./pages/admin/CSR/AddCSR'));
+const EditCSR = lazy(() => import('./pages/admin/CSR/EditCSR'));
+const PrivacyPolicy = lazy(() => import('./pages/user/PrivacyPolicy'));
+const TermsConditions = lazy(() => import('./pages/user/TermsConditions'));
 
-import AboutUs from './pages/user/AboutUs'
-import Blogs from './pages/user/Blogs';
-import ContactUs from './pages/user/ContactUs';
-import CSR from './pages/user/CSR';
-import EMICalculator from './pages/user/EMICalculator';
-import FAQs from './pages/user/FAQs';
-import News from './pages/user/News';
-import ProjectDetail from './pages/user/GulmoharAvenue';
-import Projects from './pages/user/Projects';
-import Resources from './pages/user/Resources';
-import StampDutyCalculator from './pages/user/StampDutyCalculator';
-import GulmoharAvenue from './pages/user/GulmoharAvenue';
-import PrabhatDarshan from './pages/user/PrabhatDarshan';
-import BlogDetailOne from './pages/user/BlogDetailOne';
-import BlogDetailTwo from './pages/user/BlogDetailTwo';
-import BlogDetailThree from './pages/user/BlogDetailThree';
-import BlogDetailFour from './pages/user/BlogDetailFour';
-import BlogDetailFive from './pages/user/BlogDetailFive';
-import BlogDetailSix from './pages/user/BlogDetailSix';
-
-import AdminRoutes from "./route/AdminRoute";
-import Login from "./pages/admin/Login"
-import DashBoard from "./pages/admin/Dashboard"
-import HomeBanner from './pages/admin/Home/HomeBanner/HomeBanner';
-import AddHomeBanner from './pages/admin/Home/HomeBanner/AddHomeBanner';
-import EditHomeBanner from './pages/admin/Home/HomeBanner/EditHomeBanner'
-import Counter from './pages/admin/Home/Counter/Counter';
-import AddCounter from './pages/admin/Home/Counter/AddCounter';
-import EditCounter from './pages/admin/Home/Counter/EditCounter';
-import Testimonials from './pages/admin/Home/Testimonials/Testimonials';
-import AddTestimonial from './pages/admin/Home/Testimonials/AddTestimonial';
-import EditTestimonial from './pages/admin/Home/Testimonials/EditTestimonial';
-import Banners from './pages/admin/Banners/Banners';
-import AddBanner from './pages/admin/Banners/AddBanner';
-import EditBanner from './pages/admin/Banners/EditBanner';
-import Awards from './pages/admin/Awards/Awards';
-import AddAward from './pages/admin/Awards/AddAward';
-import EditAward from './pages/admin/Awards/EditAward';
-import FAQCategory from './pages/admin/FAQ/FAQCategory/FAQCategory';
-import AddFAQCategory from './pages/admin/FAQ/FAQCategory/AddFAQCategory';
-import EditFAQCategory from './pages/admin/FAQ/FAQCategory/EditFAQCategory';
-import FAQContent from './pages/admin/FAQ/FAQContent/FAQContent';
-import AddFAQContent from './pages/admin/FAQ/FAQContent/AddFAQContent';
-import EditFAQContent from './pages/admin/FAQ/FAQContent/EditFAQContent';
-
-import StampDuty from './pages/admin/StampDuty';
-import NewsWorthy from './pages/admin/NewsWorthy/NewsWorthy';
-import AddNewsWorthy from './pages/admin/NewsWorthy/AddNewsWorthy';
-import EditNewsWorthy from './pages/admin/NewsWorthy/EditNewsWorthy';
-import ContactResponse from './pages/admin/Contact/ContactResponse';
-import AdminBlogs from './pages/admin/Blogs/Blog/Blogs';
-import AddBlog from './pages/admin/Blogs/Blog/AddBlog';
-import EditBlog from './pages/admin/Blogs/Blog/EditBlog';
-import BlogFAQ from './pages/admin/Blogs/BlogFaq/BlogFaq';
-import AddBlogFaq from './pages/admin/Blogs/BlogFaq/AddBlogFaq';
-import EditBlogFaq from './pages/admin/Blogs/BlogFaq/EditBlogFaq';
-import ContactContent from './pages/admin/Contact/ContactContent';
-import Project from './pages/admin/Projects/Project/Project';
-import AddProject from './pages/admin/Projects/Project/AddProject';
-import EditProject from './pages/admin/Projects/Project/EditProject';
-import About from './pages/admin/ProjectDetails/About/About';
-import AddAbout from './pages/admin/ProjectDetails/About/AddAbout';
-import EditAbout from './pages/admin/ProjectDetails/About/EditAbout';
-import FeaturesContent from './pages/admin/Features/FeaturesContent/FeaturesContent';
-import AddFeaturesContent from './pages/admin/Features/FeaturesContent/AddFeaturesContent';
-import EditFeaturesContent from './pages/admin/Features/FeaturesContent/EditFeaturesContent';
-import Features from './pages/admin/Features/Feature/Features';
-import AddFeature from './pages/admin/Features/Feature/AddFeature';
-import EditFeature from './pages/admin/Features/Feature/EditFeature';
-import SitePlan from './pages/admin/ProjectDetails/SitePlan/SitePlan';
-import AddSitePlan from './pages/admin/ProjectDetails/SitePlan/AddSitePlan';
-import EditSitePlan from './pages/admin/ProjectDetails/SitePlan/EditSitePlan';
-import Highlights from './pages/admin/ProjectDetails/Highlights/Highlights';
-import AddHighlight from './pages/admin/ProjectDetails/Highlights/AddHighlight';
-import EditHighlight from './pages/admin/ProjectDetails/Highlights/EditHighlight';
-import Amenities from './pages/admin/ProjectDetails/Amenities/Amenities';
-import AddAmenity from './pages/admin/ProjectDetails/Amenities/AddAmenity';
-import EditAmenity from './pages/admin/ProjectDetails/Amenities/EditAmenity';
-import Gallery from './pages/admin/ProjectDetails/Gallery/Gallery';
-import AddGallery from './pages/admin/ProjectDetails/Gallery/AddGallery';
-import EditGallery from './pages/admin/ProjectDetails/Gallery/EditGallery';
-import Banks from './pages/admin/ProjectDetails/Banks/Banks';
-import AddBank from './pages/admin/ProjectDetails/Banks/AddBank';
-import EditBank from './pages/admin/ProjectDetails/Banks/EditBank';
-import ProjectFAQ from './pages/admin/ProjectDetails/FAQ/FAQ';
-import AddProjectFAQ from './pages/admin/ProjectDetails/FAQ/AddFAQ';
-import EditProjectFAQ from './pages/admin/ProjectDetails/FAQ/EditFAQ';
-import Disclaimers from './pages/admin/ProjectDetails/Disclaimers/Disclaimers';
-import AddDisclaimer from './pages/admin/ProjectDetails/Disclaimers/AddDisclaimer';
-import EditDisclaimer from './pages/admin/ProjectDetails/Disclaimers/EditDisclaimer';
-import Status from './pages/admin/ProjectDetails/Status/Status';
-import AddStatus from './pages/admin/ProjectDetails/Status/AddStatus';
-import EditStatus from './pages/admin/ProjectDetails/Status/EditStatus';
-import LocationInfo from './pages/admin/ProjectDetails/LocationInfo/LocationInfo';
-import AddLocationInfo from './pages/admin/ProjectDetails/LocationInfo/AddLocationInfo';
-import EditLocationInfo from './pages/admin/ProjectDetails/LocationInfo/EditLocationInfo';
-import MetaData from './pages/admin/MetaData/MetaData';
-import AddMetaData from './pages/admin/MetaData/AddMetaData';
-import EditMetaData from './pages/admin/MetaData/EditMetaData';
-import ProjectEnquiry from './pages/admin/Projects/ProjectEnquiry';
-import CSRBanners from './pages/admin/CSRBanners/CSRBanners';
-import AddCSRBanners from './pages/admin/CSRBanners/AddCSRBanners';
-import EditCSRBanners from './pages/admin/CSRBanners/EditCSRBanners';
-import AdminCSR from './pages/admin/CSR/CSR';
-import AddCSR from './pages/admin/CSR/AddCSR';
-import EditCSR from './pages/admin/CSR/EditCSR';
-import PrivacyPolicy from './pages/user/PrivacyPolicy';
-import TermsConditions from './pages/user/TermsConditions';
-
+const PageLoader = () => (
+  <div className="route-loader" role="status" aria-live="polite">
+    Loading...
+  </div>
+);
 const App = () => {
   return (
     <>
@@ -123,6 +117,7 @@ const App = () => {
 
                <ToastContainer position="top-right" style={{ marginTop: "70px" }} autoClose={3000} />
 
+         <Suspense fallback={<PageLoader />}>
          <Routes>
  
          <Route path='/' element={<Home />} />
@@ -271,6 +266,7 @@ const App = () => {
 
           </Route>
          </Routes>
+         </Suspense>
       </BrowserRouter>
     </>
   )

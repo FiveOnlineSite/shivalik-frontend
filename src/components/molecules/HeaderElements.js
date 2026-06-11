@@ -3,7 +3,7 @@ import emailjs from '@emailjs/browser';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MessageSquare, Phone } from 'react-feather';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../atoms/Icons';
 import styles from '../../style/Common.module.css';
 import SideNav from '../atoms/SideNav';
 import axios from "axios"

@@ -1,15 +1,18 @@
-import React, { Children } from 'react';
+import React, { Suspense, lazy } from 'react';
 import Header from '../organisms/Header';
-import Footer from '../organisms/Footer';
 
-const Layout = ({children}) => {
+const Footer = lazy(() => import('../organisms/Footer'));
+
+const Layout = ({ children }) => {
   return (
     <>
-    <Header />
+      <Header />
       {children}
-    <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

@@ -1,7 +1,6 @@
 import React from 'react';
 import homestyles from '../../style/Home.module.css';
-import HomeIcon from '@mui/icons-material/Home';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../atoms/Icons';
 import GradientLine from '../atoms/GradientLine';
 import styles from '../../style/Common.module.css';
 
