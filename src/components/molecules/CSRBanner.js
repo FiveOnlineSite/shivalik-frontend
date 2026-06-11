@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 
+import { assetUrl } from '../../utils/media';
 const CSRBanner = () => {
   const settings = {
     dots: true,
@@ -52,7 +53,7 @@ const CSRBanner = () => {
                 
                 {banner.mobile_image[0].filepath && (
                   <img
-                  src={banner.mobile_image[0].filepath}
+                  src={assetUrl(banner.mobile_image[0].filepath)}
                   className="img-fluid d-block d-sm-none mob-img" width='100%'
                   alt={banner.mobile_alt}
                 />
@@ -61,7 +62,7 @@ const CSRBanner = () => {
                 {banner.image[0].filepath && (
 
                 <img
-                  src={banner.image[0].filepath}
+                  src={assetUrl(banner.image[0].filepath)}
                   className="img-fluid d-none d-sm-block" width='100%'
                   alt={banner.alt}
                 />

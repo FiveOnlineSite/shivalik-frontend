@@ -7,6 +7,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
+import { assetUrl } from '../../utils/media';
 const ClientTieUps = () => {
   const settings = {
     dots: false,
@@ -59,7 +60,7 @@ const ClientTieUps = () => {
         <div key={bank._id} style={{ textAlign: "center" }}>
           {bank.image?.[0]?.filepath && (
             <img
-            src={bank.image?.[0]?.filepath}
+            src={assetUrl(bank.image?.[0]?.filepath)}
             alt={bank.alt}
             style={{ width: "100%", height: "auto"}}
           />

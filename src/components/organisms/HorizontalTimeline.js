@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 
+import { assetUrl } from '../../utils/media';
 const HorizontalTimeline = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const lineRef = useRef(null);
@@ -101,7 +102,7 @@ if (!projectStatus.length) return null;
           {activeStatus.images && activeStatus.images.map((image) => (   
           <div className="col-6 col-md-4 col-lg-3 mb-3" key={image._id}>
             {image.image?.[0]?.filepath && (
-            <img src={image.image?.[0]?.filepath} alt={image.alt} className="img-fluid rounded" />
+            <img src={assetUrl(image.image?.[0]?.filepath)} alt={image.alt} className="img-fluid rounded" />
             )}
           </div>
         ))}

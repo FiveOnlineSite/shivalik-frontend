@@ -1,3 +1,4 @@
+import { assetUrl } from '../../utils/media';
 // components/ProjectCard.jsx
 import React from 'react';
 import styles from '../../style/Common.module.css';
@@ -10,7 +11,7 @@ const ProjectByShivalik = ({
     <div className='col-lg-6 mb-5'>
       <div className={`${styles.projectPicture} position-relative mb-3`}>
         {item.image?.[0]?.filepath && (
-        <img src={item.image?.[0]?.filepath} width='100%' alt={item.alt} />
+        <img src={assetUrl(item.image?.[0]?.filepath)} width='100%' alt={item.alt} />
         )}
 
 {item.disclaimer && (

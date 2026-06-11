@@ -4,6 +4,7 @@ import styles from '../../style/Common.module.css';
 import { ArrowRightAlt } from '../atoms/Icons';
 import axios from 'axios';
 
+import { assetUrl } from '../../utils/media';
 const BlogListBox = () => {
 
   const [Blogs, setBlogs] = useState([]);
@@ -32,7 +33,7 @@ const BlogListBox = () => {
              <div className={`${styles.blogsmPack} position-relative`}>
            {blog.image[0].filepath && (
          <div className={homestyles.blogImg}>
-           <img src={blog.image[0].filepath} alt={blog.alt} width="100%" />
+           <img src={assetUrl(blog.image[0].filepath)} alt={blog.alt} width="100%" />
          </div>
            )}
          

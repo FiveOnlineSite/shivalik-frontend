@@ -10,6 +10,7 @@ import { use } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
+import { assetUrl } from '../../utils/media';
 const ProjectsTabSection = () => {
     
    const [shivalikHero, setShivalikHero] = useState(null);
@@ -82,7 +83,7 @@ const ProjectsTabSection = () => {
         <div className='col-lg-6'>
             <div className={`${styles.projectPicture} position-relative mb-3`}>
             {shivalikHero.image[0].filepath && (
-            <img src={shivalikHero.image[0].filepath} width='100%' alt={shivalikHero.alt} />
+            <img src={assetUrl(shivalikHero.image[0].filepath)} width='100%' alt={shivalikHero.alt} />
 
             )}
             {shivalikHero.disclaimer && (

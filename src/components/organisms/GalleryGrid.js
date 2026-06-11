@@ -1,3 +1,4 @@
+import { assetUrl } from '../../utils/media';
 // components/GalleryGrid.jsx
 import React, { useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
@@ -65,7 +66,7 @@ const GalleryGrid = () => {
                 >
                   {gallery.image?.[0]?.filepath && (
                     <img
-                      src={gallery.image[0].filepath}
+                      src={assetUrl(gallery.image[0].filepath)}
                       alt={gallery.alt || ""}
                     />
                   )}

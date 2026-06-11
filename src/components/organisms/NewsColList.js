@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import NewsBox from '../molecules/NewsBox';
 import { ArrowRightAlt, ChevronLeft, ChevronRight, CloseIcon } from '../atoms/Icons';
 
+import { assetUrl } from '../../utils/media';
 const NewsColList = ({ data }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [visibleCount, setVisibleCount] = useState(6);
@@ -29,7 +30,7 @@ const NewsColList = ({ data }) => {
       {selectedIndex !== null && (
         <div className="modal-overlay" onClick={handleClose}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <img src={allItems[selectedIndex].image[0].filepath} alt={allItems[selectedIndex].alt} className="modal-img" />
+            <img src={assetUrl(allItems[selectedIndex].image[0].filepath)} alt={allItems[selectedIndex].alt} className="modal-img" />
             <button className="prev-btn" onClick={handlePrev}><ChevronLeft /></button>
             <button className="next-btn" onClick={handleNext}><ChevronRight /></button>
             <button className="close-btn" onClick={handleClose}><CloseIcon /></button>

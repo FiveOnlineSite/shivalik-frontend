@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../style/Common.module.css';
+import { assetUrl, withCdnMedia } from '../../utils/media';
 
 const fallbackBanners = [
   {
@@ -19,7 +20,7 @@ const BannerContent = ({ banner, index }) => (
     <div className={styles.bannerImg}>
       {banner.mobile_image?.[0]?.filepath && (
         <img
-          src={banner.mobile_image?.[0]?.filepath}
+          src={assetUrl(banner.mobile_image?.[0]?.filepath)}
           className="img-fluid d-block d-sm-none mob-img"
           width="1440"
           height="650"
@@ -32,7 +33,7 @@ const BannerContent = ({ banner, index }) => (
 
       {banner.image?.[0]?.filepath && (
         <img
-          src={banner.image?.[0]?.filepath}
+          src={assetUrl(banner.image?.[0]?.filepath)}
           className="img-fluid d-none d-sm-block"
           width="1440"
           height="650"
@@ -76,7 +77,7 @@ const Banner = () => {
         const data = await response.json();
 
         if (Array.isArray(data.banners) && data.banners.length > 0) {
-          setHomeBanner(data.banners);
+          setHomeBanner(withCdnMedia(data.banners));
           setActiveIndex(0);
         }
       } catch (error) {

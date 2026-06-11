@@ -1,3 +1,4 @@
+import { assetUrl } from '../../utils/media';
 // import axios from 'axios';
 // import React, { useEffect, useState } from 'react';
 // import { Link } from 'react-router-dom';
@@ -32,7 +33,7 @@
 //          {news.image?.[0]?.filepath && (
           
 //           <img
-//             src={news.image?.[0]?.filepath}
+//             src={assetUrl(news.image?.[0]?.filepath)}
 //             alt={news.alt}
 //             onClick={() => onClick(index)}
 //             style={{ cursor: 'pointer' }}
@@ -84,7 +85,7 @@ const NewsBox = ({ item, index, onClick }) => {
         <div className="news-b-img position-relative">
           {item.image?.[0]?.filepath && (
             <img
-              src={item.image[0].filepath}
+              src={assetUrl(item.image[0].filepath)}
               alt={item.alt}
               onClick={() => onClick(index)}
               style={{ cursor: "pointer" }}
