@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../style/Common.module.css';
 import GradientLine from '../atoms/GradientLine';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../atoms/Icons';
 import ShivalikProjectList from '../organisms/ShivalikProjectList';
 import ProjectByPromoters from '../molecules/ProjectByPromoters';
 import PromotersProjectList from '../organisms/PromotersProjectList';

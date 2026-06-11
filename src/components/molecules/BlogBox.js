@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import homestyles from '../../style/Home.module.css';
 import styles from '../../style/Common.module.css';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../atoms/Icons';
 import axios from 'axios';
 
 const BlogBox = () => {

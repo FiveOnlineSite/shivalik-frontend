@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NewsBox from '../molecules/NewsBox';
 import axios from 'axios';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../atoms/Icons';
 
 const groupBy = (arr, key) =>
   arr.reduce((acc, item) => {

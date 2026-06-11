@@ -1,7 +1,7 @@
 // components/ProjectCard.jsx
 import React from 'react';
 import styles from '../../style/Common.module.css';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../atoms/Icons';
 
 const ProjectByShivalik = ({
   item, index
