@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../components/templates/Layout';
 import InnerBanner from '../../components/atoms/InnerBanner';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../../components/atoms/Icons';
 import GradientLine from '../../components/atoms/GradientLine';
 import homestyles from '../../style/Home.module.css';
 import styles from '../../style/Common.module.css';

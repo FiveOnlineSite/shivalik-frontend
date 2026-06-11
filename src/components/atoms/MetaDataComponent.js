@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 const MetaDataComponent = () => {
@@ -29,8 +28,8 @@ const MetaDataComponent = () => {
           page = "/home";
         }
 
-        const response = await axios.get(`${apiUrl}/api/meta-data/by-page${page}`);
-        const metaTag = response.data;
+        const response = await fetch(`${apiUrl}/api/meta-data/by-page${page}`);
+        const metaTag = await response.json();
 
         // Update <title>
         document.title = metaTag.metaTitle || "Default Title";

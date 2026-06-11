@@ -1,141 +1,121 @@
 import React, { useEffect, useState } from 'react';
-import Slider from 'react-slick';
 import styles from '../../style/Common.module.css';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import axios from 'axios';
+
+const fallbackBanners = [
+  {
+    _id: 'fallback-home-banner',
+    alt: 'Shivalik Ventures',
+    description: '',
+    image: [{ filepath: '/images/banner/banner1.jpg' }],
+    link: '',
+    mobile_alt: 'Shivalik Ventures',
+    mobile_image: [{ filepath: '/images/banner/banner1.jpg' }],
+    title: '',
+  },
+];
+
+const BannerContent = ({ banner, index }) => (
+  <div className={`${styles.bannerBox} position-relative`}>
+    <div className={styles.bannerImg}>
+      {banner.mobile_image?.[0]?.filepath && (
+        <img
+          src={banner.mobile_image?.[0]?.filepath}
+          className="img-fluid d-block d-sm-none mob-img"
+          width="1440"
+          height="650"
+          alt={banner.mobile_alt || banner.alt || 'Shivalik Ventures'}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          decoding={index === 0 ? 'sync' : 'async'}
+          fetchPriority={index === 0 ? 'high' : 'auto'}
+        />
+      )}
+
+      {banner.image?.[0]?.filepath && (
+        <img
+          src={banner.image?.[0]?.filepath}
+          className="img-fluid d-none d-sm-block"
+          width="1440"
+          height="650"
+          alt={banner.alt || 'Shivalik Ventures'}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          decoding={index === 0 ? 'sync' : 'async'}
+          fetchPriority={index === 0 ? 'high' : 'auto'}
+        />
+      )}
+    </div>
+    {(banner.title || banner.description) && (
+      <div className={`${styles.bannerText} text-center`}>
+        {banner.title && <h2>{banner.title}</h2>}
+        {banner.description && <div dangerouslySetInnerHTML={{ __html: banner.description }} />}
+      </div>
+    )}
+  </div>
+);
+
+const BannerSlide = ({ banner, index }) => {
+  if (banner.link) {
+    return (
+      <a href={banner.link}>
+        <BannerContent banner={banner} index={index} />
+      </a>
+    );
+  }
+
+  return <BannerContent banner={banner} index={index} />;
+};
 
 const Banner = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    fade: true,
-    cssEase: 'linear',
-    autoplay: true,
-    autoplaySpeed: 3000,
-    pauseOnHover: false, 
-  };
+  const [homeBanner, setHomeBanner] = useState(fallbackBanners);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // const banners = [
-  //   {
-  //     desktopImg: 'images/banner/banner1.jpg',
-  //     mobileImg: 'images/banner/banner1.jpg',
-  //     heading: "Homes Built for a Better Tomorrow",
-  //     text: 'More than just buildings—Shivalik projects are designed to elevate lives, foster communities, and create lasting memories.',
-  //   },
-  //   {
-  //     desktopImg: 'images/banner/banner2.jpg',
-  //     mobileImg: 'images/banner/banner2.jpg',
-  //     heading: "Homes Built for a Better Tomorrow",
-  //     text: 'More than just buildings—Shivalik projects are designed to elevate lives, foster communities, and create lasting memories.',
-  //   },
-  //   {
-  //     desktopImg: 'images/banner/project-detail-one.png',
-  //     mobileImg: 'images/banner/project-detail-one.png',
-  //     heading: "Homes Built for a Better Tomorrow",
-  //     text: 'More than just buildings—Shivalik projects are designed to elevate lives, foster communities, and create lasting memories.',
-  //   },
-  //   {
-  //     desktopImg: 'images/banner/banner4.jpg',
-  //     mobileImg: 'images/banner/banner4.jpg',
-  //     heading: "Homes Built for a Better Tomorrow",
-  //     text: 'More than just buildings—Shivalik projects are designed to elevate lives, foster communities, and create lasting memories.',
-  //   },
-  // ];
+  useEffect(() => {
+    const fetchHomeBanner = async () => {
+      try {
+        const apiUrl = process.env.REACT_APP_API_URL;
+        const response = await fetch(`${apiUrl}/api/home-banner`);
+        const data = await response.json();
 
-
-   const [homeBanner, setHomeBanner] = useState([])
-
-    useEffect(() => {
-      const fetchHomeBanner = async () => {
-        try {
-          const apiUrl = process.env.REACT_APP_API_URL;
-  
-          const response = await axios({
-            method: "GET",
-            baseURL: `${apiUrl}/api/`,
-            url: "home-banner",
-          });
-  
-          setHomeBanner(response.data.banners);
-          // console.log(response.data.news);
-          console.log("filepath", response.data.banners.banner[0].filepath);
-          // setHomeBanner(response.data.HomeBanner);
-        } catch (error) {
-          console.error("Error fetching Home Banner:", error);
+        if (Array.isArray(data.banners) && data.banners.length > 0) {
+          setHomeBanner(data.banners);
+          setActiveIndex(0);
         }
-      };
-  
-      fetchHomeBanner();
-    }, []);
+      } catch (error) {
+        console.error('Error fetching Home Banner:', error);
+      }
+    };
+
+    fetchHomeBanner();
+  }, []);
+
+  useEffect(() => {
+    if (homeBanner.length <= 1) return undefined;
+
+    const interval = window.setInterval(() => {
+      setActiveIndex((currentIndex) => (currentIndex + 1) % homeBanner.length);
+    }, 3000);
+
+    return () => window.clearInterval(interval);
+  }, [homeBanner.length]);
+
+  const activeBanner = homeBanner[activeIndex] || homeBanner[0];
 
   return (
     <section className="position-relative banner_Section">
-      <Slider {...settings}>
-        {homeBanner && homeBanner.map((banner) => (
-          <div key={banner._id}>
-            {banner.link && (
-              <a href={banner.link} >
-         <div className={`${styles.bannerBox} position-relative`}>
-              <div className={styles.bannerImg}>
-                {/* Mobile Image */}
-                {banner.mobile_image[0].filepath && (
-                  <img
-                  src={banner.mobile_image[0].filepath}
-                  className="img-fluid d-block d-sm-none mob-img" width='100%'
-                  alt={banner.mobile_alt}
-                />
-                )}
-                
-                {banner.image[0].filepath && (
-
-                <img
-                  src={banner.image[0].filepath}
-                  className="img-fluid d-none d-sm-block" width='100%'
-                  alt={banner.alt}
-                />
-                )}
-              </div>
-              <div className={`${styles.bannerText} text-center`}>
-                <h2>{banner.title}</h2>
-                <div dangerouslySetInnerHTML={{__html: banner.description}}></div>
-              </div>
-            </div>
-            </a>
-            )}
-            {banner.link === "" && (
-         <div className={`${styles.bannerBox} position-relative`}>
-              <div className={styles.bannerImg}>
-                {/* Mobile Image */}
-                {banner.mobile_image[0].filepath && (
-                  <img
-                  src={banner.mobile_image[0].filepath}
-                  className="img-fluid d-block d-sm-none mob-img" width='100%'
-                  alt={banner.mobile_alt}
-                />
-                )}
-                
-                {banner.image[0].filepath && (
-
-                <img
-                  src={banner.image[0].filepath}
-                  className="img-fluid d-none d-sm-block" width='100%'
-                  alt={banner.alt}
-                />
-                )}
-              </div>
-              <div className={`${styles.bannerText} text-center`}>
-                <h2>{banner.title}</h2>
-                <div dangerouslySetInnerHTML={{__html: banner.description}}></div>
-              </div>
-            </div>
-            )}
-            
-           
-          </div>
-        ))}
-      </Slider>
+      <BannerSlide banner={activeBanner} index={activeIndex} />
+      {homeBanner.length > 1 && (
+        <ul className="banner-dots" aria-label="Banner slides">
+          {homeBanner.map((banner, index) => (
+            <li key={banner._id || index}>
+              <button
+                type="button"
+                className={index === activeIndex ? 'active' : ''}
+                onClick={() => setActiveIndex(index)}
+                aria-label={`Show banner ${index + 1}`}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 };
