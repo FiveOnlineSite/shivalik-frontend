@@ -1,6 +1,6 @@
 import React from 'react';
 import ProjectByShivalik from '../molecules/ProjectByShivalik';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../atoms/Icons';
 import styles from '../../style/Common.module.css';
 
 const groupBy = (arr, key) =>

@@ -3,7 +3,7 @@
 // // import styles from '../EnquireForm.module.css'; // adjust if needed
 
 // import styles from '../../style/Common.module.css';
-// import { ArrowRightAlt } from '@mui/icons-material';
+// import { ArrowRightAlt } from './Icons';
 // const EnquireForm = () => {
     
 //   const [formData, setFormData] = useState({
@@ -82,7 +82,7 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from '../../style/Common.module.css';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from './Icons';
 import emailjs from 'emailjs-com';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';

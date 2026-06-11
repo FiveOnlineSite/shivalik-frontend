@@ -73,7 +73,7 @@ const Banner = () => {
   return (
     <section className="position-relative banner_Section">
       <Slider {...settings}>
-        {homeBanner && homeBanner.map((banner) => (
+        {homeBanner && homeBanner.map((banner, index) => (
           <div key={banner._id}>
             {banner.link && (
               <a href={banner.link} >
@@ -85,6 +85,9 @@ const Banner = () => {
                   src={banner.mobile_image[0].filepath}
                   className="img-fluid d-block d-sm-none mob-img" width='100%'
                   alt={banner.mobile_alt}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding={index === 0 ? "sync" : "async"}
+                  fetchPriority={index === 0 ? "high" : "auto"}
                 />
                 )}
                 
@@ -94,6 +97,9 @@ const Banner = () => {
                   src={banner.image[0].filepath}
                   className="img-fluid d-none d-sm-block" width='100%'
                   alt={banner.alt}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding={index === 0 ? "sync" : "async"}
+                  fetchPriority={index === 0 ? "high" : "auto"}
                 />
                 )}
               </div>
@@ -113,6 +119,9 @@ const Banner = () => {
                   src={banner.mobile_image[0].filepath}
                   className="img-fluid d-block d-sm-none mob-img" width='100%'
                   alt={banner.mobile_alt}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding={index === 0 ? "sync" : "async"}
+                  fetchPriority={index === 0 ? "high" : "auto"}
                 />
                 )}
                 
@@ -122,6 +131,9 @@ const Banner = () => {
                   src={banner.image[0].filepath}
                   className="img-fluid d-none d-sm-block" width='100%'
                   alt={banner.alt}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding={index === 0 ? "sync" : "async"}
+                  fetchPriority={index === 0 ? "high" : "auto"}
                 />
                 )}
               </div>
