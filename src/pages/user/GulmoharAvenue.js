@@ -607,7 +607,7 @@ const {name} = useParams()
                 <div className='col-lg-3 col-md-3 col-sm-3 col-4'><img src='/images/maharera.png' width='100%' /></div>
                 <div className='col-lg-6'>
                   <p className='mb-0'>RERA Registeration No.: {disclaimer.registration_no}</p>
-                  <p className=''><a href="maharerait.mahaonline.gov.in" className='text-dark text-decoration-none' target='_blank'>maharerait.mahaonline.gov.in</a></p>
+                  <p className=''><a href="https://maharerait.mahaonline.gov.in" className='text-dark text-decoration-none' target='_blank'>maharerait.mahaonline.gov.in</a></p>
                 </div>
               </div>
             </div>
