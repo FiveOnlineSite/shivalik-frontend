@@ -41,9 +41,9 @@ const Footer = () => {
             <div className={styles.socialIcon}>
               <ul className='d-flex'>
               <li><a href='https://www.youtube.com/channel/UCzGodQJIXPM4yUl4BHY1Hug' className='icon-you-one' target='_blank'><i className="fa-brands fa-youtube"></i></a></li>
-              <li><a href='https://www.facebook.com/shivalikventures/' target='_blank'><img src="/images/fb.svg" /></a></li>
-              <li><a href='https://www.instagram.com/shivalik_ventures/' target='_blank'><img src="/images/insta.svg" /></a></li>
-              <li><a href='https://www.linkedin.com/company/shivalik-ventures-1/' target='_blank'><img src="/images/linkedin.svg" /></a></li>
+              <li><a href='https://www.facebook.com/shivalikventures/' target='_blank'><img src="/images/fb.svg" alt="Shivalik facebook" /></a></li>
+              <li><a href='https://www.instagram.com/shivalik_ventures/' target='_blank'><img src="/images/insta.svg" alt="Shivalik instagram" /></a></li>
+              <li><a href='https://www.linkedin.com/company/shivalik-ventures-1/' target='_blank'><img src="/images/linkedin.svg" alt="Shivalik linkedin" /></a></li>
             </ul>
             </div>
           </div>

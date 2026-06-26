@@ -62,7 +62,7 @@ const AboutUs = () => {
         <div className=''>
             <div className='row align-items-center'>
                 <div className='col-lg-6'>
-                  <div className={`${homestyles.aboutImg} mb-3`}><img src='/images/about-img2.jpeg' width='100%' /></div>  
+                  <div className={`${homestyles.aboutImg} mb-3`}><img src='/images/about-img2.jpeg' width='100%' alt="Quality. Vision. Affordability. The Founders’ Promise" /></div>  
                 </div>
                 <div className='col-lg-6'>
                     <div className={`${homestyles.aboutText} ${styles.aboutText2}`}>
@@ -77,7 +77,7 @@ const AboutUs = () => {
                         <div className='row mt-5 pt-5'>
                       <div className='col-lg-6'>
                         <div className='row align-items-center'>
-                          <div className='col-lg-3 col-3'><img src='/images/vision.svg' width='100%' /></div>
+                          <div className='col-lg-3 col-3'><img src='/images/vision.svg' width='100%' alt="Vision" /></div>
                           <div className='col-lg-9 col-9'><h3>Vision</h3></div>
                           <div className='col-lg-12 mt-3'>
                             <p>To transform the City of Mumbai into a world-class metropolis</p>
@@ -86,7 +86,7 @@ const AboutUs = () => {
                       </div>
                       <div className='col-lg-6'>
                         <div className='row align-items-center'>
-                          <div className='col-lg-3 col-3'><img src='/images/mission.svg' width='100%' /></div>
+                          <div className='col-lg-3 col-3'><img src='/images/mission.svg' width='100%' alt="Mission" /></div>
                           <div className='col-lg-9 col-9'><h3>Mission</h3></div>
                           <div className='col-lg-12 mt-3'>
                             <p>Bring social upliftment through customer-centric approach.</p>
@@ -123,7 +123,7 @@ const AboutUs = () => {
         </div>
         <div className='row mt-3'>
           
-              <img src='/images/construction-company-mumbai-shivalik-ventures.png' width='100%' />
+              <img src='/images/construction-company-mumbai-shivalik-ventures.png' width='100%' alt="construction company mumbai shivalik ventures" />
         
         </div>
       </section>
