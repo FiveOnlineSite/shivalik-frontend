@@ -4,24 +4,24 @@ import axios from 'axios';
 import Odometer from 'odometer';
 import 'odometer/themes/odometer-theme-default.css';
 
-const Counters = () => {
-  const [counters, setCounters] = useState([]);
+const Counters = ({ counters = [] }) => {
+  // const [counters, setCounters] = useState([]);
   const odometerRefs = useRef({});
 
-  useEffect(() => {
-    const fetchCounters = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/counter`);
-        const counterData = response.data.counters;
-        setCounters(counterData);
-      } catch (error) {
-        console.error("Error fetching counters:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchCounters = async () => {
+  //     try {
+  //       const apiUrl = process.env.REACT_APP_API_URL;
+  //       const response = await axios.get(`${apiUrl}/api/counter`);
+  //       const counterData = response.data.counters;
+  //       setCounters(counterData);
+  //     } catch (error) {
+  //       console.error("Error fetching counters:", error);
+  //     }
+  //   };
 
-    fetchCounters();
-  }, []);
+  //   fetchCounters();
+  // }, []);
 
   useEffect(() => {
     // Initialize odometers when counters are loaded

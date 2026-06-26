@@ -2,9 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const BlogDetailFaqs = () => {
+const BlogDetailFaqs = ({BlogFAQContent = []}) => {
   const [activeId, setActiveId] = useState(""); 
-  const [BlogFAQContent, setBlogFAQContent] = useState([]);
+  
 
   const handleToggle = (id) => {
     setActiveId(prev => (prev === id ? '' : id));
@@ -12,25 +12,25 @@ const BlogDetailFaqs = () => {
 
   const { title } = useParams();
 
-  useEffect(() => {
-    const fetchFAQContent = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/blog-faq/blog/${title}`);
-        const blogFAQData = response.data.blogFaqs;
+  // useEffect(() => {
+  //   const fetchFAQContent = async () => {
+  //     try {
+  //       const apiUrl = process.env.REACT_APP_API_URL;
+  //       const response = await axios.get(`${apiUrl}/api/blog-faq/blog/${title}`);
+  //       const blogFAQData = response.data.blogFaqs;
 
-        setBlogFAQContent(blogFAQData);
+  //       setBlogFAQContent(blogFAQData);
 
-         if (blogFAQData.length > 0) {
-        setActiveId(blogFAQData[0]._id);
-      }
-      } catch (error) {
-        console.error('Error fetching blog faq content:', error);
-      }
-    };
+  //        if (blogFAQData.length > 0) {
+  //       setActiveId(blogFAQData[0]._id);
+  //     }
+  //     } catch (error) {
+  //       console.error('Error fetching blog faq content:', error);
+  //     }
+  //   };
 
-    fetchFAQContent();
-  }, [title]);
+  //   fetchFAQContent();
+  // }, [title]);
 
   const renderAccordion = (items, colKey) => (
     <div className="accordion" id={`accordionParent-${colKey}`}>

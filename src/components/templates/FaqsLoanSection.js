@@ -19,9 +19,9 @@ const groupByCategory = (array = []) => {
   }, {});
 };
 
-const FaqLoanSection = () => {
+const FaqLoanSection = ({FAQContent = []}) => {
   const [activeIds, setActiveIds] = useState(new Set());
-  const [FAQContent, setFAQContent] = useState([]);
+  // const [FAQContent, setFAQContent] = useState([]);
 
   const handleToggle = (id) => {
     setActiveIds((prev) => {
@@ -32,38 +32,50 @@ const FaqLoanSection = () => {
     });
   };
 
+  // useEffect(() => {
+  //   const fetchFAQContent = async () => {
+  //     try {
+  //       const apiUrl = process.env.REACT_APP_API_URL;
+  //       const response = await axios({
+  //         method: 'GET',
+  //         baseURL: `${apiUrl}/api/`,
+  //         url: 'faq-content',
+  //       });
+
+  //       const contents = response.data.Contents || [];
+  //       setFAQContent(contents);
+
+  //       if (contents.length > 0) {
+  //         // ✅ Group by category
+  //         const grouped = groupByCategory(contents);
+
+  //         // ✅ Collect first FAQ from each category
+  //         const firstFaqIds = Object.values(grouped).map(
+  //           ({ items }) => items[0]?._id
+  //         );
+
+  //         // ✅ Set them as initially active
+  //         setActiveIds(new Set(firstFaqIds.filter(Boolean)));
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching faq content:', error);
+  //     }
+  //   };
+
+  //   fetchFAQContent();
+  // }, []);
+
   useEffect(() => {
-    const fetchFAQContent = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios({
-          method: 'GET',
-          baseURL: `${apiUrl}/api/`,
-          url: 'faq-content',
-        });
+  if (FAQContent.length > 0) {
+    const grouped = groupByCategory(FAQContent);
 
-        const contents = response.data.Contents || [];
-        setFAQContent(contents);
+    const firstFaqIds = Object.values(grouped).map(
+      ({ items }) => items[0]?._id
+    );
 
-        if (contents.length > 0) {
-          // ✅ Group by category
-          const grouped = groupByCategory(contents);
-
-          // ✅ Collect first FAQ from each category
-          const firstFaqIds = Object.values(grouped).map(
-            ({ items }) => items[0]?._id
-          );
-
-          // ✅ Set them as initially active
-          setActiveIds(new Set(firstFaqIds.filter(Boolean)));
-        }
-      } catch (error) {
-        console.error('Error fetching faq content:', error);
-      }
-    };
-
-    fetchFAQContent();
-  }, []);
+    setActiveIds(new Set(firstFaqIds.filter(Boolean)));
+  }
+}, [FAQContent]);
 
   const grouped = FAQContent?.length ? groupByCategory(FAQContent) : {};
 

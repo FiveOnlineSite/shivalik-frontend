@@ -2,42 +2,49 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NewsColList from "../organisms/NewsColList";
 
-import { assetUrl } from '../../utils/media';
-const NewsTabsSection = () => {
+const NewsTabsSection = ({ newsItems = [] }) => {
  
-const [newsHero, setNewsHero] = useState(null);
-const [newsList, setNewsList] = useState([]);
+ const newsItemsFiltered = newsItems
+    .filter((i) => i.news_category === "News")
+    .sort((a, b) => a.sequence - b.sequence);
 
-const [worthyHero, setWorthyHero] = useState(null);
-const [worthyList, setWorthyList] = useState([]);
+  const worthyItemsFiltered = newsItems
+    .filter((i) => i.news_category === "Worthy Mentions")
+    .sort((a, b) => a.sequence - b.sequence);
 
-useEffect(() => {
-  const fetchNewsWorthy = async () => {
-    try {
-      const apiUrl = process.env.REACT_APP_API_URL;
-      const res = await axios.get(`${apiUrl}/api/news-worthy-mention`);
-      const all = res.data.NewsWorthyMentions;
+  const newsHero = newsItemsFiltered[0] || null;
+  const newsList = newsItemsFiltered.slice(1);
 
-      // Split by category
-      const newsItems = all.filter((i) => i.news_category === "News");
-      const worthyItems = all.filter((i) => i.news_category === "Worthy Mentions");
+  const worthyHero = worthyItemsFiltered[0] || null;
+  const worthyList = worthyItemsFiltered.slice(1);
 
-      // Sort by sequence
-      newsItems.sort((a, b) => a.sequence - b.sequence);
-      worthyItems.sort((a, b) => a.sequence - b.sequence);
+// useEffect(() => {
+//   const fetchNewsWorthy = async () => {
+//     try {
+//       const apiUrl = process.env.REACT_APP_API_URL;
+//       const res = await axios.get(`${apiUrl}/api/news-worthy-mention`);
+//       const all = res.data.NewsWorthyMentions;
 
-      // Take hero (seq 1) + the rest
-      setNewsHero(newsItems[0] || null);
-      setNewsList(newsItems.slice(1));
+//       // Split by category
+//       const newsItems = all.filter((i) => i.news_category === "News");
+//       const worthyItems = all.filter((i) => i.news_category === "Worthy Mentions");
 
-      setWorthyHero(worthyItems[0] || null);
-      setWorthyList(worthyItems.slice(1));
-    } catch (err) {
-      console.error("Error fetching news:", err);
-    }
-  };
-  fetchNewsWorthy();
-}, []);
+//       // Sort by sequence
+//       newsItems.sort((a, b) => a.sequence - b.sequence);
+//       worthyItems.sort((a, b) => a.sequence - b.sequence);
+
+//       // Take hero (seq 1) + the rest
+//       setNewsHero(newsItems[0] || null);
+//       setNewsList(newsItems.slice(1));
+
+//       setWorthyHero(worthyItems[0] || null);
+//       setWorthyList(worthyItems.slice(1));
+//     } catch (err) {
+//       console.error("Error fetching news:", err);
+//     }
+//   };
+//   fetchNewsWorthy();
+// }, []);
 
 
   return (
@@ -89,7 +96,7 @@ useEffect(() => {
                 <div className="award-card-container">
                   {newsHero.image[0].filepath && (
                   <img
-                    src={assetUrl(newsHero.image[0].filepath)}
+                    src={newsHero.image[0].filepath}
                     alt={newsHero.alt}
                     width="100%"
                     className="award-image"
@@ -126,7 +133,7 @@ useEffect(() => {
               {worthyHero && (
                 <div className="award-card-container">
                   <img
-                    src={assetUrl(worthyHero.image[0].filepath)}
+                    src={worthyHero.image[0].filepath}
                     alt={worthyHero.alt}
                     width="100%"
                     className="award-image"

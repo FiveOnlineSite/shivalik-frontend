@@ -1,73 +1,92 @@
-import React, { useEffect, useState } from 'react';
-import Layout from '../../components/templates/Layout';
-import styles from '../../style/Common.module.css';
-import BlogDetailFaqs from '../../components/molecules/BlogDetailFaqsOne';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import Layout from "../../components/templates/Layout";
+import styles from "../../style/Common.module.css";
+import BlogDetailFaqs from "../../components/molecules/BlogDetailFaqsOne";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import MetaDataComponent from "../../components/atoms/MetaDataComponent";
 
-
-import { assetUrl } from '../../utils/media';
 const BlogDetailOne = () => {
+  const [blog, setBlog] = useState(null);
+  const [BlogFAQContent, setBlogFAQContent] = useState([]);
+  const [metaData, setMetaData] = useState(null);
+  const [pageReady, setPageReady] = useState(false);
 
-  const [blog, setBlog] = useState([]);
+  const { title } = useParams();
 
-  const {title} = useParams()
-  
-       useEffect(() => {
-          const fetchBlogByTitle = async () => {
-            try {
-              const apiUrl = process.env.REACT_APP_API_URL;
-              const response = await axios.get(`${apiUrl}/api/blog/title/${title}`);
-              const blogData = response.data.blog;
-      
-              setBlog(blogData);
-           } catch (error) {
-              console.error("Error fetching blog:", error);
-            } 
-          };
-      
-          fetchBlogByTitle();
-        }, [title]);
+  useEffect(() => {
+    const fetchBlogPageData = async () => {
+      const apiUrl = process.env.REACT_APP_API_URL;
+
+      const [blogRes, faqRes] = await Promise.allSettled([
+        axios.get(`${apiUrl}/api/blog/title/${title}`),
+        axios.get(`${apiUrl}/api/blog-faq/blog/${title}`),
+      ]);
+
+      if (blogRes.status === "fulfilled") {
+        const blogData = blogRes.value.data.blog || null;
+        setBlog(blogData);
+        setMetaData(blogData);
+      }
+
+      if (faqRes.status === "fulfilled") {
+        setBlogFAQContent(faqRes.value.data.blogFaqs || []);
+      }
+
+      setPageReady(true);
+    };
+
+    if (title) fetchBlogPageData();
+  }, [title]);
 
   return (
     <Layout>
+      <MetaDataComponent metaData={metaData} />
 
-  {/* BLOG BANNER SECTION START */}
-  <section className='mb-3 mt-5'>
-    <div className='container'>
-      <div className='row'>
-        <div className='col-lg-12 mb-3'>
-          <h1>{blog.title}</h1>
-        </div>
-        <div className='col-lg-12'>
-          <div className={`${styles.blogInnerBanner} position-relative`}>
-           <div className='position-relative'>
-            {blog.image?.[0]?.filepath && (
-            <img src={assetUrl(blog.image?.[0]?.filepath)} width='100%' alt={blog.alt}/>
-            )}
+      {blog && (
+        <>
+          <section className="mb-3 mt-5">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-12 mb-3">
+                  <h1>{blog.title}</h1>
+                </div>
+
+                <div className="col-lg-12">
+                  <div className={`${styles.blogInnerBanner} position-relative`}>
+                    <div className="position-relative">
+                      {blog.image?.[0]?.filepath && (
+                        <img
+                          src={blog.image[0].filepath}
+                          width="100%"
+                          alt={blog.alt || blog.title || ""}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-           
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  {/* BLOG BANNER SECTION CLOSE */}
+          </section>
 
-  {/* BLOG DETAIL SECTION START */}
-    <section className={`${styles.blogDetailContent} mb-5`}>
-      <div className='container'>
-        <div className='row'>
-         <div className='col-lg-12' dangerouslySetInnerHTML={{__html: blog.content}}></div>
-        
-          <BlogDetailFaqs />
-        </div>
-      </div>
-    </section>
-  {/* BLOG DETAIL SECTION START */}
-  
- </Layout>
-  )
-}
+          <section className={`${styles.blogDetailContent} mb-5`}>
+            <div className="container">
+              <div className="row">
+                <div
+                  className="col-lg-12"
+                  dangerouslySetInnerHTML={{ __html: blog.content || "" }}
+                />
+
+                <BlogDetailFaqs BlogFAQContent={BlogFAQContent} />
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
+      {pageReady && <div id="react-snap-ready" style={{ display: "none" }} />}
+    </Layout>
+  );
+};
 
 export default BlogDetailOne;

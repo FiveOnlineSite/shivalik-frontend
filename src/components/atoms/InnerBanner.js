@@ -3,29 +3,32 @@ import styles from '../../style/Common.module.css';
 import GradientLine from './GradientLine';
 import axios from 'axios';
 import { assetUrl, withCdnMedia } from '../../utils/media';
+import {useLocation} from "react-router-dom"
 
-const InnerBanner = ({ page, gradient = 'white' }) => {
+const InnerBanner = ({ gradient = 'white', banner = null }) => {
 
   const gradientClass = 
     gradient === 'grey' ? styles.greyGradient :
     gradient === 'dark' ? styles.darkGradient :
     styles.whiteGradient;
 
-    const [banner, setBanner] = useState(null);
-       useEffect(() => {
-    const fetchBanner = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(
-          `${apiUrl}/api/banner/page/${page}`
-        );
-        setBanner(withCdnMedia(response.data.banner));
-      } catch (error) {
-        console.error("Error fetching Banner:", error);
-      }
-    };
-    fetchBanner();
-  }, [page]);
+    // const [banner, setBanner] = useState(null);
+  const location = useLocation();
+
+  //      useEffect(() => {
+  //   const fetchBanner = async () => {
+  //     try {
+  //       const apiUrl = process.env.REACT_APP_API_URL;
+  //       const response = await axios.get(
+  //         `${apiUrl}/api/banner/page${page}`
+  //       );
+  //       setBanner(response.data.banner);
+  //     } catch (error) {
+  //       console.error("Error fetching Banner:", error);
+  //     }
+  //   };
+  //   fetchBanner();
+  // }, [page]);
 
   if (!banner) return null;
 

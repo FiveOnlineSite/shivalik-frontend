@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Layout from '../../components/templates/Layout';
 import InnerBanner from '../../components/atoms/InnerBanner';
 import { ArrowRightAlt } from '../../components/atoms/Icons';
@@ -8,16 +8,53 @@ import styles from '../../style/Common.module.css';
 import AwardsSlider from '../../components/organisms/AwardsSlider';
 import { useLocation } from 'react-router-dom';
 import MetaDataComponent from "../../components/atoms/MetaDataComponent"
+import axios from 'axios';
 
 const AboutUs = () => {
 
     const location = useLocation();
     const currentPath = location.pathname;
+
+     const [awards, setAwards] = useState([])
+      const [pageReady, setPageReady] = useState(false);
+       const [banner, setBanner] = useState(null);
+          const [metaData, setMetaData] = useState(null);
+
+      useEffect(() => {
+        const fetchHomeData = async () => {
+          const apiUrl = process.env.REACT_APP_API_URL;
+    
+          const [awardRes, bannerRes, metaRes] =
+            await Promise.allSettled([
+              axios.get(`${apiUrl}/api/award`),
+              axios.get(`${apiUrl}/api/banner/page${currentPath}`),
+              axios.get(`${apiUrl}/api/meta-data/by-page${currentPath}`),
+            ]);
+    
+          if (awardRes.status === "fulfilled") {
+            setAwards(awardRes.value.data.awards || []);
+          }
+
+          if (metaRes.status === "fulfilled") {
+            setMetaData(metaRes.value.data || null);
+          }
+    
+          if (bannerRes.status === "fulfilled") {
+            setBanner(bannerRes.value.data.banner || null);
+          }
+    
+          setPageReady(true);
+        };
+    
+        fetchHomeData();
+      }, []);
+    
+
   return (
     <Layout>
-      <MetaDataComponent/>
+      <MetaDataComponent metaData={metaData}/>
       {/* ABOUT US BANNER SECTION START */}
-        <InnerBanner page={currentPath}/>
+        <InnerBanner banner={banner}/>
       {/* ABOUT US BANNER SECTION CLOSE */}
 
       {/* Quality. Vision. Affordability. The Founders’ Promise. section start */}
@@ -25,7 +62,7 @@ const AboutUs = () => {
         <div className=''>
             <div className='row align-items-center'>
                 <div className='col-lg-6'>
-                  <div className={`${homestyles.aboutImg} mb-3`}><img src='images/about-img2.jpeg' width='100%' /></div>  
+                  <div className={`${homestyles.aboutImg} mb-3`}><img src='/images/about-img2.jpeg' width='100%' /></div>  
                 </div>
                 <div className='col-lg-6'>
                     <div className={`${homestyles.aboutText} ${styles.aboutText2}`}>
@@ -40,7 +77,7 @@ const AboutUs = () => {
                         <div className='row mt-5 pt-5'>
                       <div className='col-lg-6'>
                         <div className='row align-items-center'>
-                          <div className='col-lg-3 col-3'><img src='images/vision.svg' width='100%' /></div>
+                          <div className='col-lg-3 col-3'><img src='/images/vision.svg' width='100%' /></div>
                           <div className='col-lg-9 col-9'><h3>Vision</h3></div>
                           <div className='col-lg-12 mt-3'>
                             <p>To transform the City of Mumbai into a world-class metropolis</p>
@@ -49,7 +86,7 @@ const AboutUs = () => {
                       </div>
                       <div className='col-lg-6'>
                         <div className='row align-items-center'>
-                          <div className='col-lg-3 col-3'><img src='images/mission.svg' width='100%' /></div>
+                          <div className='col-lg-3 col-3'><img src='/images/mission.svg' width='100%' /></div>
                           <div className='col-lg-9 col-9'><h3>Mission</h3></div>
                           <div className='col-lg-12 mt-3'>
                             <p>Bring social upliftment through customer-centric approach.</p>
@@ -86,7 +123,7 @@ const AboutUs = () => {
         </div>
         <div className='row mt-3'>
           
-              <img src='images/construction-company-mumbai-shivalik-ventures.png' width='100%' />
+              <img src='/images/construction-company-mumbai-shivalik-ventures.png' width='100%' />
         
         </div>
       </section>
@@ -120,11 +157,11 @@ const AboutUs = () => {
         </div>
 
         <div className=''>
-          <AwardsSlider />
+          <AwardsSlider awards={awards} />
         </div>
       </section>
       {/* Award and Recognition close */}
-
+{pageReady && <div id="react-snap-ready" style={{ display: "none" }} />}
     </Layout>
   )
 }

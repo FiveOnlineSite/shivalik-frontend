@@ -4,10 +4,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
 
-import { assetUrl } from '../../utils/media';
-const AwardsSlider = () => {
+const AwardsSlider = ({awards = []}) => {
 
-  const [awards, setAwards] = useState([])
+  // const [awards, setAwards] = useState([])
   // Image sets
   const itemsLTR = [
     "./images/awards/award1.jpg",
@@ -72,23 +71,23 @@ const AwardsSlider = () => {
     rtl: true, // Right to left direction
   };
 
-  useEffect(() => {
-      const fetchAwards = async () => {
-        try {
-          const apiUrl = process.env.REACT_APP_API_URL;
-          const response = await axios.get(`${apiUrl}/api/award`);
-          const AwardsData = response.data.awards;
+  // useEffect(() => {
+  //     const fetchAwards = async () => {
+  //       try {
+  //         const apiUrl = process.env.REACT_APP_API_URL;
+  //         const response = await axios.get(`${apiUrl}/api/award`);
+  //         const AwardsData = response.data.awards;
   
-          setAwards(AwardsData);
+  //         setAwards(AwardsData);
          
           
-        } catch (error) {
-          console.error("Error fetching awards:", error);
-        } 
-      };
+  //       } catch (error) {
+  //         console.error("Error fetching awards:", error);
+  //       } 
+  //     };
   
-      fetchAwards();
-    }, []);
+  //     fetchAwards();
+  //   }, []);
 
   return (
     <div className="awards-slider-wrapper mb-5">
@@ -99,7 +98,7 @@ const AwardsSlider = () => {
           {awards && awards.map((award) => (
             <div key={award._id} className="slide-item">
               {award.image[0].filepath && (
-              <img src={assetUrl(award.image[0].filepath)} alt={award.alt} style={{ width: "100%" }} />
+              <img src={award.image[0].filepath} alt={award.alt} style={{ width: "100%" }} />
 
               )}
             </div>
@@ -113,7 +112,7 @@ const AwardsSlider = () => {
         {awards && awards.map((award) => (    
             <div key={award._id} className="slide-item">
                {award.image[0].filepath && (
-              <img src={assetUrl(award.image[0].filepath)} alt={award.alt} style={{ width: "100%" }} />
+              <img src={award.image[0].filepath} alt={award.alt} style={{ width: "100%" }} />
                )}
             </div>
           ))}

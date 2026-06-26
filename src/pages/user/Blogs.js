@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import BlogListing from '../../components/organisms/BlogListing';
+import BlogListBox from '../../components/molecules/BlogListBox';
 import Layout from '../../components/templates/Layout';
 import styles from '../../style/Common.module.css';
 import MetaDataComponent from "../../components/atoms/MetaDataComponent"
@@ -9,63 +9,96 @@ import axios from "axios"
 const Blogs = () => {
 
   const {name} = useParams()
-  const {location} = useLocation()
+  const location = useLocation();
+      const currentPath = location.pathname;
   
-  useEffect(() => {
-    const fetchMetaTag = async () => {
-      // Add canonical tag
-      const canonicalUrl = `${window.location.origin}${window.location.pathname}`;
-      let linkCanonical = document.querySelector('link[rel="canonical"]');
-      if (linkCanonical) {
-        linkCanonical.setAttribute("href", canonicalUrl);
-      } else {
-        linkCanonical = document.createElement("link");
-        linkCanonical.rel = "canonical";
-        linkCanonical.href = canonicalUrl;
-        document.head.appendChild(linkCanonical);
-      }
 
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
+    const [Blogs, setBlogs] = useState([]);
+  
+  
+  // useEffect(() => {
+  //   const fetchMetaTag = async () => {
+  //     // Add canonical tag
+  //     const canonicalUrl = `${window.location.origin}${window.location.pathname}`;
+  //     let linkCanonical = document.querySelector('link[rel="canonical"]');
+  //     if (linkCanonical) {
+  //       linkCanonical.setAttribute("href", canonicalUrl);
+  //     } else {
+  //       linkCanonical = document.createElement("link");
+  //       linkCanonical.rel = "canonical";
+  //       linkCanonical.href = canonicalUrl;
+  //       document.head.appendChild(linkCanonical);
+  //     }
 
-        let page = location.pathname;
+  //     try {
+  //       const apiUrl = process.env.REACT_APP_API_URL;
 
-        const response = await axios.get(`${apiUrl}/api/blog/title/${name}`);
-        const metaTag = response.data.blog;
+  //       let page = location.pathname;
 
-        document.title = metaTag.metaTitle || "Default Title";
+  //       const response = await axios.get(`${apiUrl}/api/blog/title/${name}`);
+  //       const metaTag = response.data.blog;
 
-        let metaDescription = document.querySelector('meta[name="description"]');
-        if (metaDescription) {
-          metaDescription.setAttribute("content", metaTag.metaDescription || "");
-        } else {
-          metaDescription = document.createElement("meta");
-          metaDescription.name = "description";
-          metaDescription.content = metaTag.metaDescription || "";
-          document.head.appendChild(metaDescription);
-        }
+  //       document.title = metaTag.metaTitle || "Default Title";
 
-        let metaKeyword = document.querySelector('meta[name="keywords"]');
-        if (metaKeyword) {
-          metaKeyword.setAttribute("content", metaTag.metaKeyword || "");
-        } else {
-          metaKeyword = document.createElement("meta");
-          metaKeyword.name = "keywords"; 
-          metaKeyword.content = metaTag.metaKeyword || "";
-          document.head.appendChild(metaKeyword);
-        }
+  //       let metaDescription = document.querySelector('meta[name="description"]');
+  //       if (metaDescription) {
+  //         metaDescription.setAttribute("content", metaTag.metaDescription || "");
+  //       } else {
+  //         metaDescription = document.createElement("meta");
+  //         metaDescription.name = "description";
+  //         metaDescription.content = metaTag.metaDescription || "";
+  //         document.head.appendChild(metaDescription);
+  //       }
 
-      } catch (error) {
-        console.error("Error fetching meta tag:", error);
-      }
-    };
+  //       let metaKeyword = document.querySelector('meta[name="keywords"]');
+  //       if (metaKeyword) {
+  //         metaKeyword.setAttribute("content", metaTag.metaKeyword || "");
+  //       } else {
+  //         metaKeyword = document.createElement("meta");
+  //         metaKeyword.name = "keywords"; 
+  //         metaKeyword.content = metaTag.metaKeyword || "";
+  //         document.head.appendChild(metaKeyword);
+  //       }
 
-    fetchMetaTag();
-  }, [location]);
+  //     } catch (error) {
+  //       console.error("Error fetching meta tag:", error);
+  //     }
+  //   };
+
+  //   fetchMetaTag();
+  // }, [location]);
+
+  const [pageReady, setPageReady] = useState(false);
+          const [metaData, setMetaData] = useState(null);
+
+      useEffect(() => {
+        const fetchHomeData = async () => {
+          const apiUrl = process.env.REACT_APP_API_URL;
+    
+          const [blogRes, metaRes] =
+            await Promise.allSettled([
+              axios.get(`${apiUrl}/api/blog`),
+              axios.get(`${apiUrl}/api/meta-data/by-page${currentPath}`),
+            ]);
+    
+          if (blogRes.status === "fulfilled") {
+            setBlogs(blogRes.value.data.Blogs || []);
+          }
+
+          if (metaRes.status === "fulfilled") {
+            setMetaData(metaRes.value.data || null);
+          }
+    
+          setPageReady(true);
+        };
+    
+        fetchHomeData();
+      }, []);
+    
 
   return (
  <Layout>
-      <MetaDataComponent/>
+      <MetaDataComponent metaData={metaData} />
 
   {/* BLOG BANNER SECTION START */}
   <section className='mb-5 mt-5 pb-5'>
@@ -90,12 +123,13 @@ const Blogs = () => {
     <section>
       <div className='container'>
         <div className='row justify-content-center'>
-          <BlogListing />
+          <BlogListBox Blogs={Blogs} />
         </div>
       </div>
     </section>
   {/* BLOG LISTING SECTION START */}
   
+  {pageReady && <div id="react-snap-ready" style={{ display: "none" }} />}
  </Layout>
   )
 }

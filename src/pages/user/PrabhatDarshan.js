@@ -4,13 +4,7 @@ import styles from '../../style/Common.module.css';
 import GradientLine from '../../components/atoms/GradientLine';
 import homestyles from '../../style/Home.module.css';
 import { Download, Phone } from 'react-feather';
-import GalleryGrid from '../../components/organisms/GalleryGrid';
 import TestimonialsSection from '../../components/templates/TestimonialsSection'
-import ProjectDetFaqSection from '../../components/templates/ProjectDetFaqSection';
-import ClientTieUps from '../../components/organisms/ClientTieUps';
-import HorizontalTimeline from '../../components/organisms/HorizontalTimeline';
-import BlueprintTabs from '../../components/organisms/BlueprintTabs';
-import BrochureModal from '../../components/organisms/BrochureModel';
 import BlueprintPD from '../../components/organisms/BlueprintPD';
 import ProjectDetFaqSectionPD from '../../components/templates/ProjectDetFaqSectionPD';
 import ClientTieUpPD from '../../components/organisms/ClientTieUpPD';
@@ -20,6 +14,10 @@ import BrochureModelPD from '../../components/organisms/BrochureModelPD';
 const PrabhatDarshan = () => {
 
 const [showModal, setShowModal] = useState(false);
+
+const isReactSnap =
+  typeof navigator !== "undefined" &&
+  navigator.userAgent === "ReactSnap";
 
   return (
     <>
@@ -520,6 +518,7 @@ const [showModal, setShowModal] = useState(false);
               </div>
             </div> */}
             <div className='col-lg-12'>
+              {!isReactSnap && (
               <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.9119712395004!2d72.8420833!3d19.0676076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c91af6c87363%3A0x627ca347341d0b40!2sPrabhat%20Darshan%20Residential%20Shivalik%20Ventures!5e0!3m2!1sen!2sin!4v1751351522965!5m2!1sen!2sin"
                   width="100%"
@@ -530,6 +529,7 @@ const [showModal, setShowModal] = useState(false);
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Google Map"
                 />
+              )}
             </div>
           </div>
         </div>

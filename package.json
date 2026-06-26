@@ -12,6 +12,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@mui/icons-material": "^7.3.11",
     "@mui/material": "^7.1.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -25,6 +26,7 @@
     "highcharts-react-official": "^3.2.2",
     "lexkit": "^0.0.33",
     "odometer": "^0.4.8",
+    "puppeteer": "^1.20.0",
     "react": "^19.1.0",
     "react-apexcharts": "^1.7.0",
     "react-dom": "^19.1.0",
@@ -39,9 +41,43 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI=false react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postbuild": "react-snap"
+  },
+  "reactSnap": {
+    "include": [
+      "/",
+      "/about-us",
+      "/projects",
+      "/csr",
+      "/faqs",
+      "/emi-calculator",
+      "/stamp-duty-calculator",
+      "/news",
+      "/project/gulmohar-avenue",
+      "/project/prabhat-darshan",
+      "/blogs",
+      "/blog/bandras-best-kept-secret-luxury-living-on-a-budget",
+      "/blog/investing-in-bandras-future-affordable-luxury-homes-by-shivalik-ventures",
+      "/blog/a-guide-to-buying-your-first-affordable-home-in-mumbai",
+      "/blog/top-10-reasons-to-buy-a-home-in-bandra",
+      "/blog/get-your-dream-home-in-mumbai-how-to-secure-the-right-home-loan",
+      "/blog/no-more-renting-how-to-use-home-loans-to-transition-to-mumbai-homeownership",
+      "/contact-us",
+      "/terms-and-conditions",
+      "/privacy-policy"
+    ],
+    "crawl": false,
+    "skipThirdPartyRequests": false,
+    "inlineCss": false,
+    "waitFor": "#react-snap-ready",
+    "navigationTimeout": 120000,
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ]
   },
   "eslintConfig": {
     "extends": [
@@ -64,6 +100,10 @@
   "devDependencies": {
     "ajv": "^6.12.6",
     "ajv-keywords": "^3.5.2",
-    "html-webpack-plugin": "^5.6.4"
+    "html-webpack-plugin": "^5.6.4",
+    "react-snap": "^1.23.0"
+  },
+  "allowScripts": {
+    "puppeteer@1.20.0": true
   }
 }

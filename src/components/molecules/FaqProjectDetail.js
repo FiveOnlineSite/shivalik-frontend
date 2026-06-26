@@ -4,31 +4,31 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 
-const FaqProjectDetail = () => {
+const FaqProjectDetail = ({ FAQContent = [] }) => {
   const [activeId, setActiveId] = useState(null); // Default open itemYes
-  const [FAQContent, setFAQContent] = useState([]);
+  // const [FAQContent, setFAQContent] = useState([]);
 
   const {name} = useParams()
 
-  useEffect(() => {
+  // useEffect(() => {
   
-      const fetchProjectFeatures = async () => {
-        try {
-          const apiUrl = process.env.REACT_APP_API_URL;
-          const response = await axios.get(`${apiUrl}/api/faq/project/${name}`);
-          const ProjectFAQData = response.data.FAQs;
-          console.log("faq", ProjectFAQData)
-          setFAQContent(ProjectFAQData);
-           if (ProjectFAQData.length > 0) {
-        setActiveId(ProjectFAQData[0]._id);
-      }
-        } catch (error) {
-          console.error("Error fetching project faq:", error);
-        }
-      };
+  //     const fetchProjectFeatures = async () => {
+  //       try {
+  //         const apiUrl = process.env.REACT_APP_API_URL;
+  //         const response = await axios.get(`${apiUrl}/api/faq/project/${name}`);
+  //         const ProjectFAQData = response.data.FAQs;
+  //         console.log("faq", ProjectFAQData)
+  //         setFAQContent(ProjectFAQData);
+  //          if (ProjectFAQData.length > 0) {
+  //       setActiveId(ProjectFAQData[0]._id);
+  //     }
+  //       } catch (error) {
+  //         console.error("Error fetching project faq:", error);
+  //       }
+  //     };
   
-      fetchProjectFeatures();
-    }, [name]);
+  //     fetchProjectFeatures();
+  //   }, [name]);
 
   const handleToggle = (id) => {
     setActiveId(prev => (prev === id ? '' : id));
