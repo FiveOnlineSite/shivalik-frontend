@@ -71,24 +71,21 @@
 
 import React, { useEffect } from "react";
 
-const MetaDataComponent = ({ metaData = null }) => {
+const MetaDataComponent = ({ metaData = null, onReady }) => {
   useEffect(() => {
-    const canonicalUrl = `${window.location.origin}${window.location.pathname}`;
+    const path = window.location.pathname;
 
-    let linkCanonical = document.querySelector('link[rel="canonical"]');
+    const siteUrl = process.env.REACT_APP_SITE_URL
+    const canonicalUrl = `${siteUrl}${path}`;
 
-    if (!linkCanonical) {
-      linkCanonical = document.createElement("link");
-      linkCanonical.rel = "canonical";
-      document.head.appendChild(linkCanonical);
-    }
+    document
+      .querySelectorAll('link[rel="canonical"]')
+      .forEach((tag) => tag.remove());
 
-    linkCanonical.setAttribute("href", canonicalUrl);
-
-    if (!metaData) {
-      document.title = document.title || "Shivalik Ventures";
-      return;
-    }
+    const canonicalTag = document.createElement("link");
+    canonicalTag.rel = "canonical";
+    canonicalTag.href = canonicalUrl;
+    document.head.appendChild(canonicalTag);
 
     const title =
       metaData?.metaTitle ||
@@ -97,42 +94,38 @@ const MetaDataComponent = ({ metaData = null }) => {
 
     document.title = title;
 
-    let metaTitle = document.querySelector('meta[name="title"]');
+    const setMetaTag = (name, content) => {
+      let tag = document.querySelector(`meta[name="${name}"]`);
 
-    if (!metaTitle) {
-      metaTitle = document.createElement("meta");
-      metaTitle.name = "title";
-      document.head.appendChild(metaTitle);
-    }
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.name = name;
+        document.head.appendChild(tag);
+      }
 
-    metaTitle.setAttribute("content", title);
+      tag.setAttribute("content", content || "");
+    };
 
-    let metaDescription = document.querySelector('meta[name="description"]');
+    setMetaTag("title", title);
 
-    if (!metaDescription) {
-      metaDescription = document.createElement("meta");
-      metaDescription.name = "description";
-      document.head.appendChild(metaDescription);
-    }
-
-    metaDescription.setAttribute(
-      "content",
-      metaData?.metaDescription || metaData?.meta_description || ""
+    setMetaTag(
+      "description",
+      metaData?.metaDescription ||
+        metaData?.meta_description ||
+        "Shivalik Ventures is a trusted real estate developer in Mumbai."
     );
 
-    let metaKeyword = document.querySelector('meta[name="keywords"]');
-
-    if (!metaKeyword) {
-      metaKeyword = document.createElement("meta");
-      metaKeyword.name = "keywords";
-      document.head.appendChild(metaKeyword);
-    }
-
-    metaKeyword.setAttribute(
-      "content",
-      metaData?.metaKeyword || metaData?.meta_keyword || ""
+    setMetaTag(
+      "keywords",
+      metaData?.metaKeyword ||
+        metaData?.meta_keyword ||
+        "Shivalik Ventures, Real Estate Developers Mumbai"
     );
-  }, [metaData]);
+
+    if (typeof onReady === "function") {
+      onReady();
+    }
+  }, [metaData, onReady]);
 
   return null;
 };

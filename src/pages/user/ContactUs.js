@@ -19,6 +19,7 @@ const ContactUs = () => {
       const [pageReady, setPageReady] = useState(false);
           const [metaData, setMetaData] = useState(null);
           const [banner, setBanner] = useState(null);
+const [metaReady, setMetaReady] = useState(false);
 
       useEffect(() => {
   const fetchContactPageData = async () => {
@@ -49,7 +50,7 @@ const ContactUs = () => {
     
   return (
    <Layout>
-      <MetaDataComponent metaData={metaData} />
+      <MetaDataComponent metaData={metaData} onReady={() => setMetaReady(true)}/>
 
     {/* Contact us BANNER SECTION START */}
         <InnerBanner banner={banner} />
@@ -122,8 +123,9 @@ const ContactUs = () => {
        
     </section>
 
-    {pageReady && <div id="react-snap-ready" style={{ display: "none" }} />}
-   </Layout>
+   {pageReady && metaReady && (
+  <div id="react-snap-ready" style={{ display: "none" }} />
+)} </Layout>
   )
 }
 

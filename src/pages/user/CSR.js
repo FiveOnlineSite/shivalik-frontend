@@ -15,6 +15,7 @@ const CSR = () => {
       const [metaData, setMetaData] = useState(null);
       const [CSR, setCSR] = useState([]);
       const [pageReady, setPageReady] = useState(false);
+const [metaReady, setMetaReady] = useState(false);
 
 
        useEffect(() => {
@@ -48,7 +49,7 @@ if (csrRes.status === "fulfilled") {
 
   return (
     <Layout>
-      <MetaDataComponent metaData={metaData} />
+      <MetaDataComponent metaData={metaData} onReady={() => setMetaReady(true)}/>
 
       {/* CSR BANNER SECTION START */}
                 <CSRBanner csrBanner={csrBanner} />
@@ -70,8 +71,9 @@ if (csrRes.status === "fulfilled") {
     </div>
       </section>
     
-    {pageReady && <div id="react-snap-ready" style={{ display: "none" }} />}
-    </Layout>
+   {pageReady && metaReady && (
+  <div id="react-snap-ready" style={{ display: "none" }} />
+)} </Layout>
   )
 }
 
