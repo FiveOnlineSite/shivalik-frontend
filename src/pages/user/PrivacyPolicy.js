@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from '../../style/Common.module.css';
 import GradientLine from './../../components/atoms/GradientLine';
 import Layout from '../../components/templates/Layout';
-import MetaDataComponent from '../../components/atoms/MetaDataComponent';
-
+import { useLocation } from 'react-router-dom';
+import MetaDataComponent from "../../components/atoms/MetaDataComponent"
+import axios from 'axios';
 const PrivacyPolicy = ({ gradient = 'white' }) => {
 
   const gradientClass = 
@@ -11,10 +12,34 @@ const PrivacyPolicy = ({ gradient = 'white' }) => {
     gradient === 'dark' ? styles.darkGradient :
     styles.whiteGradient;
 
+const location = useLocation();
+    const currentPath = location.pathname;
+
+      const [pageReady, setPageReady] = useState(false);
+     const [metaData, setMetaData] = useState(null);
+
+ useEffect(() => {
+        const fetchHomeData = async () => {
+          const apiUrl = process.env.REACT_APP_API_URL;
+    
+          const [metaRes] =
+            await Promise.allSettled([
+              axios.get(`${apiUrl}/api/meta-data/by-page${currentPath}`),
+            ]);
+
+          if (metaRes.status === "fulfilled") {
+            setMetaData(metaRes.value.data || null);
+          }
+    
+          setPageReady(true);
+        };
+    
+        fetchHomeData();
+      }, []);
 
   return (
     <Layout>
-         <MetaDataComponent/>
+         <MetaDataComponent metaData={metaData}/>
      <section className={`${styles.innerBannerSection} ${gradientClass} position-relative`}>
       
         <div className='inner-banner row'>
@@ -118,6 +143,8 @@ const PrivacyPolicy = ({ gradient = 'white' }) => {
         </div>
       </div>
     </section>
+    {pageReady && <div id="react-snap-ready" style={{ display: "none" }} />}
+  
     </Layout>
   );
 }

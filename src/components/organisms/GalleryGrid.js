@@ -1,8 +1,8 @@
+import { assetUrl } from '../../utils/media';
 // components/GalleryGrid.jsx
 import React, { useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import { ArrowRightAlt } from '@mui/icons-material';
 import styles from '../../style/Common.module.css';
 import GradientLine from '../atoms/GradientLine';
 
@@ -66,7 +66,7 @@ const GalleryGrid = ({ projectGallery = [] }) => {
                 >
                   {gallery.image?.[0]?.filepath && (
                     <img
-                      src={gallery.image[0].filepath}
+                      src={assetUrl(gallery.image[0].filepath)}
                       alt={gallery.alt || ""}
                     />
                   )}

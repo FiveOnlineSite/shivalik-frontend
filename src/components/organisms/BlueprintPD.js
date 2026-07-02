@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../style/Common.module.css';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../atoms/Icons';
 import emailjs from 'emailjs-com';
 
 const plans = [

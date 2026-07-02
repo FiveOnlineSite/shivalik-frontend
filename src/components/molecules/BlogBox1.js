@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import homestyles from '../../style/Home.module.css';
 import styles from '../../style/Common.module.css';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../atoms/Icons';
 import axios from 'axios';
 
+import { assetUrl } from '../../utils/media';
 const BlogBox = () => {
 
     const [Blogs, setBlogs] = useState([]);
@@ -33,7 +34,7 @@ const BlogBox = () => {
       <div className={`${homestyles.blogPack} position-relative`}>
         {blog.image[0].filepath && (
       <div className={homestyles.blogImg1}>
-        <img src={blog.image[0].filepath} alt={blog.alt} width="100%" />
+        <img src={assetUrl(blog.image[0].filepath)} alt={blog.alt} width="100%" />
       </div>
         )}
       

@@ -39,7 +39,7 @@ const isReactSnap =
                 <img src='images/qr-code.png' width='100%' />
               </div> */}
               <div className='col-lg-3 col-md-4 mb-3 mt-3'>
-                <img src='images/maharera.png' width='100%' />
+                <img src='images/maharera.png' width='100%' alt="Maharera"  />
               </div>
               <div className='col-lg-12 mt-5 pt-5 ps-lg-3 ps-2'>
                 <h1 className={styles.projectDetTitle}>Prabhat <span>Darshan</span></h1>
@@ -601,7 +601,7 @@ const isReactSnap =
             <div className='col-lg-5'>
               <div className='row'>
                 <div className='col-lg-2 col-6'><img src='images/qr-code.png' width='100%' /></div>
-                <div className='col-lg-2 col-6'><img src='images/maharera.png' width='100%' /></div>
+                <div className='col-lg-2 col-6'><img src='images/maharera.png' width='100%' alt="Maharera"  /></div>
                 <div className='col-lg-8'>
                   <p className='mb-0'>RERA Registeration No.: P51800002608</p>
                   <p className=''><a href="maharerait.mahaonline.gov.in" className='text-dark text-decoration-none' target='_blank'>maharerait.mahaonline.gov.in</a></p>

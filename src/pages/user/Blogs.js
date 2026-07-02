@@ -70,7 +70,6 @@ const Blogs = () => {
 
   const [pageReady, setPageReady] = useState(false);
           const [metaData, setMetaData] = useState(null);
-const [metaReady, setMetaReady] = useState(false);
 
       useEffect(() => {
         const fetchHomeData = async () => {
@@ -99,7 +98,7 @@ const [metaReady, setMetaReady] = useState(false);
 
   return (
  <Layout>
-      <MetaDataComponent metaData={metaData} onReady={() => setMetaReady(true)} />
+      <MetaDataComponent metaData={metaData} />
 
   {/* BLOG BANNER SECTION START */}
   <section className='mb-5 mt-5 pb-5'>
@@ -130,9 +129,8 @@ const [metaReady, setMetaReady] = useState(false);
     </section>
   {/* BLOG LISTING SECTION START */}
   
- {pageReady && metaReady && (
-  <div id="react-snap-ready" style={{ display: "none" }} />
-)}</Layout>
+  {pageReady && <div id="react-snap-ready" style={{ display: "none" }} />}
+ </Layout>
   )
 }
 

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../atoms/Icons';
 import styles from '../../style/Common.module.css';
 import axios from "axios"
 import { ToastContainer, toast } from 'react-toastify';

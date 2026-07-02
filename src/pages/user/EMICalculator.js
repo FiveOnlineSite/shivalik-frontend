@@ -11,7 +11,6 @@ const location = useLocation();
         const currentPath = location.pathname;
    const [pageReady, setPageReady] = useState(false);
             const [metaData, setMetaData] = useState(null);
-  const [metaReady, setMetaReady] = useState(false);
   
         useEffect(() => {
           const fetchHomeData = async () => {
@@ -35,13 +34,13 @@ const location = useLocation();
 
   return (
     <Layout>
-      <MetaDataComponent metaData={metaData} onReady={() => setMetaReady(true)}/>
+      <MetaDataComponent metaData={metaData}/>
 
       <EMICalculatorBox />
 
-    {pageReady && metaReady && (
+    {pageReady && 
   <div id="react-snap-ready" style={{ display: "none" }} />
-)}</Layout>
+}</Layout>
   )
 }
 

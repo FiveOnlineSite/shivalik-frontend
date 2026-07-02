@@ -23,6 +23,7 @@ const EditHighlight = () => {
       filepath: "",
     },
     project: "",
+     disclaimer: "",
   });
 
   useEffect(() => {
@@ -58,6 +59,8 @@ setProjects(filtered);
           alt: highlightData.alt,
     
           title: highlightData.title,
+          disclaimer: highlightData.disclaimer || "",
+
           image: {
             file: highlightData.image?.[0]?.filename || "",
             filepath: highlightData.image?.[0]?.filepath || "",
@@ -130,6 +133,7 @@ setProjects(filtered);
       formDataToSend.append("image", formData.image.file);
     }
     formDataToSend.append("project", formData.project);
+    formDataToSend.append("disclaimer", formData.disclaimer || "");
 
     await axios.patch(`${apiUrl}/api/highlight/${id}`, formDataToSend, 
         {
@@ -251,6 +255,18 @@ setProjects(filtered);
                   value={formData.alt}
                   required
                   onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className="col-lg-6 col-md-6 col-sm-12 col-12">
+              <div className="theme-form">
+                <label>Disclaimer</label>
+                <input
+                  type="text"
+                  name="disclaimer"
+                  value={formData.disclaimer}
+                   onChange={handleChange}
                 />
               </div>
             </div>

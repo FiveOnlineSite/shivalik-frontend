@@ -1,7 +1,6 @@
 import React from 'react';
 import homestyles from '../../style/Home.module.css';
-import HomeIcon from '@mui/icons-material/Home';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../atoms/Icons';
 import GradientLine from '../atoms/GradientLine';
 import styles from '../../style/Common.module.css';
 
@@ -11,7 +10,7 @@ const AboutUsSection1 = () => {
         <div className=''>
             <div className='row align-items-center'>
                 <div className='col-lg-6'>
-                  <div className={`${homestyles.aboutImg1} mb-3`}><img src='images/about-img1.png' width='100%' /></div>  
+                  <div className={`${homestyles.aboutImg1} mb-3`}><img src='images/about-img1.png' width='100%' alt="shivalik-image" /></div>  
                 </div>
                 <div className='col-lg-6'>
                     <div className={homestyles.aboutText}>

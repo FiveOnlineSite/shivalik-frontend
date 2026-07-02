@@ -2,7 +2,7 @@ import React from 'react';
 import homestyles from '../../style/Home.module.css';
 import GradientLine from '../atoms/GradientLine';
 import styles from '../../style/Common.module.css';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../atoms/Icons';
 
 const ProjectsSection = () => {
   return (
@@ -20,7 +20,7 @@ const ProjectsSection = () => {
         <div className='row align-items-end'>
         <div className='col-lg-6 mb-3'>
                 <div className={homestyles.highlightProject}>
-                    <img src='/images/gulmohar-home.png' width='100%' />
+                    <img src='/images/gulmohar-home.png' width='100%' alt="Gulmohar Avenue" />
                 </div>
             </div>
             <div className='col-lg-6 mb-3'>
@@ -40,7 +40,7 @@ const ProjectsSection = () => {
         <div className='row row-reverse align-items-end mb-5 align-bottom-section'>
         <div className='col-lg-6 mb-3 h-100'>
                 <div className={homestyles.highlightProject}>
-                    <img src='/images/prabhat-home.png' width='100%' />
+                    <img src='/images/prabhat-home.png' width='100%' alt="Prabhat Darshan"/>
                 </div>
             </div>
             <div className='col-lg-6 mb-3 h-100 d-flex flex-column justify-content-end'>

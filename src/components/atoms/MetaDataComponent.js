@@ -71,21 +71,33 @@
 
 import React, { useEffect } from "react";
 
-const MetaDataComponent = ({ metaData = null, onReady }) => {
+// const SITE_URL = "https://www.shivalikventures.com";
+
+const MetaDataComponent = ({ metaData = null }) => {
   useEffect(() => {
-    const path = window.location.pathname;
 
-    const siteUrl = process.env.REACT_APP_SITE_URL
-    const canonicalUrl = `${siteUrl}${path}`;
+    const path = window.location.pathname === "/" 
+      ? "/" 
+      : window.location.pathname.replace(/\/$/, "");
 
-    document
-      .querySelectorAll('link[rel="canonical"]')
-      .forEach((tag) => tag.remove());
+    // const canonicalUrl = `${window.location.origin}${window.location.pathname}`;
+    const canonicalUrl = `${process.env.REACT_APP_SITE_URL}${path}`;
 
-    const canonicalTag = document.createElement("link");
-    canonicalTag.rel = "canonical";
-    canonicalTag.href = canonicalUrl;
-    document.head.appendChild(canonicalTag);
+
+    let linkCanonical = document.querySelector('link[rel="canonical"]');
+
+    if (!linkCanonical) {
+      linkCanonical = document.createElement("link");
+      linkCanonical.rel = "canonical";
+      document.head.appendChild(linkCanonical);
+    }
+
+    linkCanonical.setAttribute("href", canonicalUrl);
+
+    if (!metaData) {
+      document.title = document.title || "Shivalik Ventures";
+      return;
+    }
 
     const title =
       metaData?.metaTitle ||
@@ -94,38 +106,42 @@ const MetaDataComponent = ({ metaData = null, onReady }) => {
 
     document.title = title;
 
-    const setMetaTag = (name, content) => {
-      let tag = document.querySelector(`meta[name="${name}"]`);
+    let metaTitle = document.querySelector('meta[name="title"]');
 
-      if (!tag) {
-        tag = document.createElement("meta");
-        tag.name = name;
-        document.head.appendChild(tag);
-      }
-
-      tag.setAttribute("content", content || "");
-    };
-
-    setMetaTag("title", title);
-
-    setMetaTag(
-      "description",
-      metaData?.metaDescription ||
-        metaData?.meta_description ||
-        "Shivalik Ventures is a trusted real estate developer in Mumbai."
-    );
-
-    setMetaTag(
-      "keywords",
-      metaData?.metaKeyword ||
-        metaData?.meta_keyword ||
-        "Shivalik Ventures, Real Estate Developers Mumbai"
-    );
-
-    if (typeof onReady === "function") {
-      onReady();
+    if (!metaTitle) {
+      metaTitle = document.createElement("meta");
+      metaTitle.name = "title";
+      document.head.appendChild(metaTitle);
     }
-  }, [metaData, onReady]);
+
+    metaTitle.setAttribute("content", title);
+
+    let metaDescription = document.querySelector('meta[name="description"]');
+
+    if (!metaDescription) {
+      metaDescription = document.createElement("meta");
+      metaDescription.name = "description";
+      document.head.appendChild(metaDescription);
+    }
+
+    metaDescription.setAttribute(
+      "content",
+      metaData?.metaDescription || metaData?.meta_description || ""
+    );
+
+    let metaKeyword = document.querySelector('meta[name="keywords"]');
+
+    if (!metaKeyword) {
+      metaKeyword = document.createElement("meta");
+      metaKeyword.name = "keywords";
+      document.head.appendChild(metaKeyword);
+    }
+
+    metaKeyword.setAttribute(
+      "content",
+      metaData?.metaKeyword || metaData?.meta_keyword || ""
+    );
+  }, [metaData]);
 
   return null;
 };

@@ -73,4 +73,3 @@ const ClientTieUps = ({ projectBanks = [] }) => {
 };
 
 export default ClientTieUps;
-

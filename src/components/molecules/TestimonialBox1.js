@@ -5,6 +5,7 @@ import styles1 from "../../style/Common.module.css";
 import axios from "axios";
 import Slider from "react-slick";
 
+import { assetUrl } from '../../utils/media';
 const TestimonialBox1 = () => {
   const settings = {
     dots: false,
@@ -60,7 +61,7 @@ const TestimonialBox1 = () => {
                     {testimonial.type === "image" &&
                       testimonial.media?.filepath && (
                         <img
-                          src={testimonial.media.filepath}
+                          src={assetUrl(testimonial.media.filepath)}
                           width="100%"
                           alt={testimonial.alt || ""}
                           className={`${styles1.testiImg1}`}
@@ -70,7 +71,7 @@ const TestimonialBox1 = () => {
                     {testimonial.type === "video" &&
                       testimonial.media?.filepath && (
                         <video
-                          src={testimonial.media.filepath}
+                          src={assetUrl(testimonial.media.filepath)}
                           width="100%"
                           muted
                           autoPlay

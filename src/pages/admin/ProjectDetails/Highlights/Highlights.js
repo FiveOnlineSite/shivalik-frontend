@@ -87,7 +87,7 @@ const Highlights = () => {
                     <th className="text-center">Title</th>
                     <th className="text-center">Image</th>
                     <th className="text-center">Alt</th>
-
+                    <th className="text-center">Disclaimer</th>
                     <th className="text-center">Edit</th>
                   </tr>
                 </thead>
@@ -111,6 +111,7 @@ const Highlights = () => {
                           )}
                         </td>
                         <td className="text-center"> {Highlights.alt}</td>
+                        <td className="text-center"> {Highlights.disclaimer}</td>
 
                         <td className="text-center">
                           <Link

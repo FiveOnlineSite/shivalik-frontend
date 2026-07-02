@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styles from '../../style/Common.module.css';
 import GradientLine from './GradientLine';
 import axios from 'axios';
-import { useParams, useLocation } from 'react-router-dom';
+import { assetUrl, withCdnMedia } from '../../utils/media';
+import {useLocation} from "react-router-dom"
 
 const InnerBanner = ({ gradient = 'white', banner = null }) => {
 
@@ -36,11 +37,11 @@ const InnerBanner = ({ gradient = 'white', banner = null }) => {
       
         <div className='inner-banner row'>
           {banner.image?.[0]?.filepath && (
-        <img className="d-lg-block d-none" src={banner.image?.[0]?.filepath} width='100%' alt={banner.alt} />
+        <img className="d-lg-block d-none" src={assetUrl(banner.image?.[0]?.filepath)} width='100%' alt={banner.alt} loading="eager" decoding="sync" fetchPriority="high" />
 
           )}
           {banner.mobile_image?.[0]?.filepath && (
-        <img className="d-lg-none d-block" src={banner.mobile_image?.[0]?.filepath} width='100%' alt={banner.mobile_alt} />
+        <img className="d-lg-none d-block" src={assetUrl(banner.mobile_image?.[0]?.filepath)} width='100%' alt={banner.mobile_alt} loading="eager" decoding="sync" fetchPriority="high" />
 
           )}
         <div className={`${styles.innerPageTitle}`}>

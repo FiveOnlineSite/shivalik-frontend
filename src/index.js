@@ -3,10 +3,7 @@ import { hydrateRoot, createRoot } from 'react-dom/client';
 import App from './App';
 
 import './style/style.css';
-import './style/admin.css';
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 const rootElement = document.getElementById('root');
 

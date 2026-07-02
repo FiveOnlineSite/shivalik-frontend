@@ -12,7 +12,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
-    "@mui/icons-material": "^7.1.0",
+    "@mui/icons-material": "^7.3.11",
     "@mui/material": "^7.1.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -26,6 +26,7 @@
     "highcharts-react-official": "^3.2.2",
     "lexkit": "^0.0.33",
     "odometer": "^0.4.8",
+    "puppeteer": "^1.20.0",
     "react": "^19.1.0",
     "react-apexcharts": "^1.7.0",
     "react-dom": "^19.1.0",
@@ -64,18 +65,20 @@
       "/blog/top-10-reasons-to-buy-a-home-in-bandra",
       "/blog/get-your-dream-home-in-mumbai-how-to-secure-the-right-home-loan",
       "/blog/no-more-renting-how-to-use-home-loans-to-transition-to-mumbai-homeownership",
-      "/contact-us"
-
+      "/contact-us",
+      "/terms-and-conditions",
+      "/privacy-policy"
     ],
     "crawl": false,
     "skipThirdPartyRequests": false,
     "inlineCss": false,
     "waitFor": "#react-snap-ready",
-     "navigationTimeout": 120000,
+    "navigationTimeout": 120000,
     "puppeteerArgs": [
       "--no-sandbox",
       "--disable-setuid-sandbox"
-    ]
+    ],
+    "saveAs": "html"
   },
   "eslintConfig": {
     "extends": [

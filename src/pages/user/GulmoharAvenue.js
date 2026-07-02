@@ -453,9 +453,12 @@ const isReactSnap =
       />
     )}
 
-    <span className="overlayText">
-      Artistic impression for representation purpose only
+{highlight.disclaimer && (
+<span className="overlayText">
+     {highlight.disclaimer}
     </span>
+)}
+    
 
     <h5>{highlight.title}</h5>
   </div>
@@ -645,10 +648,19 @@ const isReactSnap =
                 <div className='col-lg-3 col-md-3 col-sm-3 col-4'>
                   {disclaimer.qr?.[0]?.filepath && (<img src={disclaimer.qr?.[0]?.filepath} width='100%' alt={disclaimer.alt} />)}
                   </div>
-                <div className='col-lg-3 col-md-3 col-sm-3 col-4'><img src='/images/maharera.png' width='100%' /></div>
+                <div className='col-lg-3 col-md-3 col-sm-3 col-4'><img src='/images/maharera.png' width='100%' alt="Maharera" /></div>
                 <div className='col-lg-6'>
                   <p className='mb-0'>RERA Registeration No.: {disclaimer.registration_no}</p>
-                  <p className=''><a href="maharerait.mahaonline.gov.in" className='text-dark text-decoration-none' target='_blank'>maharerait.mahaonline.gov.in</a></p>
+                  <p>
+  <a
+    href="https://maharerait.mahaonline.gov.in"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-dark text-decoration-none"
+  >
+    maharerait.mahaonline.gov.in
+  </a>
+</p>
                 </div>
               </div>
             </div>

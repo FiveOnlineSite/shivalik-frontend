@@ -19,7 +19,7 @@ const AboutUs = () => {
       const [pageReady, setPageReady] = useState(false);
        const [banner, setBanner] = useState(null);
           const [metaData, setMetaData] = useState(null);
-const [metaReady, setMetaReady] = useState(false);
+
       useEffect(() => {
         const fetchHomeData = async () => {
           const apiUrl = process.env.REACT_APP_API_URL;
@@ -52,7 +52,7 @@ const [metaReady, setMetaReady] = useState(false);
 
   return (
     <Layout>
-      <MetaDataComponent metaData={metaData} onReady={() => setMetaReady(true)}/>
+      <MetaDataComponent metaData={metaData}/>
       {/* ABOUT US BANNER SECTION START */}
         <InnerBanner banner={banner}/>
       {/* ABOUT US BANNER SECTION CLOSE */}
@@ -161,9 +161,7 @@ const [metaReady, setMetaReady] = useState(false);
         </div>
       </section>
       {/* Award and Recognition close */}
-{pageReady && metaReady && (
-  <div id="react-snap-ready" style={{ display: "none" }} />
-)}
+{pageReady && <div id="react-snap-ready" style={{ display: "none" }} />}
     </Layout>
   )
 }
