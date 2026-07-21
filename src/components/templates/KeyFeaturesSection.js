@@ -16,19 +16,19 @@ const KeyFeaturesSection = () => {
                         <p>Each development is a reflection of our people-first approach and commitment to purposeful design. Because for us, building isn’t just about structures; it’s about shaping lives and nurturing communities </p>
                         <div className='row'>
                             <div className='col-lg-3 col-6 text-center'>
-                                <img src='images/quality-icon.svg' className='mb-3' />
+                                <img src='images/quality-icon.svg' className='mb-3' loading="lazy" decoding="async" />
                                 <p>Lasting Quality</p>
                             </div>
                             <div className='col-lg-3 col-6 text-center'>
-                            <img src='images/integrity-icon.svg' className='mb-3' />
+                            <img src='images/integrity-icon.svg' className='mb-3' loading="lazy" decoding="async" />
                             <p>Ethical Approach</p>
                             </div>
                             <div className='col-lg-3 col-6 text-center'>
-                            <img src='images/target-audience-icon.svg' className='mb-3' />
+                            <img src='images/target-audience-icon.svg' className='mb-3' loading="lazy" decoding="async" />
                             <p>Customer First</p>
                             </div>
                             <div className='col-lg-3 col-6 text-center'>
-                            <img src='images/legacy-icon.svg' className='mb-3' />
+                            <img src='images/legacy-icon.svg' className='mb-3' loading="lazy" decoding="async" />
                             <p>Legacy Driven</p>
                             </div>
                         </div>

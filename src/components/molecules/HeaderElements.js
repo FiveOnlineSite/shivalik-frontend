@@ -312,7 +312,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
       {/* modal popup enquiry */}
         <li><a href='tel:022 62727777' className={styles.feIcon}><Phone color='white' /></a></li>
-        <li><a href='https://wa.me/8291969925?text=Hi, I have been redirected from your website. I would like to understand your services.&utm_source=website&utm_medium=chat&utm_campaign=contact_us' target='_blank'><img src='/images/whatsapp.svg' alt="shivalik whatsapp" /></a></li>
+        <li><a href='https://wa.me/8291969925?text=Hi, I have been redirected from your website. I would like to understand your services.&utm_source=website&utm_medium=chat&utm_campaign=contact_us' target='_blank'><img src='/images/whatsapp.svg' alt="shivalik whatsapp" loading="lazy" decoding="async" /></a></li>
         <li>
         <SideNav />
         </li>

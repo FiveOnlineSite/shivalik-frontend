@@ -30,7 +30,7 @@ const NewsColList = ({ data }) => {
       {selectedIndex !== null && (
         <div className="modal-overlay" onClick={handleClose}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <img src={assetUrl(allItems[selectedIndex].image[0].filepath)} alt={allItems[selectedIndex].alt} className="modal-img" />
+            <img src={assetUrl(allItems[selectedIndex].image[0].filepath)} alt={allItems[selectedIndex].alt} className="modal-img" loading="lazy" decoding="async" />
             <button className="prev-btn" onClick={handlePrev}><ChevronLeft /></button>
             <button className="next-btn" onClick={handleNext}><ChevronRight /></button>
             <button className="close-btn" onClick={handleClose}><CloseIcon /></button>

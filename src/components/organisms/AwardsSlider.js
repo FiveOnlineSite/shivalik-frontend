@@ -98,7 +98,7 @@ const AwardsSlider = ({awards = []}) => {
           {awards && awards.map((award) => (
             <div key={award._id} className="slide-item">
               {award.image[0].filepath && (
-              <img src={award.image[0].filepath} alt={award.alt} style={{ width: "100%" }} />
+              <img src={award.image[0].filepath} alt={award.alt} style={{ width: "100%" }} loading="lazy" decoding="async" />
 
               )}
             </div>
@@ -112,7 +112,7 @@ const AwardsSlider = ({awards = []}) => {
         {awards && awards.map((award) => (    
             <div key={award._id} className="slide-item">
                {award.image[0].filepath && (
-              <img src={award.image[0].filepath} alt={award.alt} style={{ width: "100%" }} />
+              <img src={award.image[0].filepath} alt={award.alt} style={{ width: "100%" }} loading="lazy" decoding="async" />
                )}
             </div>
           ))}

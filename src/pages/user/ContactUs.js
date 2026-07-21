@@ -94,7 +94,7 @@ const ContactUs = () => {
                                             <li key={socialMedia._id}>
                                                 <a href={socialMedia.link} className='icon-you-one' rel='noreferrer' target='_blank'>
                                                 {socialMedia.icon?.[0]?.filepath && (
-                                                    <img src={socialMedia.icon?.[0]?.filepath} alt={socialMedia.alt} width="100px"/>
+                                                    <img src={socialMedia.icon?.[0]?.filepath} alt={socialMedia.alt} width="100px" loading="lazy" decoding="async"/>
                                                 )}
                                                 </a>
                                             </li>

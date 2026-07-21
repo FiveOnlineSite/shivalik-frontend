@@ -275,13 +275,13 @@ const isReactSnap =
           <div className='col-lg-12'>
             <div className='d-lg-block d-none desktop-banner'>
               {projectBanner.banner?.[0]?.filepath && (
-                <img src={projectBanner.banner?.[0]?.filepath} width='100%' alt={projectBanner.banner_alt} />
+                <img src={projectBanner.banner?.[0]?.filepath} width='100%' alt={projectBanner.banner_alt} fetchpriority="high" />
               )}
             </div>
 
             <div className='d-lg-none d-block  mobile-banner'>
               {projectBanner.mobile_banner?.[0]?.filepath && (
-                <img src={projectBanner.mobile_banner?.[0]?.filepath} width='100%' alt={projectBanner.mobile_banner_alt} />
+                <img src={projectBanner.mobile_banner?.[0]?.filepath} width='100%' alt={projectBanner.mobile_banner_alt} fetchpriority="high" />
               )}
             </div>
           </div>
@@ -349,6 +349,8 @@ const isReactSnap =
               src={about.image?.[0]?.filepath}
               width='100%'
               alt={about.image?.[0]?.alt}
+              loading="lazy"
+              decoding="async"
             />
           )}
           <span className='overlayText'>
@@ -394,7 +396,7 @@ const isReactSnap =
 
             <div className='col-lg-4 position-relative'>
               {content.image?.[0]?.filepath && (
-              <img className={`${styles.borderRadius} border-radius-left position-relative`} src={content.image?.[0]?.filepath} width='100%' alt={content.alt} />
+              <img className={`${styles.borderRadius} border-radius-left position-relative`} src={content.image?.[0]?.filepath} width='100%' alt={content.alt} loading="lazy" decoding="async" />
               )}
               <span className='overlayText'>
            Artistic impression for representation purpose only
@@ -410,7 +412,7 @@ const isReactSnap =
                   <div className={`${styles.iconsProjectList} row align-items-center g-0`}>
                         <div className='col-lg-2 col-2 pe-2'>
                           {feature.image?.[0]?.filepath && (
-                          <img src={feature.image?.[0]?.filepath} width="100%" alt={feature.alt} />
+                          <img src={feature.image?.[0]?.filepath} width="100%" alt={feature.alt} loading="lazy" decoding="async" />
                           )} 
                           
                         </div>
@@ -450,6 +452,8 @@ const isReactSnap =
         className="mb-1 position-relative"
         width="100%"
         alt={highlight.alt}
+        loading="lazy"
+        decoding="async"
       />
     )}
 
@@ -486,7 +490,7 @@ const isReactSnap =
                 <div className='row '>
                   <div className='col-lg-3 col-md-2 col-2'>
                     {amenities.image?.[0]?.filepath && (
-                    <img src={amenities.image?.[0]?.filepath} width="100%" alt={amenities.alt} />
+                    <img src={amenities.image?.[0]?.filepath} width="100%" alt={amenities.alt} loading="lazy" decoding="async" />
                     )} 
                   </div>
                   <div className='col-lg-9 col-md-10 col-10'>
@@ -646,9 +650,9 @@ const isReactSnap =
             <div className='col-lg-5'>
               <div className='row align-items-center'>
                 <div className='col-lg-3 col-md-3 col-sm-3 col-4'>
-                  {disclaimer.qr?.[0]?.filepath && (<img src={disclaimer.qr?.[0]?.filepath} width='100%' alt={disclaimer.alt} />)}
+                  {disclaimer.qr?.[0]?.filepath && (<img src={disclaimer.qr?.[0]?.filepath} width='100%' alt={disclaimer.alt} loading="lazy" decoding="async" />)}
                   </div>
-                <div className='col-lg-3 col-md-3 col-sm-3 col-4'><img src='/images/maharera.png' width='100%' alt="Maharera" /></div>
+                <div className='col-lg-3 col-md-3 col-sm-3 col-4'><img src='/images/maharera.png' width='100%' alt="Maharera" loading="lazy" decoding="async" /></div>
                 <div className='col-lg-6'>
                   <p className='mb-0'>RERA Registeration No.: {disclaimer.registration_no}</p>
                   <p>

@@ -83,7 +83,7 @@ const ProjectsTabSection = ({ projects = [] }) => {
         <div className='col-lg-6'>
             <div className={`${styles.projectPicture} position-relative mb-3`}>
             {shivalikHero.image[0].filepath && (
-            <img src={shivalikHero.image[0].filepath} width='100%' alt={shivalikHero.alt} />
+            <img src={shivalikHero.image[0].filepath} width='100%' alt={shivalikHero.alt} loading="lazy" decoding="async" />
 
             )}
             {shivalikHero.disclaimer && (

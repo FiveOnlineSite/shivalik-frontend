@@ -62,6 +62,8 @@ const ClientTieUps = ({ projectBanks = [] }) => {
             src={bank.image?.[0]?.filepath}
             alt={bank.alt}
             style={{ width: "100%", height: "auto"}}
+            loading="lazy"
+            decoding="async"
           />
           )}
           

@@ -10,7 +10,7 @@ const AboutUsSection = () => {
         <div className=''>
             <div className='row align-items-center'>
                 <div className='col-lg-6'>
-                  <div className={`${homestyles.aboutImg} mb-3`}><img src='images/about-img1.webp' width='100%' alt="shivalik image" /></div>  
+                  <div className={`${homestyles.aboutImg} mb-3`}><img src='images/about-img1.webp' width='100%' alt="shivalik image" loading="lazy" decoding="async" /></div>  
                 </div>
                 <div className='col-lg-6'>
                     <div className={homestyles.aboutText}>

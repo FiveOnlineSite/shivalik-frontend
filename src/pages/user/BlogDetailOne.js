@@ -60,6 +60,7 @@ const BlogDetailOne = () => {
                           src={blog.image[0].filepath}
                           width="100%"
                           alt={blog.alt || blog.title || ""}
+                          fetchpriority="high"
                         />
                       )}
                     </div>

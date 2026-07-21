@@ -61,6 +61,8 @@ const TestimonialBox = ({ testimonials = [] }) => {
                   src={testimonial.media.filepath}
                   width="100%"
                   alt={testimonial.alt || ""}
+                  loading="lazy"
+                  decoding="async"
                 />
               )}
 
@@ -80,7 +82,7 @@ const TestimonialBox = ({ testimonials = [] }) => {
 
           {/* Right: Text */}
           <div className="col-lg-7">
-            <img className="mb-3 pb-3" src="/images/Quotes.png" alt="quote" />
+            <img className="mb-3 pb-3" src="/images/Quotes.png" alt="quote" loading="lazy" decoding="async" />
 
             <div className={styles.testiText}>
               <div className={styles.testiInfo}>

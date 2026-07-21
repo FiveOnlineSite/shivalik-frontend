@@ -26,7 +26,7 @@ const BlogBox = ({Blogs = []}) => {
       <div className={`${homestyles.blogPack} position-relative`}>
         {blog.image[0].filepath && (
       <div className={homestyles.blogImg}>
-        <img src={blog.image[0].filepath} alt={blog.alt} width="100%" />
+        <img src={blog.image[0].filepath} alt={blog.alt} width="100%" loading="lazy" decoding="async" />
       </div>
         )}
       

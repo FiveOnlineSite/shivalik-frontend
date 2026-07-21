@@ -100,6 +100,8 @@ const NewsTabsSection = ({ newsItems = [] }) => {
                     alt={newsHero.alt}
                     width="100%"
                     className="award-image"
+                    loading="lazy"
+                    decoding="async"
                   />
                   )}
                   <div className="award-info-box">
@@ -137,6 +139,8 @@ const NewsTabsSection = ({ newsItems = [] }) => {
                     alt={worthyHero.alt}
                     width="100%"
                     className="award-image"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="award-info-box">
                     <h2 className="award-heading">

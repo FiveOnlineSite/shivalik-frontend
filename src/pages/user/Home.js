@@ -25,8 +25,6 @@ const Home = () => {
     const fetchHomeData = async () => {
       const apiUrl = process.env.REACT_APP_API_URL;
 
-     
-
       const [bannerRes, counterRes, testimonialRes, metaRes] =
         await Promise.allSettled([
           axios.get(`${apiUrl}/api/home-banner`),

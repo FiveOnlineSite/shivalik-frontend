@@ -100,7 +100,7 @@ if (!projectStatus.length) return null;
           {activeStatus.images && activeStatus.images.map((image) => (   
           <div className="col-6 col-md-4 col-lg-3 mb-3" key={image._id}>
             {image.image?.[0]?.filepath && (
-            <img src={image.image?.[0]?.filepath} alt={image.alt} className="img-fluid rounded" />
+            <img src={image.image?.[0]?.filepath} alt={image.alt} className="img-fluid rounded" loading="lazy" decoding="async" />
             )}
           </div>
         ))}

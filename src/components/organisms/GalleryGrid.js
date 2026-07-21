@@ -68,6 +68,8 @@ const GalleryGrid = ({ projectGallery = [] }) => {
                     <img
                       src={assetUrl(gallery.image[0].filepath)}
                       alt={gallery.alt || ""}
+                      loading="lazy"
+                      decoding="async"
                     />
                   )}
                   <span className="overlayText">
