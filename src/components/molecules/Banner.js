@@ -1,140 +1,107 @@
-import React, { useEffect, useState } from 'react';
-import Slider from 'react-slick';
-import styles from '../../style/Common.module.css';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import axios from 'axios';
+import React from "react";
+import Slider from "react-slick";
+import styles from "../../style/Common.module.css";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+const BannerContent = ({ banner, index }) => {
+  const desktopImage = banner?.image?.[0]?.filepath;
+  const mobileImage = banner?.mobile_image?.[0]?.filepath;
+
+  if (!desktopImage && !mobileImage) {
+    return null;
+  }
+
+  const isFirstSlide = index === 0;
+
+  return (
+    <div className={`${styles.bannerBox} position-relative`}>
+      <div className={styles.bannerImg}>
+        <picture>
+          {mobileImage && (
+            <source
+              media="(max-width: 575px)"
+              srcSet={mobileImage}
+            />
+          )}
+
+          <img
+            src={desktopImage || mobileImage}
+            alt={banner.alt || banner.mobile_alt || banner.title || ""}
+            className="img-fluid w-100"
+            width="1920"
+            height="900"
+            loading={isFirstSlide ? "eager" : "lazy"}
+            fetchPriority={isFirstSlide ? "high" : "auto"}
+            decoding="async"
+          />
+        </picture>
+      </div>
+
+      {(banner.title || banner.description) && (
+        <div className={`${styles.bannerText} text-center`}>
+          {banner.title && <h2>{banner.title}</h2>}
+
+          {banner.description && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: banner.description,
+              }}
+            />
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Banner = ({ banners = [] }) => {
+  if (!Array.isArray(banners) || banners.length === 0) {
+    return null;
+  }
+
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: banners.length > 1,
     speed: 500,
     fade: true,
-    cssEase: 'linear',
-    autoplay: true,
+    cssEase: "linear",
+    autoplay: banners.length > 1,
     autoplaySpeed: 3000,
-    pauseOnHover: false, 
+    pauseOnHover: false,
+    arrows: false,
+    lazyLoad: "ondemand",
+    slidesToShow: 1,
+    slidesToScroll: 1,
   };
-
-  // const banners = [
-  //   {
-  //     desktopImg: 'images/banner/banner1.jpg',
-  //     mobileImg: 'images/banner/banner1.jpg',
-  //     heading: "Homes Built for a Better Tomorrow",
-  //     text: 'More than just buildings—Shivalik projects are designed to elevate lives, foster communities, and create lasting memories.',
-  //   },
-  //   {
-  //     desktopImg: 'images/banner/banner2.jpg',
-  //     mobileImg: 'images/banner/banner2.jpg',
-  //     heading: "Homes Built for a Better Tomorrow",
-  //     text: 'More than just buildings—Shivalik projects are designed to elevate lives, foster communities, and create lasting memories.',
-  //   },
-  //   {
-  //     desktopImg: 'images/banner/project-detail-one.png',
-  //     mobileImg: 'images/banner/project-detail-one.png',
-  //     heading: "Homes Built for a Better Tomorrow",
-  //     text: 'More than just buildings—Shivalik projects are designed to elevate lives, foster communities, and create lasting memories.',
-  //   },
-  //   {
-  //     desktopImg: 'images/banner/banner4.jpg',
-  //     mobileImg: 'images/banner/banner4.jpg',
-  //     heading: "Homes Built for a Better Tomorrow",
-  //     text: 'More than just buildings—Shivalik projects are designed to elevate lives, foster communities, and create lasting memories.',
-  //   },
-  // ];
-
-
-  //  const [homeBanner, setHomeBanner] = useState([])
-
-    // useEffect(() => {
-    //   const fetchHomeBanner = async () => {
-    //     try {
-    //       const apiUrl = process.env.REACT_APP_API_URL;
-  
-    //       const response = await axios({
-    //         method: "GET",
-    //         baseURL: `${apiUrl}/api/`,
-    //         url: "home-banner",
-    //       });
-  
-    //       setHomeBanner(response.data.banners);
-    //       // console.log(response.data.news);
-    //       // console.log("filepath", response.data.banners.banner[0].filepath);
-    //       // setHomeBanner(response.data.HomeBanner);
-    //     } catch (error) {
-    //       console.error("Error fetching Home Banner:", error);
-    //     }
-    //   };
-  
-    //   fetchHomeBanner();
-    // }, []);
 
   return (
     <section className="position-relative banner_Section">
       <Slider {...settings}>
-        {banners && banners.map((banner) => (
-          <div key={banner._id}>
-            {banner.link && (
-              <a href={banner.link} >
-         <div className={`${styles.bannerBox} position-relative`}>
-              <div className={styles.bannerImg}>
-                {/* Mobile Image */}
-                {banner.mobile_image[0].filepath && (
-                  <img
-                  src={banner.mobile_image[0].filepath}
-                  className="img-fluid d-block d-sm-none mob-img" width='100%'
-                  alt={banner.mobile_alt}
-                />
-                )}
-                
-                {banner.image[0].filepath && (
+        {banners.map((banner, index) => {
+          const content = (
+            <BannerContent
+              banner={banner}
+              index={index}
+            />
+          );
 
-                <img
-                  src={banner.image[0].filepath}
-                  className="img-fluid d-none d-sm-block" width='100%'
-                  alt={banner.alt}
-                />
-                )}
-              </div>
-              <div className={`${styles.bannerText} text-center`}>
-                <h2>{banner.title}</h2>
-                <div dangerouslySetInnerHTML={{__html: banner.description}}></div>
-              </div>
+          return (
+            <div key={banner._id || index}>
+              {banner.link ? (
+                <a
+                  href={banner.link}
+                  aria-label={banner.title || "View details"}
+                >
+                  {content}
+                </a>
+              ) : (
+                content
+              )}
             </div>
-            </a>
-            )}
-            {banner.link === "" && (
-         <div className={`${styles.bannerBox} position-relative`}>
-              <div className={styles.bannerImg}>
-                {/* Mobile Image */}
-                {banner.mobile_image[0].filepath && (
-                  <img
-                  src={banner.mobile_image[0].filepath}
-                  className="img-fluid d-block d-sm-none mob-img" width='100%'
-                  alt={banner.mobile_alt}
-                />
-                )}
-                
-                {banner.image[0].filepath && (
-
-                <img
-                  src={banner.image[0].filepath}
-                  className="img-fluid d-none d-sm-block" width='100%'
-                  alt={banner.alt}
-                />
-                )}
-              </div>
-              <div className={`${styles.bannerText} text-center`}>
-                <h2>{banner.title}</h2>
-                <div dangerouslySetInnerHTML={{__html: banner.description}}></div>
-              </div>
-            </div>
-            )}
-            
-           
-          </div>
-        ))}
+          );
+        })}
       </Slider>
     </section>
   );
