@@ -106,7 +106,7 @@ const Blogs = () => {
       <div className='row'>
         <div className='col-lg-12'>
           <div className={`${styles.blogInnerBanner} position-relative`}>
-           <div className='position-relative'><img src='images/blog-list-banner.jpg' width='100%' fetchpriority="high" /></div>
+           <div className='position-relative'><img src='images/blog-list-banner.jpg' width='100%' fetchPriority="high" /></div>
            <div className={styles.blogInnerTitle}>
             <div className={styles.blogInTitleBox}>
               <h4>Shivalik Realty Blog – Homebuying Made Simple</h4>

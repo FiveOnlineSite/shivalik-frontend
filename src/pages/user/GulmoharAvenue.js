@@ -275,13 +275,13 @@ const isReactSnap =
           <div className='col-lg-12'>
             <div className='d-lg-block d-none desktop-banner'>
               {projectBanner.banner?.[0]?.filepath && (
-                <img src={projectBanner.banner?.[0]?.filepath} width='100%' alt={projectBanner.banner_alt} fetchpriority="high" />
+                <img src={projectBanner.banner?.[0]?.filepath} width='100%' alt={projectBanner.banner_alt} fetchPriority="high" />
               )}
             </div>
 
             <div className='d-lg-none d-block  mobile-banner'>
               {projectBanner.mobile_banner?.[0]?.filepath && (
-                <img src={projectBanner.mobile_banner?.[0]?.filepath} width='100%' alt={projectBanner.mobile_banner_alt} fetchpriority="high" />
+                <img src={projectBanner.mobile_banner?.[0]?.filepath} width='100%' alt={projectBanner.mobile_banner_alt} fetchPriority="high" />
               )}
             </div>
           </div>
@@ -537,18 +537,18 @@ const isReactSnap =
               <div className='row align-items-center'>
                  <div className='col-lg-5'>
               <div className={styles.placeDistance}>
-                <div class="table-responsive place-distance">
-  <table class="table align-middle">
+                <div className="table-responsive place-distance">
+  <table className="table align-middle">
     <thead>
       <tr>
-        <td class="align-top"><strong>Place</strong></td>
+        <td className="align-top"><strong>Place</strong></td>
         <td><strong>Distance</strong></td>
       </tr>
     </thead>
     <tbody>
       {location.info && location.info.map((info) => (
         <tr key={info._id}>
-        <td class="align-top">{info.place}</td>
+        <td className="align-top">{info.place}</td>
         <td>{info.distance}</td>
       </tr>
       ))}

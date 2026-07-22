@@ -50,19 +50,19 @@ const ProjectsTabSection = ({ projects = [] }) => {
 
   return (
     <section>
-      <div class="container">
-  <ul class="nav nav-pills mb-5 justify-content-center" id="pills-tab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button class="nav-link active position-relative" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Projects by Shivalik</button>
+      <div className="container">
+  <ul className="nav nav-pills mb-5 justify-content-center" id="pills-tab" role="tablist">
+    <li className="nav-item" role="presentation">
+      <button className="nav-link active position-relative" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Projects by Shivalik</button>
     </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link position-relative" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Projects by Promoters</button>
+    <li className="nav-item" role="presentation">
+      <button className="nav-link position-relative" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Projects by Promoters</button>
     </li>
   </ul>
 
-  <div class="tab-content" id="pills-tabContent">
+  <div className="tab-content" id="pills-tabContent">
 
-    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+    <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
         {/*  */}
       <div className='row mb-5'>
         <div className='col-lg-5'>
@@ -129,7 +129,7 @@ const ProjectsTabSection = ({ projects = [] }) => {
       <ShivalikProjectList data={shivalikList} />
     </div>
     {/* project by shivalik close */}
-    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+    <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
       {/*  */}
       <div className='row justify-content-center border-custom'>
               <ShivalikProjectList data={promotersList} />

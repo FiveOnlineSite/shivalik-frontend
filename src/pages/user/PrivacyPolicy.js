@@ -43,9 +43,9 @@ const location = useLocation();
      <section className={`${styles.innerBannerSection} ${gradientClass} position-relative`}>
       
         <div className='inner-banner row'>
-        <img className="d-lg-block d-none" src="./images/banner.jpg" width='100%' alt="privacy-policy-banner" fetchpriority="high" />
+        <img className="d-lg-block d-none" src="./images/banner.jpg" width='100%' alt="privacy-policy-banner" fetchPriority="high" />
 
-        <img className="d-lg-none d-block" src="./images/banner.jpg" width='100%' alt="privacy-policy-banner" fetchpriority="high" />
+        <img className="d-lg-none d-block" src="./images/banner.jpg" width='100%' alt="privacy-policy-banner" fetchPriority="high" />
 
         <div className={`${styles.innerPageTitle}`}>
           <GradientLine />
