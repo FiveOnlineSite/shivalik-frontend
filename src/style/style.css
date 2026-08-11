@@ -1,11 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&display=swap');
-
 @font-face {
     font-family: Helvetica;
     src: url('../fonts/helvetica/Helvetica.ttf');
+    font-display: swap;
 }
 
-body { margin:0; padding:0; overflow-x: hidden; }
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: Helvetica, Arial, sans-serif;
+}
 
 h1,h2,h3{margin: 0;font-family: "Abhaya Libre", serif;}
 h6{line-height: 1.5rem;}

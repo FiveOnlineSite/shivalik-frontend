@@ -32,6 +32,7 @@ const OfficeLocation = () => {
      
        <iframe className='map'
       src={contactContent.map_link}
+      title="Shivalik Ventures office location map"
       width="100%"
       height="450"
       style={{ border: 0 }}

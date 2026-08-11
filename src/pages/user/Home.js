@@ -1,7 +1,8 @@
-import React, { Suspense, lazy } from 'react'
-import Layout from '../../components/templates/Layout'
-import Banner from '../../components/molecules/Banner'
-import MetaDataComponent from "../../components/atoms/MetaDataComponent"
+import React, { Suspense, lazy } from 'react';
+import MetaDataComponent from '../../components/atoms/MetaDataComponent';
+import ViewportRender from '../../components/atoms/ViewportRender';
+import Banner from '../../components/molecules/Banner';
+import Layout from '../../components/templates/Layout';
 
 const Counters = lazy(() => import('../../components/organisms/Counters'));
 const AboutUsSection = lazy(() => import('../../components/templates/AboutUsSection'));
@@ -10,44 +11,43 @@ const KeyFeaturesSection = lazy(() => import('../../components/templates/KeyFeat
 const TestimonialsSection = lazy(() => import('../../components/templates/TestimonialsSection'));
 
 const Home = () => {
-
   return (
     <Layout>
-      
-    <MetaDataComponent/>
+      <MetaDataComponent />
 
-      {/* banner section start */}
       <Banner />
-      {/* banner section close */}
 
-      <Suspense fallback={null}>
-        {/* Counter section start */}
-        <Counters />
-        {/* Counter section close */}
+      <ViewportRender minHeight={220} rootMargin="250px 0px">
+        <Suspense fallback={null}>
+          <Counters />
+        </Suspense>
+      </ViewportRender>
 
-        {/* You’re in good hands section start */}
-        <AboutUsSection />
-        {/* You’re in good hands section close */}
+      <ViewportRender minHeight={480} rootMargin="300px 0px">
+        <Suspense fallback={null}>
+          <AboutUsSection />
+        </Suspense>
+      </ViewportRender>
 
-        {/* Projects Section Start */}
-        <ProjectsSection />
-        {/* Projects Section Close */}
+      <ViewportRender minHeight={900} rootMargin="350px 0px">
+        <Suspense fallback={null}>
+          <ProjectsSection />
+        </Suspense>
+      </ViewportRender>
 
-        {/* Key Features Section Start */}
-        <KeyFeaturesSection />
-        {/* Key Features Section Close */}
+      <ViewportRender minHeight={520} rootMargin="350px 0px">
+        <Suspense fallback={null}>
+          <KeyFeaturesSection />
+        </Suspense>
+      </ViewportRender>
 
-        {/* Key Features Section Start */}
-        <TestimonialsSection />
-        {/* Key Features Section Close */}
-      </Suspense>
-
-      {/* Blogs section start */}
-      {/* <BlogsSection /> */}
-      {/* Blogs section close */}
-
+      <ViewportRender minHeight={600} rootMargin="400px 0px">
+        <Suspense fallback={null}>
+          <TestimonialsSection />
+        </Suspense>
+      </ViewportRender>
     </Layout>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

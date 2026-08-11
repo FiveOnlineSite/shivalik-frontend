@@ -20,7 +20,7 @@
 /*  */
 
 /*  */
-.keyfeatureBgImg{background-image: url(../../public/images/key-features-bg.jpg);background-size: cover;background-repeat: no-repeat;}
+.keyfeatureBgImg{background-image: url(../../public/images/key-features-bg-optimized.jpg);background-size: cover;background-repeat: no-repeat;}
 .keyFeatureBox{background: #FFFFFFE5;}
 .keyFeatureBox img{width: 30%;}
 /*  */
