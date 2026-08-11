@@ -1,68 +1,68 @@
 import React from 'react';
 import styles from '../../style/Common.module.css';
 import GradientLine from '../atoms/GradientLine';
-import { ArrowRightAlt } from '../atoms/Icons';
+import { ArrowRightAlt } from '@mui/icons-material';
 import ShivalikProjectList from '../organisms/ShivalikProjectList';
-import ProjectByPromoters from '../molecules/ProjectByPromoters';
-import PromotersProjectList from '../organisms/PromotersProjectList';
-import axios from 'axios';
-import { use } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
 
-import { assetUrl } from '../../utils/media';
-const ProjectsTabSection = () => {
+const ProjectsTabSection = ({ projects = [] }) => {
     
-   const [shivalikHero, setShivalikHero] = useState(null);
-   const [shivalikList, setShivalikList] = useState([]);
+  const shivalikItems = projects
+    .filter((i) => i.project_category === "Shivalik")
+    .sort((a, b) => a.sequence - b.sequence);
+
+  const promotersItems = projects
+    .filter((i) => i.project_category === "Promoters")
+    .sort((a, b) => a.sequence - b.sequence);
+
+  const shivalikHero = shivalikItems[0] || null;
+  const shivalikList = shivalikItems.slice(1);
+  const promotersList = promotersItems;
    
-   const [promotersList, setPromotersList] = useState([]);
-   
-    useEffect(() => {
-      const fetchProject = async () => {
-        try {
-          const apiUrl = process.env.REACT_APP_API_URL;
-          const response = await axios.get(`${apiUrl}/api/project`);
-          const all = response.data.Projects;
+    // useEffect(() => {
+    //   const fetchProject = async () => {
+    //     try {
+    //       const apiUrl = process.env.REACT_APP_API_URL;
+    //       const response = await axios.get(`${apiUrl}/api/project`);
+    //       const all = response.data.Projects;
 
-          // Split by category
-      const shivalikItems = all.filter((i) => i.project_category === "Shivalik");
-      const promotersItems = all.filter((i) => i.project_category === "Promoters");
+    //       // Split by category
+    //   const shivalikItems = all.filter((i) => i.project_category === "Shivalik");
+    //   const promotersItems = all.filter((i) => i.project_category === "Promoters");
 
-      // Sort by sequence
-      shivalikItems.sort((a, b) => a.sequence - b.sequence);
-      promotersItems.sort((a, b) => a.sequence - b.sequence);
+    //   // Sort by sequence
+    //   shivalikItems.sort((a, b) => a.sequence - b.sequence);
+    //   promotersItems.sort((a, b) => a.sequence - b.sequence);
 
-      // Take hero (seq 1) + the rest
-      setShivalikHero(shivalikItems[0] || null);
-      setShivalikList(shivalikItems.slice(1));
+    //   // Take hero (seq 1) + the rest
+    //   setShivalikHero(shivalikItems[0] || null);
+    //   setShivalikList(shivalikItems.slice(1));
 
-      setPromotersList(promotersItems);
+    //   setPromotersList(promotersItems);
   
-       } catch (error) {
-          console.error("Error fetching projects:", error);
-        } 
-      };
+    //    } catch (error) {
+    //       console.error("Error fetching projects:", error);
+    //     } 
+    //   };
   
-      fetchProject();
-    }, []);
+    //   fetchProject();
+    // }, []);
 
 
   return (
     <section>
-      <div class="container">
-  <ul class="nav nav-pills mb-5 justify-content-center" id="pills-tab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button class="nav-link active position-relative" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Projects by Shivalik</button>
+      <div className="container">
+  <ul className="nav nav-pills mb-5 justify-content-center" id="pills-tab" role="tablist">
+    <li className="nav-item" role="presentation">
+      <button className="nav-link active position-relative" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Projects by Shivalik</button>
     </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link position-relative" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Projects by Promoters</button>
+    <li className="nav-item" role="presentation">
+      <button className="nav-link position-relative" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Projects by Promoters</button>
     </li>
   </ul>
 
-  <div class="tab-content" id="pills-tabContent">
+  <div className="tab-content" id="pills-tabContent">
 
-    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+    <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
         {/*  */}
       <div className='row mb-5'>
         <div className='col-lg-5'>
@@ -83,7 +83,7 @@ const ProjectsTabSection = () => {
         <div className='col-lg-6'>
             <div className={`${styles.projectPicture} position-relative mb-3`}>
             {shivalikHero.image[0].filepath && (
-            <img src={assetUrl(shivalikHero.image[0].filepath)} width='100%' alt={shivalikHero.alt} />
+            <img src={shivalikHero.image[0].filepath} width='100%' alt={shivalikHero.alt} loading="lazy" decoding="async" />
 
             )}
             {shivalikHero.disclaimer && (
@@ -129,7 +129,7 @@ const ProjectsTabSection = () => {
       <ShivalikProjectList data={shivalikList} />
     </div>
     {/* project by shivalik close */}
-    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+    <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
       {/*  */}
       <div className='row justify-content-center border-custom'>
               <ShivalikProjectList data={promotersList} />

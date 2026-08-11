@@ -126,7 +126,7 @@ const Resources = () => {
                                         <div className='box-pd-one'>
                                             <h6>{doc.title}</h6>
                                             <div className='box-pd-img'>
-                                                <img src={doc.icon} alt='download-icon' />
+                                                <img src={doc.icon} alt='download-icon' loading="lazy" decoding="async" />
                                             </div>
                                         </div>
                                     </Link>
@@ -179,7 +179,7 @@ const Resources = () => {
                                         <div className='box-pd-one'>
                                             <h6>{doc.title}</h6>
                                             <div className='box-pd-img'>
-                                                <img src={doc.icon} alt='download-icon' />
+                                                <img src={doc.icon} alt='download-icon' loading="lazy" decoding="async" />
                                             </div>
                                         </div>
                                     </Link>

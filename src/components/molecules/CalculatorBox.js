@@ -4,7 +4,7 @@ import { faIndianRupeeSign } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 
-const CalculatorBox = () => {
+const CalculatorBox = ({stampDuty = null}) => {
   const [propertyValue, setPropertyValue] = useState('');
   const [gender, setGender] = useState(''); // Start with blank
   const [error, setError] = useState('');
@@ -34,36 +34,49 @@ const CalculatorBox = () => {
   };
 
   const calculateStampDuty = () => {
-    const value = parseFloat(propertyValue);
-    if (!value || value <= 0 || !gender) return 0;
+  const value = parseFloat(propertyValue);
 
-    const rate = gender === 'male' ? `${stampDuty.male}`/100 : `${stampDuty.female}`/100;
+  if (!value || value <= 0 || !gender || !stampDuty) return 0;
 
-    return (value * rate).toLocaleString('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 2,
-    });
-  };
+  const rate = gender === "male"
+    ? Number(stampDuty.male)
+    : Number(stampDuty.female);
 
-  const [stampDuty, setStampDuty] = useState("")
+  if (!rate) return 0;
 
-   useEffect(() => {
-      const fetchStampDuty = async () => {
-        try {
-          const apiUrl = process.env.REACT_APP_API_URL;
-          const response = await axios.get(`${apiUrl}/api/stamp-duty`);
-          const StampDutyData = response.data.StampDuty;
-  setStampDuty(StampDutyData)
-      } catch (error) {
-          console.error("Error fetching stamp duty data:", error);
-        } 
-      };
+  return ((value * rate) / 100).toLocaleString("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 2,
+  });
+};
+
+  // const [stampDuty, setStampDuty] = useState("")
+
+  //  useEffect(() => {
+  //     const fetchStampDuty = async () => {
+  //       try {
+  //         const apiUrl = process.env.REACT_APP_API_URL;
+  //         const response = await axios.get(`${apiUrl}/api/stamp-duty`);
+  //         const StampDutyData = response.data.StampDuty;
+  // setStampDuty(StampDutyData)
+  //     } catch (error) {
+  //         console.error("Error fetching stamp duty data:", error);
+  //       } 
+  //     };
   
-      fetchStampDuty();
-    }, []);
+  //     fetchStampDuty();
+  //   }, []);
 
-  const getRate = () => (gender === 'male' ? `${stampDuty.male}%` : `${stampDuty.female}%`);
+  const getRate = () => {
+  if (!stampDuty) return "0%";
+
+  const rate = gender === "male"
+    ? stampDuty.male
+    : stampDuty.female;
+
+  return `${rate}%`;
+};
 
 
   return (

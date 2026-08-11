@@ -232,6 +232,8 @@ const BlueprintTabs = () => {
                 src={plans[activeTab][activeSubTab]}
                 alt={planTitles[activeTab][activeSubTab]}
                 className="blueprint-image zoom-target"
+                loading="lazy"
+                decoding="async"
               />
               {!isUnlocked && (
                 <button className="enquire-btn" onClick={handleUnlock}>

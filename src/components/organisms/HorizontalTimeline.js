@@ -3,8 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 
-import { assetUrl } from '../../utils/media';
-const HorizontalTimeline = () => {
+const HorizontalTimeline = ({projectStatus = []}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const lineRef = useRef(null);
   const scrollRef = useRef(null);
@@ -25,29 +24,28 @@ const HorizontalTimeline = () => {
     setActiveIndex(index);
   };
 
-  
-  const [projectStatus, setProjectStatus] = useState([])
+
 
   const {name} = useParams()
-  useEffect(() => {
+  // useEffect(() => {
   
-      const fetchProjectStatus = async () => {
-        try {
-          const apiUrl = process.env.REACT_APP_API_URL;
-          const response = await axios.get(`${apiUrl}/api/current-status/project/${name}`);
-          const sortedData = response.data.status.sort(
-          (a, b) => new Date(b.date.split("-").reverse().join("-")) - new Date(a.date.split("-").reverse().join("-"))
-        ); 
-        setProjectStatus(sortedData);
-          console.log("status", sortedData)
+  //     const fetchProjectStatus = async () => {
+  //       try {
+  //         const apiUrl = process.env.REACT_APP_API_URL;
+  //         const response = await axios.get(`${apiUrl}/api/current-status/project/${name}`);
+  //         const sortedData = response.data.status.sort(
+  //         (a, b) => new Date(b.date.split("-").reverse().join("-")) - new Date(a.date.split("-").reverse().join("-"))
+  //       ); 
+  //       setProjectStatus(sortedData);
+  //         console.log("status", sortedData)
         
-        } catch (error) {
-          console.error("Error fetching project status:", error);
-        }
-      };
+  //       } catch (error) {
+  //         console.error("Error fetching project status:", error);
+  //       }
+  //     };
   
-      fetchProjectStatus();
-    }, [name]);
+  //     fetchProjectStatus();
+  //   }, [name]);
 
 
     const getFillPercent = () => {
@@ -102,7 +100,7 @@ if (!projectStatus.length) return null;
           {activeStatus.images && activeStatus.images.map((image) => (   
           <div className="col-6 col-md-4 col-lg-3 mb-3" key={image._id}>
             {image.image?.[0]?.filepath && (
-            <img src={assetUrl(image.image?.[0]?.filepath)} alt={image.alt} className="img-fluid rounded" />
+            <img src={image.image?.[0]?.filepath} alt={image.alt} className="img-fluid rounded" loading="lazy" decoding="async" />
             )}
           </div>
         ))}

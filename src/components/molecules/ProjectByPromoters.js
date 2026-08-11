@@ -12,7 +12,7 @@ const ProjectByPromoters = ({
   return (
     <div className='col-lg-6 mb-5'>
       <div className={`${styles.projectPicture} position-relative mb-3`}>
-        <img src={image} width='100%' alt={title} />
+        <img src={image} width='100%' alt={title} loading="lazy" decoding="async" />
         {buttonElement && (
     <div className={styles.projectButton}>
       {buttonElement}

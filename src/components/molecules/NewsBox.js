@@ -89,6 +89,8 @@ const NewsBox = ({ item, index, onClick }) => {
               alt={item.alt}
               onClick={() => onClick(index)}
               style={{ cursor: "pointer" }}
+              loading="lazy"
+              decoding="async"
             />
           )}
         </div>

@@ -1,30 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import homestyles from '../../style/Home.module.css';
 import styles from '../../style/Common.module.css';
-import { ArrowRightAlt } from '../atoms/Icons';
+import { ArrowRightAlt } from '@mui/icons-material';
 import axios from 'axios';
 
-import { assetUrl } from '../../utils/media';
-const BlogListBox = () => {
+const BlogListBox = ({Blogs =[]}) => {
 
-  const [Blogs, setBlogs] = useState([]);
+    // useEffect(() => {
+    //   const fetchBlogs = async () => {
+    //     try {
+    //       const apiUrl = process.env.REACT_APP_API_URL;
+    //       const response = await axios.get(`${apiUrl}/api/blog`);
+    //       const BlogsData = response.data.Blogs;
   
-    useEffect(() => {
-      const fetchBlogs = async () => {
-        try {
-          const apiUrl = process.env.REACT_APP_API_URL;
-          const response = await axios.get(`${apiUrl}/api/blog`);
-          const BlogsData = response.data.Blogs;
-  
-          setBlogs(BlogsData);
+    //       setBlogs(BlogsData);
           
-        } catch (error) {
-          console.error("Error fetching Blogs:", error);
-        } 
-      };
+    //     } catch (error) {
+    //       console.error("Error fetching Blogs:", error);
+    //     } 
+    //   };
   
-      fetchBlogs();
-    }, []);
+    //   fetchBlogs();
+    // }, []);
 
   return (
     <>
@@ -33,7 +30,7 @@ const BlogListBox = () => {
              <div className={`${styles.blogsmPack} position-relative`}>
            {blog.image[0].filepath && (
          <div className={homestyles.blogImg}>
-           <img src={assetUrl(blog.image[0].filepath)} alt={blog.alt} width="100%" />
+           <img src={blog.image[0].filepath} alt={blog.alt} width="100%" loading="lazy" decoding="async" />
          </div>
            )}
          

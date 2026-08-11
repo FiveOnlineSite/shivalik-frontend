@@ -10,6 +10,7 @@ const AddHighlight = () => {
   const [image, setImage] = useState({ file: "" });
   const [alt, setAlt] = useState("");
   const [title, setTitle] = useState("");
+  const [disclaimer, setDisclaimer] = useState("");
 
   const [projects, setProjects] = useState([]);
   const [project, setProject] = useState("");
@@ -77,6 +78,7 @@ const AddHighlight = () => {
       formData.append("project", project);
       formData.append("alt", alt);
       formData.append("title", title);
+      formData.append("disclaimer", disclaimer || "");
 
       if (image.file) {
         formData.append("image", image.file);
@@ -194,6 +196,18 @@ const AddHighlight = () => {
                   value={alt}
                   required
                   onChange={(e) => setAlt(e.target.value)}
+                />
+              </div>
+            </div>
+
+             <div className="col-lg-6 col-md-6 col-sm-12 col-12">
+              <div className="theme-form">
+                <label>Disclaimer</label>
+                <input
+                  type="text"
+                  name="disclaimer"
+                  value={disclaimer}
+                  onChange={(e) => setDisclaimer(e.target.value)}
                 />
               </div>
             </div>

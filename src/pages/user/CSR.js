@@ -1,21 +1,56 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import CSRTabs from '../../components/molecules/CSRTabs';
 import Layout from '../../components/templates/Layout';
 import CSRBanner from '../../components/molecules/CSRBanner';
 import { useLocation } from 'react-router-dom';
 import MetaDataComponent from "../../components/atoms/MetaDataComponent"
+import axios from "axios";
 
 const CSR = () => {
 
   const location = useLocation();
     const currentPath = location.pathname;
+    
+      const [csrBanner, setCSRBanner] = useState([])
+      const [metaData, setMetaData] = useState(null);
+      const [CSR, setCSR] = useState([]);
+      const [pageReady, setPageReady] = useState(false);
+
+       useEffect(() => {
+    const fetchCSRPageData = async () => {
+      const apiUrl = process.env.REACT_APP_API_URL;
+
+      const [bannerRes, csrRes, metaRes] = await Promise.allSettled([
+        axios.get(`${apiUrl}/api/csr-banner`),
+        axios.get(`${apiUrl}/api/csr`),
+        axios.get(`${apiUrl}/api/meta-data/by-page${currentPath}`),
+      ]);
+
+      if (metaRes.status === "fulfilled") {
+  setMetaData(metaRes.value.data || null);
+}
+
+if (csrRes.status === "fulfilled") {
+  setCSR(csrRes.value.data.csr || null);
+}
+
+
+      if (bannerRes.status === "fulfilled") {
+        setCSRBanner(bannerRes.value.data.banners || null);
+      }
+
+      setPageReady(true);
+    };
+
+    fetchCSRPageData();
+  }, [currentPath]);
 
   return (
     <Layout>
-      <MetaDataComponent/>
+      <MetaDataComponent metaData={metaData}/>
 
       {/* CSR BANNER SECTION START */}
-                <CSRBanner/>
+                <CSRBanner csrBanner={csrBanner} />
 
       {/* CSR BANNER SECTION CLOSE */}
       <section className='pt-5 pb-5 csr_section'>
@@ -30,11 +65,11 @@ const CSR = () => {
             livelihood generation. It encourages people to participate actively in projects 
             for social and economic empowerment of the community.</p>
         </div>
-        <CSRTabs />
+        <CSRTabs CSR={CSR} />
     </div>
       </section>
     
-    </Layout>
+   {pageReady && <div id="react-snap-ready" style={{ display: "none" }} />}</Layout>
   )
 }
 

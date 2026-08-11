@@ -34,7 +34,7 @@ const upsertLink = (selector, attributes) => {
   });
 };
 
-const MetaDataComponent = () => {
+const MetaDataComponent = ({ metaData = null }) => {
   const location = useLocation();
 
   useEffect(() => {

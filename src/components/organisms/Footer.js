@@ -1,16 +1,35 @@
-import React, { Suspense, lazy } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from '../atoms/Logo';
 import styles from '../../style/Common.module.css';
-import { YouTubeIcon } from '../atoms/Icons';
-const BlogsSection = lazy(() => import('../templates/BlogsSection'));
+import BlogsSection from '../templates/BlogsSection';
+import BlogBox from '../molecules/BlogBox';
+import axios from 'axios';
 
 const Footer = () => {
+
+      const [Blogs, setBlogs] = useState([]);
+     useEffect(() => {
+            const fetchHomeData = async () => {
+              const apiUrl = process.env.REACT_APP_API_URL;
+        
+              const [blogRes] =
+                await Promise.allSettled([
+                  axios.get(`${apiUrl}/api/blog`),
+                ]);
+        
+              if (blogRes.status === "fulfilled") {
+                setBlogs(blogRes.value.data.Blogs || []);
+              }
+    
+            };
+        
+            fetchHomeData();
+          }, []);
+
   return (
 <>
      {/* Blogs section start */}
-          <Suspense fallback={null}>
-            <BlogsSection />
-          </Suspense>
+          <BlogBox Blogs={Blogs} />
      {/* Blogs section close */}
 
     <footer className='mt-5'>
@@ -21,10 +40,10 @@ const Footer = () => {
             <p className='mb-3'>Shivalik Venture’s New residential projects in Bandra and Khar, built with integrity, driven by purpose.</p>
             <div className={styles.socialIcon}>
               <ul className='d-flex'>
-              <li><a href='https://www.youtube.com/channel/UCzGodQJIXPM4yUl4BHY1Hug' className='icon-you-one' target='_blank' rel='noreferrer'><YouTubeIcon /></a></li>
-              <li><a href='https://www.facebook.com/shivalikventures/' target='_blank' rel='noreferrer'><img src="/images/fb.svg" alt="Facebook" loading="lazy" /></a></li>
-              <li><a href='https://www.instagram.com/shivalik_ventures/' target='_blank' rel='noreferrer'><img src="/images/insta.svg" alt="Instagram" loading="lazy" /></a></li>
-              <li><a href='https://www.linkedin.com/company/shivalik-ventures-1/' target='_blank' rel='noreferrer'><img src="/images/linkedin.svg" alt="LinkedIn" loading="lazy" /></a></li>
+              <li><a href='https://www.youtube.com/channel/UCzGodQJIXPM4yUl4BHY1Hug' className='icon-you-one' target='_blank'><i className="fa-brands fa-youtube"></i></a></li>
+              <li><a href='https://www.facebook.com/shivalikventures/' target='_blank'><img src="/images/fb.svg" alt="Shivalik facebook" loading="lazy" decoding="async" /></a></li>
+              <li><a href='https://www.instagram.com/shivalik_ventures/' target='_blank'><img src="/images/insta.svg" alt="Shivalik instagram" loading="lazy" decoding="async" /></a></li>
+              <li><a href='https://www.linkedin.com/company/shivalik-ventures-1/' target='_blank'><img src="/images/linkedin.svg" alt="Shivalik linkedin" loading="lazy" decoding="async" /></a></li>
             </ul>
             </div>
           </div>

@@ -7,8 +7,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-import { assetUrl } from '../../utils/media';
-const ClientTieUps = () => {
+const ClientTieUps = ({ projectBanks = [] }) => {
   const settings = {
     dots: false,
     infinite: false,
@@ -34,25 +33,25 @@ const ClientTieUps = () => {
     ],
   };
 
-  const [projectBanks, setProjectBanks] = useState([])
+  // const [projectBanks, setProjectBanks] = useState([])
   const {name} = useParams()
 
-  useEffect(() => {
+  // useEffect(() => {
   
-      const fetchProjectBank= async () => {
-        try {
-          const apiUrl = process.env.REACT_APP_API_URL;
-          const response = await axios.get(`${apiUrl}/api/bank/project/${name}`);
-          const ProjectBankData = response.data.Banks;
-          console.log("bank", ProjectBankData)
-          setProjectBanks(ProjectBankData);
-        } catch (error) {
-          console.error("Error fetching project bank:", error);
-        }
-      };
+  //     const fetchProjectBank= async () => {
+  //       try {
+  //         const apiUrl = process.env.REACT_APP_API_URL;
+  //         const response = await axios.get(`${apiUrl}/api/bank/project/${name}`);
+  //         const ProjectBankData = response.data.Banks;
+  //         console.log("bank", ProjectBankData)
+  //         setProjectBanks(ProjectBankData);
+  //       } catch (error) {
+  //         console.error("Error fetching project bank:", error);
+  //       }
+  //     };
   
-      fetchProjectBank();
-    }, [name]);    
+  //     fetchProjectBank();
+  //   }, [name]);    
 
   return (
     <Slider {...settings}>
@@ -60,9 +59,11 @@ const ClientTieUps = () => {
         <div key={bank._id} style={{ textAlign: "center" }}>
           {bank.image?.[0]?.filepath && (
             <img
-            src={assetUrl(bank.image?.[0]?.filepath)}
+            src={bank.image?.[0]?.filepath}
             alt={bank.alt}
             style={{ width: "100%", height: "auto"}}
+            loading="lazy"
+            decoding="async"
           />
           )}
           
@@ -74,4 +75,3 @@ const ClientTieUps = () => {
 };
 
 export default ClientTieUps;
-

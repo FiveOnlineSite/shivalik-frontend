@@ -2,7 +2,6 @@ import React, { Suspense, lazy } from 'react';
 import Home from './pages/user/Home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-const Home1 = lazy(() => import('./pages/user/Home1'));
 const AboutUs = lazy(() => import('./pages/user/AboutUs'));
 const Blogs = lazy(() => import('./pages/user/Blogs'));
 const ContactUs = lazy(() => import('./pages/user/ContactUs'));
@@ -117,18 +116,12 @@ const App = () => {
          <Routes>
  
          <Route path='/' element={<Home />} />
-         <Route path='/home1' element={<Home1 />} />
 
          <Route path='/about-us' element={<AboutUs />} />
         
           {/* blog pages internal */}
          <Route path='/blog/:title' element={<BlogDetailOne />} />
-         {/* <Route path='/top-10-reasons-to-buy-a-home-in-bandra' element={<BlogDetailTwo />} />
-         <Route path='/bandra-best-kept-secret-luxury-living-on-a-budget' element={<BlogDetailThree />} />
-         <Route path='/investing-in-Bandra-future-affordable-luxury-homes' element={<BlogDetailFour />} />
-         <Route path='/get-your-dream-home-mumbai-how-to-secure-the-right-home-loan' element={<BlogDetailFive />} />
-         <Route path='/how-to-get-a-home-loan-to-buy-a-home-in-mumbai' element={<BlogDetailSix />} /> */}
-<Route path='/privacy-policy' element={<PrivacyPolicy />} />
+    <Route path='/privacy-policy' element={<PrivacyPolicy />} />
       <Route path='/terms-and-conditions' element={<TermsConditions />} />
          <Route path='/blogs' element={<Blogs />} />
          <Route path='/contact-us' element={<ContactUs />} />
@@ -137,8 +130,7 @@ const App = () => {
          <Route path='/faqs' element={<FAQs />} />
          <Route path='/news' element={<News />} />
          <Route path='/project/:name' element={<GulmoharAvenue />} />
-         {/* <Route path='/prabhat-darshan' element={< PrabhatDarshan/>} /> */}
-         <Route path='/projects' element={<Projects />} />
+        <Route path='/projects' element={<Projects />} />
          <Route path='/resources' element={<Resources />} />
          <Route path='/stamp-duty-calculator' element={<StampDutyCalculator />} />
 

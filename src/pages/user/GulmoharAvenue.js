@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Layout from '../../components/templates/Layout';
 import styles from '../../style/Common.module.css';
 import GradientLine from '../../components/atoms/GradientLine';
-import { ArrowRightAlt } from '../../components/atoms/Icons';
+import { ArrowRightAlt } from '@mui/icons-material';
 import homestyles from '../../style/Home.module.css';
 import { Download, Phone } from 'react-feather';
 import GalleryGrid from '../../components/organisms/GalleryGrid';
@@ -15,7 +15,8 @@ import BrochureModal from '../../components/organisms/BrochureModel';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { assetUrl } from '../../utils/media';
+import MetaDataComponent from "../../components/atoms/MetaDataComponent";
+
 const GulmoharAvenue = () => {
 
 const [showModal, setShowModal] = useState(false);
@@ -28,223 +29,259 @@ const [projectAmenities, setProjectAmenities] = useState([])
 const [projectDisclaimer, setProjectDisclaimer] = useState([])
 const [projectLocation, setProjectLocation] = useState([])
   const [projectGallery, setProjectGallery] = useState([])
+  const [projectFaqs, setProjectFaqs] = useState([]);
+const [projectBanks, setProjectBanks] = useState([]);
+const [projectTestimonials, setProjectTestimonials] = useState([]);
+  
+  const [projectStatus, setProjectStatus] = useState([])
+const [pageReady, setPageReady] = useState(false);
+const location = useLocation();
+  const currentPath = location.pathname;
+  const [metaData, setMetaData] = useState(null);
 
-const {name} = useParams()
+// const {name} = useParams()
+const params = useParams();
+const name = params.name || "gulmohar-avenue";
 
-  useEffect(() => {
+//   useEffect(() => {
 
-    const fetchProjectBanner = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/project/project/${name}`);
-        const ProjectBannerData = response.data.banner;
-        console.log("banner", ProjectBannerData)
-        setProjectBanner(ProjectBannerData);
-      } catch (error) {
-        console.error("Error fetching project banner:", error);
-      }
-    };
+//     const fetchProjectBanner = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/project/project/${name}`);
+//         const ProjectBannerData = response.data.banner;
+//         console.log("banner", ProjectBannerData)
+//         setProjectBanner(ProjectBannerData);
+//       } catch (error) {
+//         console.error("Error fetching project banner:", error);
+//       }
+//     };
 
-    fetchProjectBanner();
-  }, [name]);
+//     fetchProjectBanner();
+//   }, [name]);
 
-   useEffect(() => {
+//    useEffect(() => {
 
-    const fetchProjectAbout = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/about/project/${name}`);
-        const ProjectAboutData = response.data.about;
-        console.log("about", ProjectAboutData)
-        setProjectAbout(ProjectAboutData);
-      } catch (error) {
-        console.error("Error fetching project about:", error);
-      }
-    };
+//     const fetchProjectAbout = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/about/project/${name}`);
+//         const ProjectAboutData = response.data.about;
+//         console.log("about", ProjectAboutData)
+//         setProjectAbout(ProjectAboutData);
+//       } catch (error) {
+//         console.error("Error fetching project about:", error);
+//       }
+//     };
 
-    fetchProjectAbout();
-  }, [name]);
+//     fetchProjectAbout();
+//   }, [name]);
 
-  useEffect(() => {
+//   useEffect(() => {
 
-    const fetchProjectFeatureContent = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/feature-content/project/${name}`);
-        const ProjectContentData = response.data.content;
-        console.log("content", ProjectContentData)
-        setProjectContent(ProjectContentData);
-      } catch (error) {
-        console.error("Error fetching project content:", error);
-      }
-    };
+//     const fetchProjectFeatureContent = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/feature-content/project/${name}`);
+//         const ProjectContentData = response.data.content;
+//         console.log("content", ProjectContentData)
+//         setProjectContent(ProjectContentData);
+//       } catch (error) {
+//         console.error("Error fetching project content:", error);
+//       }
+//     };
 
-    fetchProjectFeatureContent();
-  }, [name]);
+//     fetchProjectFeatureContent();
+//   }, [name]);
 
-  useEffect(() => {
+//   useEffect(() => {
 
-    const fetchProjectFeatures = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/feature/project/${name}`);
-        const ProjectFeaturesData = response.data.features;
-        console.log("feature", ProjectFeaturesData)
-        setProjectFeatures(ProjectFeaturesData);
-      } catch (error) {
-        console.error("Error fetching project feature:", error);
-      }
-    };
+//     const fetchProjectFeatures = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/feature/project/${name}`);
+//         const ProjectFeaturesData = response.data.features;
+//         console.log("feature", ProjectFeaturesData)
+//         setProjectFeatures(ProjectFeaturesData);
+//       } catch (error) {
+//         console.error("Error fetching project feature:", error);
+//       }
+//     };
 
-    fetchProjectFeatures();
-  }, [name]);
+//     fetchProjectFeatures();
+//   }, [name]);
 
- useEffect(() => {
-    const fetchProjectHighlights = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/highlight/project/${name}`);
-        const ProjectAmenitiesData = response.data.Highlights;
-        console.log("highlight", ProjectAmenitiesData)
-        setProjectHighlight(ProjectAmenitiesData);
-      } catch (error) {
-        console.error("Error fetching project highlights:", error);
-      }
-    };
+//  useEffect(() => {
+//     const fetchProjectHighlights = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/highlight/project/${name}`);
+//         const ProjectAmenitiesData = response.data.Highlights;
+//         console.log("highlight", ProjectAmenitiesData)
+//         setProjectHighlight(ProjectAmenitiesData);
+//       } catch (error) {
+//         console.error("Error fetching project highlights:", error);
+//       }
+//     };
 
-    fetchProjectHighlights();
-  }, [name]);
+//     fetchProjectHighlights();
+//   }, [name]);
 
-  useEffect(() => {
-    const fetchProjectAmenities = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/amenity/project/${name}`);
-        const ProjectAmenitiesData = response.data.Amenities;
-        console.log("amenities", ProjectAmenitiesData)
-        setProjectAmenities(ProjectAmenitiesData);
-      } catch (error) {
-        console.error("Error fetching project amenities:", error);
-      }
-    };
-    fetchProjectAmenities();
-  }, [name]);
+//   useEffect(() => {
+//     const fetchProjectAmenities = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/amenity/project/${name}`);
+//         const ProjectAmenitiesData = response.data.Amenities;
+//         console.log("amenities", ProjectAmenitiesData)
+//         setProjectAmenities(ProjectAmenitiesData);
+//       } catch (error) {
+//         console.error("Error fetching project amenities:", error);
+//       }
+//     };
+//     fetchProjectAmenities();
+//   }, [name]);
 
-  useEffect(() => {
-    const fetchProjectDisclaimer = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/disclaimer/project/${name}`);
-        const ProjectDisclaimerData = response.data.disclaimers;
-        console.log("disclaimers", ProjectDisclaimerData)
-        setProjectDisclaimer(ProjectDisclaimerData);
-      } catch (error) {
-        console.error("Error fetching project disclaimers:", error);
-      }
-    };
-    fetchProjectDisclaimer();
-  }, [name]);
+//   useEffect(() => {
+//     const fetchProjectDisclaimer = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/disclaimer/project/${name}`);
+//         const ProjectDisclaimerData = response.data.disclaimers;
+//         console.log("disclaimers", ProjectDisclaimerData)
+//         setProjectDisclaimer(ProjectDisclaimerData);
+//       } catch (error) {
+//         console.error("Error fetching project disclaimers:", error);
+//       }
+//     };
+//     fetchProjectDisclaimer();
+//   }, [name]);
 
-  useEffect(() => {
-    const fetchProjectLocation = async () => {
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/api/location/project/${name}`);
-        const ProjectLocationData = response.data.Location;
-        console.log("Location", ProjectLocationData)
-        setProjectLocation(ProjectLocationData);
-      } catch (error) {
-        console.error("Error fetching project Location:", error);
-      }
-    };
-    fetchProjectLocation();
-  }, [name]);
+//   useEffect(() => {
+//     const fetchProjectLocation = async () => {
+//       try {
+//         const apiUrl = process.env.REACT_APP_API_URL;
+//         const response = await axios.get(`${apiUrl}/api/location/project/${name}`);
+//         const ProjectLocationData = response.data.Location;
+//         console.log("Location", ProjectLocationData)
+//         setProjectLocation(ProjectLocationData);
+//       } catch (error) {
+//         console.error("Error fetching project Location:", error);
+//       }
+//     };
+//     fetchProjectLocation();
+//   }, [name]);
 
-   useEffect(() => {
-      const fetchProjectGallery = async () => {
-        try {
-          const apiUrl = process.env.REACT_APP_API_URL;
-          const response = await axios.get(`${apiUrl}/api/gallery/project/${name}`);
-          const ProjectGalleryData = response.data.Galleries;
-          console.log("gallery", ProjectGalleryData)
-          setProjectGallery(ProjectGalleryData);
-        } catch (error) {
-          console.error("Error fetching project gallery:", error);
-        }
-      };
-      fetchProjectGallery();
-    }, [name]);
+//    useEffect(() => {
+//       const fetchProjectGallery = async () => {
+//         try {
+//           const apiUrl = process.env.REACT_APP_API_URL;
+//           const response = await axios.get(`${apiUrl}/api/gallery/project/${name}`);
+//           const ProjectGalleryData = response.data.Galleries;
+//           console.log("gallery", ProjectGalleryData)
+//           setProjectGallery(ProjectGalleryData);
+//         } catch (error) {
+//           console.error("Error fetching project gallery:", error);
+//         }
+//       };
+//       fetchProjectGallery();
+//     }, [name]);
 
-    const location = useLocation(); // gives current URL (pathname, search, hash)
+const safeGet = async (url, fallback = {}) => {
+  try {
+    const res = await axios.get(url);
+    return res.data || fallback;
+  } catch (error) {
+    if (error.response?.status === 404) {
+      return fallback;
+    }
 
-  useEffect(() => {
-    const fetchMetaTag = async () => {
-      // Add canonical tag
-      const canonicalUrl = `${window.location.origin}${window.location.pathname}`;
-      let linkCanonical = document.querySelector('link[rel="canonical"]');
-      if (linkCanonical) {
-        linkCanonical.setAttribute("href", canonicalUrl);
-      } else {
-        linkCanonical = document.createElement("link");
-        linkCanonical.rel = "canonical";
-        linkCanonical.href = canonicalUrl;
-        document.head.appendChild(linkCanonical);
-      }
+    console.error("API failed:", url, error);
+    return fallback;
+  }
+};
 
-      try {
-        const apiUrl = process.env.REACT_APP_API_URL;
+useEffect(() => {
+  const fetchAllProjectData = async () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
 
-        let page = location.pathname;
+    try {
+      const [
+        bannerData,
+        aboutData,
+        contentData,
+        featuresData,
+        highlightsData,
+        amenitiesData,
+        disclaimerData,
+        locationData,
+        galleryData,
+        faqData,
+        bankData,
+        testimonialData,
+        statusData,
+        metaDataRes,
+      ] = await Promise.all([
+        safeGet(`${apiUrl}/api/project/project/${name}`, {}),
+        safeGet(`${apiUrl}/api/about/project/${name}`, {}),
+        safeGet(`${apiUrl}/api/feature-content/project/${name}`, {}),
+        safeGet(`${apiUrl}/api/feature/project/${name}`, {}),
+        safeGet(`${apiUrl}/api/highlight/project/${name}`, {}),
+        safeGet(`${apiUrl}/api/amenity/project/${name}`, {}),
+        safeGet(`${apiUrl}/api/disclaimer/project/${name}`, { disclaimers: [] }),
+        safeGet(`${apiUrl}/api/location/project/${name}`, {}),
+        safeGet(`${apiUrl}/api/gallery/project/${name}`, { Galleries: [] }),
+        safeGet(`${apiUrl}/api/faq/project/${name}`, { FAQs: [] }),
+        safeGet(`${apiUrl}/api/bank/project/${name}`, { Banks: [] }),
+        safeGet(`${apiUrl}/api/testimonial`, { testimonials: [] }),
+        safeGet(`${apiUrl}/api/current-status/project/${name}`, { status: [] }),
+        safeGet(`${apiUrl}/api/meta-data/by-page${currentPath}`, null),
+      ]);
 
-        const response = await axios.get(`${apiUrl}/api/project/project/${name}`);
-        const metaTag = response.data.banner;
+      setProjectBanner(bannerData.banner || {});
+      setProjectAbout(aboutData.about || []);
+      setProjectContent(contentData.content || []);
+      setProjectFeatures(featuresData.features || []);
+      setProjectHighlight(highlightsData.Highlights || []);
+      setProjectAmenities(amenitiesData.Amenities || []);
+      setProjectDisclaimer(disclaimerData.disclaimers || []);
+      setProjectLocation(locationData.Location || []);
+      setProjectGallery(galleryData.Galleries || []);
+      setProjectFaqs(faqData.FAQs || []);
+      setProjectBanks(bankData.Banks || []);
+      setProjectTestimonials(testimonialData.testimonials || []);
+      setProjectStatus(statusData.status || []);  
+      setMetaData(metaDataRes || bannerData.banner || null);
 
-        document.title = metaTag.metaTitle || "Default Title";
+      setPageReady(true);
+    } catch (error) {
+      console.error("Project prerender failed:", error);
+      setPageReady(true);
+    }
+  };
 
-        let metaDescription = document.querySelector('meta[name="description"]');
-        if (metaDescription) {
-          metaDescription.setAttribute("content", metaTag.metaDescription || "");
-        } else {
-          metaDescription = document.createElement("meta");
-          metaDescription.name = "description";
-          metaDescription.content = metaTag.metaDescription || "";
-          document.head.appendChild(metaDescription);
-        }
+  if (name) fetchAllProjectData();
+}, [name, currentPath]);
 
-        // Meta keywords
-        let metaKeyword = document.querySelector('meta[name="keywords"]');
-        if (metaKeyword) {
-          metaKeyword.setAttribute("content", metaTag.metaKeyword || "");
-        } else {
-          metaKeyword = document.createElement("meta");
-          metaKeyword.name = "keywords"; 
-          metaKeyword.content = metaTag.metaKeyword || "";
-          document.head.appendChild(metaKeyword);
-        }
-      } catch (error) {
-        console.error("Error fetching meta tag:", error);
-      }
-    };
-
-    fetchMetaTag();
-  }, [location]);
-
+const isReactSnap =
+  typeof navigator !== "undefined" &&
+  navigator.userAgent === "ReactSnap";
 
   return (
     <Layout>
-
+<MetaDataComponent metaData={metaData} />
       <section className={styles.projectDetHeader}>
         <div className='row'>
           <div className='col-lg-12'>
             <div className='d-lg-block d-none desktop-banner'>
               {projectBanner.banner?.[0]?.filepath && (
-                <img src={assetUrl(projectBanner.banner?.[0]?.filepath)} width='100%' alt={projectBanner.banner_alt} />
+                <img src={projectBanner.banner?.[0]?.filepath} width='100%' alt={projectBanner.banner_alt} fetchPriority="high" />
               )}
             </div>
 
             <div className='d-lg-none d-block  mobile-banner'>
               {projectBanner.mobile_banner?.[0]?.filepath && (
-                <img src={assetUrl(projectBanner.mobile_banner?.[0]?.filepath)} width='100%' alt={projectBanner.mobile_banner_alt} />
+                <img src={projectBanner.mobile_banner?.[0]?.filepath} width='100%' alt={projectBanner.mobile_banner_alt} fetchPriority="high" />
               )}
             </div>
           </div>
@@ -309,9 +346,11 @@ const {name} = useParams()
         <div className={`${homestyles.aboutImg} mb-3`}>
           {about.image?.[0]?.filepath && (
             <img
-              src={assetUrl(about.image?.[0]?.filepath)}
+              src={about.image?.[0]?.filepath}
               width='100%'
               alt={about.image?.[0]?.alt}
+              loading="lazy"
+              decoding="async"
             />
           )}
           <span className='overlayText'>
@@ -357,7 +396,7 @@ const {name} = useParams()
 
             <div className='col-lg-4 position-relative'>
               {content.image?.[0]?.filepath && (
-              <img className={`${styles.borderRadius} border-radius-left position-relative`} src={assetUrl(content.image?.[0]?.filepath)} width='100%' alt={content.alt} />
+              <img className={`${styles.borderRadius} border-radius-left position-relative`} src={content.image?.[0]?.filepath} width='100%' alt={content.alt} loading="lazy" decoding="async" />
               )}
               <span className='overlayText'>
            Artistic impression for representation purpose only
@@ -373,7 +412,7 @@ const {name} = useParams()
                   <div className={`${styles.iconsProjectList} row align-items-center g-0`}>
                         <div className='col-lg-2 col-2 pe-2'>
                           {feature.image?.[0]?.filepath && (
-                          <img src={assetUrl(feature.image?.[0]?.filepath)} width="100%" alt={feature.alt} />
+                          <img src={feature.image?.[0]?.filepath} width="100%" alt={feature.alt} loading="lazy" decoding="async" />
                           )} 
                           
                         </div>
@@ -409,16 +448,21 @@ const {name} = useParams()
   <div className={`${styles.highlightBox} position-relative`}>
     {highlight.image?.[0]?.filepath && (
       <img
-        src={assetUrl(highlight.image[0].filepath)}
+        src={highlight.image[0].filepath}
         className="mb-1 position-relative"
         width="100%"
         alt={highlight.alt}
+        loading="lazy"
+        decoding="async"
       />
     )}
 
-    <span className="overlayText">
-      Artistic impression for representation purpose only
+{highlight.disclaimer && (
+<span className="overlayText">
+     {highlight.disclaimer}
     </span>
+)}
+    
 
     <h5>{highlight.title}</h5>
   </div>
@@ -446,7 +490,7 @@ const {name} = useParams()
                 <div className='row '>
                   <div className='col-lg-3 col-md-2 col-2'>
                     {amenities.image?.[0]?.filepath && (
-                    <img src={assetUrl(amenities.image?.[0]?.filepath)} width="100%" alt={amenities.alt} />
+                    <img src={amenities.image?.[0]?.filepath} width="100%" alt={amenities.alt} loading="lazy" decoding="async" />
                     )} 
                   </div>
                   <div className='col-lg-9 col-md-10 col-10'>
@@ -493,18 +537,18 @@ const {name} = useParams()
               <div className='row align-items-center'>
                  <div className='col-lg-5'>
               <div className={styles.placeDistance}>
-                <div class="table-responsive place-distance">
-  <table class="table align-middle">
+                <div className="table-responsive place-distance">
+  <table className="table align-middle">
     <thead>
       <tr>
-        <td class="align-top"><strong>Place</strong></td>
+        <td className="align-top"><strong>Place</strong></td>
         <td><strong>Distance</strong></td>
       </tr>
     </thead>
     <tbody>
       {location.info && location.info.map((info) => (
         <tr key={info._id}>
-        <td class="align-top">{info.place}</td>
+        <td className="align-top">{info.place}</td>
         <td>{info.distance}</td>
       </tr>
       ))}
@@ -515,6 +559,7 @@ const {name} = useParams()
               </div>
             </div>
             <div className='col-lg-7'>
+               {!isReactSnap && (
               <iframe
                   src={location.map_link}
                   width="100%"
@@ -525,11 +570,13 @@ const {name} = useParams()
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Google Map"
                 />
+               )}
             </div>
               </div>
          
             ) : (
             <div className='col-lg-12'>
+               {!isReactSnap && (
               <iframe
                   src={location.map_link}
                   width="100%"
@@ -540,6 +587,7 @@ const {name} = useParams()
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Google Map"
                 />
+               )}
             </div>
             )}
           </div>
@@ -547,13 +595,13 @@ const {name} = useParams()
         </div>
       </section>
     
-            <GalleryGrid />
+            <GalleryGrid projectGallery={projectGallery} />
          
-      <TestimonialsSection />
+      <TestimonialsSection testimonials={projectTestimonials} />
       {/* Key Features Section Close */}
 
       {/* faq section start */}
-      <ProjectDetFaqSection />
+      <ProjectDetFaqSection faqs={projectFaqs} />
       {/* faq section close */}
 
       {/* /\ */}
@@ -565,7 +613,7 @@ const {name} = useParams()
               <h2 className={styles.sectionTitle}>Current Status</h2>
             </div>
             <div className='col-lg-12'>
-              <HorizontalTimeline />
+              <HorizontalTimeline projectStatus={projectStatus} />
             </div>
           </div>
         </div>
@@ -580,7 +628,7 @@ const {name} = useParams()
               <h2 className={styles.sectionTitle}>Bank Tie-Ups</h2>
             </div>
             <div className=''>
-              <ClientTieUps />
+              <ClientTieUps projectBanks={projectBanks}/>
             </div>
           </div>
         </div>
@@ -602,12 +650,21 @@ const {name} = useParams()
             <div className='col-lg-5'>
               <div className='row align-items-center'>
                 <div className='col-lg-3 col-md-3 col-sm-3 col-4'>
-                  {disclaimer.qr?.[0]?.filepath && (<img src={assetUrl(disclaimer.qr?.[0]?.filepath)} width='100%' alt={disclaimer.alt} />)}
+                  {disclaimer.qr?.[0]?.filepath && (<img src={disclaimer.qr?.[0]?.filepath} width='100%' alt={disclaimer.alt} loading="lazy" decoding="async" />)}
                   </div>
-                <div className='col-lg-3 col-md-3 col-sm-3 col-4'><img src='/images/maharera.png' width='100%' /></div>
+                <div className='col-lg-3 col-md-3 col-sm-3 col-4'><img src='/images/maharera.png' width='100%' alt="Maharera" loading="lazy" decoding="async" /></div>
                 <div className='col-lg-6'>
                   <p className='mb-0'>RERA Registeration No.: {disclaimer.registration_no}</p>
-                  <p className=''><a href="https://maharerait.mahaonline.gov.in" className='text-dark text-decoration-none' target='_blank'>maharerait.mahaonline.gov.in</a></p>
+                  <p>
+  <a
+    href="https://maharerait.mahaonline.gov.in"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-dark text-decoration-none"
+  >
+    maharerait.mahaonline.gov.in
+  </a>
+</p>
                 </div>
               </div>
             </div>
@@ -619,6 +676,9 @@ const {name} = useParams()
       
       {/* rera section close */}
 
+{pageReady && (
+  <div id="react-snap-ready" style={{ display: "none" }} />
+)}
     </Layout>
   )
 }

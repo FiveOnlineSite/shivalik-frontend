@@ -11,7 +11,7 @@ const ProjectByShivalik = ({
     <div className='col-lg-6 mb-5'>
       <div className={`${styles.projectPicture} position-relative mb-3`}>
         {item.image?.[0]?.filepath && (
-        <img src={assetUrl(item.image?.[0]?.filepath)} width='100%' alt={item.alt} />
+        <img src={assetUrl(item.image?.[0]?.filepath)} width='100%' alt={item.alt} loading="lazy" decoding="async" />
         )}
 
 {item.disclaimer && (
