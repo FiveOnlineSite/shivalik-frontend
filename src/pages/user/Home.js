@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import MetaDataComponent from '../../components/atoms/MetaDataComponent';
 import ViewportRender from '../../components/atoms/ViewportRender';
 import Banner from '../../components/molecules/Banner';
@@ -11,6 +11,12 @@ const KeyFeaturesSection = lazy(() => import('../../components/templates/KeyFeat
 const TestimonialsSection = lazy(() => import('../../components/templates/TestimonialsSection'));
 
 const Home = () => {
+  const [pageReady, setPageReady] = useState(false);
+
+  useEffect(() => {
+    setPageReady(true);
+  }, []);
+
   return (
     <Layout>
       <MetaDataComponent />
@@ -46,6 +52,8 @@ const Home = () => {
           <TestimonialsSection />
         </Suspense>
       </ViewportRender>
+
+      {pageReady && <div id="react-snap-ready" style={{ display: 'none' }} />}
     </Layout>
   );
 };
