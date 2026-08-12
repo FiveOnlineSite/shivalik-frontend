@@ -20,7 +20,15 @@ const ProjectsSection = () => {
         <div className='row align-items-end'>
         <div className='col-lg-6 mb-3'>
                 <div className={homestyles.highlightProject}>
-                    <img src='/images/gulmohar-home.webp' width='100%' alt="Gulmohar Avenue" loading="lazy" decoding="async" />
+                    <img
+                      src='/images/gulmohar-home-optimized.jpg'
+                      alt='Gulmohar Avenue residential project'
+                      width='720'
+                      height='530'
+                      loading='lazy'
+                      decoding='async'
+                      style={{ width: '100%', height: 'auto' }}
+                    />
                 </div>
             </div>
             <div className='col-lg-6 mb-3'>
@@ -40,7 +48,15 @@ const ProjectsSection = () => {
         <div className='row row-reverse align-items-end mb-5 align-bottom-section'>
         <div className='col-lg-6 mb-3 h-100'>
                 <div className={homestyles.highlightProject}>
-                    <img src='/images/prabhat-home.webp' width='100%' alt="Prabhat Darshan" loading="lazy" decoding="async" />
+                    <img
+                      src='/images/prabhat-home-optimized.jpg'
+                      alt='Prabhat Darshan residential project'
+                      width='720'
+                      height='530'
+                      loading='lazy'
+                      decoding='async'
+                      style={{ width: '100%', height: 'auto' }}
+                    />
                 </div>
             </div>
             <div className='col-lg-6 mb-3 h-100 d-flex flex-column justify-content-end'>

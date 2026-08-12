@@ -1,4 +1,5 @@
 import React, { Suspense, lazy } from 'react';
+import DeferredRender from '../atoms/DeferredRender';
 import Header from '../organisms/Header';
 
 const Footer = lazy(() => import('../organisms/Footer'));
@@ -8,9 +9,11 @@ const Layout = ({ children }) => {
     <>
       <Header />
       {children}
-      <Suspense fallback={null}>
-        <Footer />
-      </Suspense>
+      <DeferredRender timeout={1400}>
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
+      </DeferredRender>
     </>
   );
 };

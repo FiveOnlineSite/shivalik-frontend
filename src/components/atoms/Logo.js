@@ -3,7 +3,16 @@ import React from 'react'
 const Logo = () => {
   return (
     <>
-     <a href='/'><img src='/images/logo.svg' width='100%' alt="shivalik-logo" /></a>
+     <a href='/' aria-label='Shivalik Ventures home'>
+       <img
+         src='/images/logo.svg'
+         alt='Shivalik Ventures'
+         width='181'
+         height='80'
+         style={{ width: '100%', height: 'auto' }}
+         decoding='async'
+       />
+     </a>
     </>
   )
 }

@@ -7,10 +7,14 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsSticky(window.scrollY > 0);
+      const nextStickyState = window.scrollY > 0;
+      setIsSticky((currentStickyState) =>
+        currentStickyState === nextStickyState ? currentStickyState : nextStickyState
+      );
     };
 
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   return (
