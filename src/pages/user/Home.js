@@ -1,4 +1,5 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
+import axios from 'axios';
 import MetaDataComponent from '../../components/atoms/MetaDataComponent';
 import ViewportRender from '../../components/atoms/ViewportRender';
 import Banner from '../../components/molecules/Banner';
@@ -12,18 +13,43 @@ const TestimonialsSection = lazy(() => import('../../components/templates/Testim
 
 const Home = () => {
   const [pageReady, setPageReady] = useState(false);
+  const [banners, setBanners] = useState([]);
+  const [metaData, setMetaData] = useState(null);
 
   useEffect(() => {
-    setPageReady(true);
+    const fetchHomeData = async () => {
+      const apiUrl = process.env.REACT_APP_API_URL;
+
+      const [bannerRes, metaRes] = await Promise.allSettled([
+        axios.get(`${apiUrl}/api/home-banner`),
+        axios.get(`${apiUrl}/api/meta-data/by-page/home`),
+      ]);
+
+      if (bannerRes.status === 'fulfilled') {
+        setBanners(bannerRes.value.data.banners || []);
+      } else {
+        console.error('Error fetching home banners:', bannerRes.reason);
+      }
+
+      if (metaRes.status === 'fulfilled') {
+        setMetaData(metaRes.value.data || null);
+      } else {
+        console.error('Error fetching home meta data:', metaRes.reason);
+      }
+
+      setPageReady(true);
+    };
+
+    fetchHomeData();
   }, []);
 
   return (
     <Layout>
-      <MetaDataComponent />
+      <MetaDataComponent metaData={metaData} />
 
-      <Banner />
+      <Banner banners={banners} />
 
-      <ViewportRender minHeight={220} rootMargin="250px 0px">
+      <ViewportRender rootMargin="250px 0px">
         <Suspense fallback={null}>
           <Counters />
         </Suspense>

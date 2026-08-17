@@ -76,6 +76,11 @@ const MetaDataComponent = ({ metaData = null }) => {
       upsertMeta('meta[name="twitter:image"]', { content: image, name: 'twitter:image' });
     };
 
+    if (metaData) {
+      applyMeta(metaData);
+      return () => controller.abort();
+    }
+
     const fetchMetaTag = async () => {
       const apiUrl = process.env.REACT_APP_API_URL;
       let page = location.pathname;
@@ -108,7 +113,7 @@ const MetaDataComponent = ({ metaData = null }) => {
     fetchMetaTag();
 
     return () => controller.abort();
-  }, [location.pathname]);
+  }, [location.pathname, metaData]);
 
   return null;
 };
