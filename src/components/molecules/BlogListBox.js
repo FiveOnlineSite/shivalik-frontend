@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import homestyles from '../../style/Home.module.css';
 import styles from '../../style/Common.module.css';
-import { ArrowRightAlt } from '@mui/icons-material';
-import axios from 'axios';
+import { ArrowRightAlt } from '../atoms/Icons';
 
 const BlogListBox = ({Blogs =[]}) => {
 

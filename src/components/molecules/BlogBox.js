@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import homestyles from '../../style/Home.module.css';
 import styles from '../../style/Common.module.css';
-import { ArrowRightAlt } from '@mui/icons-material';
-import axios from 'axios';
+import { ArrowRightAlt } from '../atoms/Icons';
 import GradientLine from '../atoms/GradientLine';
 
 const BlogBox = ({Blogs = []}) => {
-
-  
-   
   return (
    <section className='pt-5 pb-5 bg-grey blog-list-none'>
         

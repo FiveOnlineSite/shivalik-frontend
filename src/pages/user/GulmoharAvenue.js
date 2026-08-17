@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Layout from '../../components/templates/Layout';
 import styles from '../../style/Common.module.css';
 import GradientLine from '../../components/atoms/GradientLine';
-import { ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '../../components/atoms/Icons';
 import homestyles from '../../style/Home.module.css';
 import { Download, Phone } from 'react-feather';
 import GalleryGrid from '../../components/organisms/GalleryGrid';
