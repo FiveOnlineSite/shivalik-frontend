@@ -15,14 +15,16 @@ const Home = () => {
   const [pageReady, setPageReady] = useState(false);
   const [banners, setBanners] = useState([]);
   const [metaData, setMetaData] = useState(null);
+  const [testimonials, setTestimonials] = useState([]);
 
   useEffect(() => {
     const fetchHomeData = async () => {
       const apiUrl = process.env.REACT_APP_API_URL;
 
-      const [bannerRes, metaRes] = await Promise.allSettled([
+      const [bannerRes, metaRes, testimonialsRes] = await Promise.allSettled([
         axios.get(`${apiUrl}/api/home-banner`),
         axios.get(`${apiUrl}/api/meta-data/by-page/home`),
+        axios.get(`${apiUrl}/api/testimonial`),
       ]);
 
       if (bannerRes.status === 'fulfilled') {
@@ -35,6 +37,12 @@ const Home = () => {
         setMetaData(metaRes.value.data || null);
       } else {
         console.error('Error fetching home meta data:', metaRes.reason);
+      }
+
+      if (testimonialsRes.status === 'fulfilled') {
+        setTestimonials(testimonialsRes.value.data.testimonials || []);
+      } else {
+        console.error('Error fetching home testimonials:', testimonialsRes.reason);
       }
 
       setPageReady(true);
@@ -73,11 +81,13 @@ const Home = () => {
         </Suspense>
       </ViewportRender>
 
-      <ViewportRender minHeight={600} rootMargin="400px 0px">
-        <Suspense fallback={null}>
-          <TestimonialsSection />
-        </Suspense>
-      </ViewportRender>
+      {testimonials.length > 0 && (
+        <ViewportRender minHeight={600} rootMargin="400px 0px">
+          <Suspense fallback={null}>
+            <TestimonialsSection testimonials={testimonials} />
+          </Suspense>
+        </ViewportRender>
+      )}
 
       {pageReady && <div id="react-snap-ready" style={{ display: 'none' }} />}
     </Layout>
