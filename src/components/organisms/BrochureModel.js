@@ -5,6 +5,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router-dom';
+import CaptchaField from '../atoms/CaptchaField';
 
 const BrochureModal = ({ show, onClose }) => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
@@ -20,7 +21,9 @@ const BrochureModal = ({ show, onClose }) => {
   const [otpVerified, setOtpVerified] = useState(false);
   const [timer, setTimer] = useState(0);
   const [isSendingOtp, setIsSendingOtp] = useState(false);
-const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState('');
+  const [captchaResetKey, setCaptchaResetKey] = useState(0);
 
   // Load environment variables
   const API_URL = process.env.REACT_APP_API_URL;
@@ -81,6 +84,11 @@ const [isSubmitting, setIsSubmitting] = useState(false);
       return;
     }
 
+    if (!captchaToken) {
+      toast.error("Please complete the CAPTCHA before sending OTP");
+      return;
+    }
+
     const newOtp = generateOtp();
     setOtp(newOtp);
     setIsSendingOtp(true);
@@ -127,11 +135,17 @@ const [isSubmitting, setIsSubmitting] = useState(false);
       return;
     }
 
+    if (!captchaToken) {
+      toast.error("Please complete the CAPTCHA before submitting");
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       await axios.post(`${API_URL}/api/project-enquiry`, {
         ...formData,
-        page: window.location.pathname
+        page: window.location.pathname,
+        captcha_token: captchaToken,
       });
 
       toast.success('Form submitted successfully!');
@@ -165,6 +179,7 @@ window.URL.revokeObjectURL(url);
       setOtpSent(false);
       setOtpVerified(false);
       setTimer(0); 
+      setCaptchaResetKey((current) => current + 1);
       onClose();
 
     } catch (err) {
@@ -205,6 +220,8 @@ window.URL.revokeObjectURL(url);
     required
   />
   </div>
+
+  <CaptchaField onTokenChange={setCaptchaToken} resetKey={captchaResetKey} />
 
   {/* Show Send OTP only if OTP not sent */}
   {!otpSent && (

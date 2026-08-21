@@ -4,6 +4,7 @@ import { ArrowRightAlt } from '../atoms/Icons';
 
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import CaptchaField from '../atoms/CaptchaField';
 
 const BlueprintTabs = () => {
   const [plans, setPlans] = useState([]);
@@ -24,6 +25,8 @@ const BlueprintTabs = () => {
   const [timer, setTimer] = useState(0);
   const [isSendingOtp, setIsSendingOtp] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState('');
+  const [captchaResetKey, setCaptchaResetKey] = useState(0);
 
   const API_URL = process.env.REACT_APP_API_URL;
   const API_TOKEN = "68|ncbSSlsNVuTuoPIyYMSFKXZ6UWXMrkgXXWTALQnH008f96ac";
@@ -106,6 +109,10 @@ const BlueprintTabs = () => {
       return;
     }
 
+    if (!captchaToken) {
+      return;
+    }
+
     const newOtp = generateOtp();
     setOtp(newOtp);
     setIsSendingOtp(true);
@@ -144,11 +151,16 @@ const BlueprintTabs = () => {
       return;
     }
 
+    if (!captchaToken) {
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const response = await axios.post(`${API_URL}/api/project-enquiry`, {
         ...formData,
-        page: window.location.pathname
+        page: window.location.pathname,
+        captcha_token: captchaToken,
       });
 
       console.log('Email sent successfully!', response);
@@ -170,6 +182,7 @@ const BlueprintTabs = () => {
       setOtpSent(false);
       setOtpVerified(false);
       setTimer(0); 
+      setCaptchaResetKey((current) => current + 1);
 
     } catch (err) {
       console.error('Form Submit Error:', err);
@@ -278,6 +291,8 @@ const BlueprintTabs = () => {
     required
   />
   </div>
+
+  <CaptchaField onTokenChange={setCaptchaToken} resetKey={captchaResetKey} />
 
   {/* Show Send OTP only if OTP not sent */}
   {!otpSent && (
