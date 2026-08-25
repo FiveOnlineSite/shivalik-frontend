@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ArrowRightAlt } from '../atoms/Icons';
 import styles from '../../style/Common.module.css';
+import CaptchaField from '../atoms/CaptchaField';
 
 const API_TOKEN = "68|ncbSSlsNVuTuoPIyYMSFKXZ6UWXMrkgXXWTALQnH008f96ac";
 const TEMPLATE_ID = "1707175318595098816";
@@ -46,6 +47,8 @@ const EnquiryModal = ({ onHidden }) => {
   const [timer, setTimer] = useState(0);
   const [isSendingOtp, setIsSendingOtp] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState('');
+  const [captchaResetKey, setCaptchaResetKey] = useState(0);
 
   const API_URL = process.env.REACT_APP_API_URL;
 
@@ -105,6 +108,11 @@ const EnquiryModal = ({ onHidden }) => {
       return;
     }
 
+    if (!captchaToken) {
+      toast.error("Please complete the CAPTCHA before sending OTP");
+      return;
+    }
+
     const newOtp = generateOtp();
     setOtp(newOtp);
     setIsSendingOtp(true);
@@ -148,12 +156,18 @@ const EnquiryModal = ({ onHidden }) => {
       return;
     }
 
+    if (!captchaToken) {
+      toast.error("Please complete the CAPTCHA before submitting");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
       await axios.post(`${API_URL}/api/contact-response`, {
         ...formData,
         page: window.location.pathname,
+        captcha_token: captchaToken,
       });
 
       toast.success('Your enquiry has been sent sucessfully');
@@ -164,6 +178,7 @@ const EnquiryModal = ({ onHidden }) => {
       setOtpVerified(false);
       setTimer(0);
       setErrors({});
+      setCaptchaResetKey((current) => current + 1);
       formRef.current?.reset();
 
       if (modalRef.current && window.bootstrap?.Modal) {
@@ -226,6 +241,8 @@ const EnquiryModal = ({ onHidden }) => {
                   <textarea name="message" className="form-control" rows="3" placeholder="Message" value={formData.message} onChange={handleChange} required></textarea>
                   {errors.message && <small className="text-danger">{errors.message}</small>}
                 </div>
+
+                <CaptchaField onTokenChange={setCaptchaToken} resetKey={captchaResetKey} />
 
                 {!otpSent && (
                   <button

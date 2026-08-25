@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
-import emailjs from '@emailjs/browser';
 import { ArrowRightAlt } from '../atoms/Icons';
 import styles from '../../style/Common.module.css';
-import axios from "axios"
+import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CaptchaField from '../atoms/CaptchaField';
 
 const ContactForm = () => {
 
@@ -20,10 +20,12 @@ const ContactForm = () => {
   const [otpVerified, setOtpVerified] = useState(false);
   const [timer, setTimer] = useState(0);
   const [isSendingOtp, setIsSendingOtp] = useState(false);
-const [isSubmitting, setIsSubmitting] = useState(false);
-const [isAgreed, setIsAgreed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isAgreed, setIsAgreed] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState('');
+  const [captchaResetKey, setCaptchaResetKey] = useState(0);
 
-const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
   const API_TOKEN = "68|ncbSSlsNVuTuoPIyYMSFKXZ6UWXMrkgXXWTALQnH008f96ac";
   const TEMPLATE_ID = "1707175318595098816";
   const ENTITY_ID = "1701159921797802436";
@@ -54,16 +56,21 @@ const API_URL = process.env.REACT_APP_API_URL;
     //   toast.error('Enter a valid 10-digit phone number');
     //   return;
     // }
-if (!isAgreed) {
-  toast.error("Please agree to the Terms & Conditions before sending OTP");
-  return;
-}
+    if (!isAgreed) {
+      toast.error("Please agree to the Terms & Conditions before sending OTP");
+      return;
+    }
+
+    if (!captchaToken) {
+      toast.error("Please complete the CAPTCHA before sending OTP");
+      return;
+    }
 
     if (!/^\d{10}$/.test(formData.phone)) {
-  setErrors(prev => ({ ...prev, phone: 'Contact must be 10 digits' }));
-  toast.error('Enter a valid 10-digit phone number');
-  return;
-}
+      setErrors(prev => ({ ...prev, phone: 'Contact must be 10 digits' }));
+      toast.error('Enter a valid 10-digit phone number');
+      return;
+    }
 
     const newOtp = generateOtp();
     setOtp(newOtp);
@@ -91,9 +98,9 @@ if (!isAgreed) {
 
   const handleVerifyOtp = () => {
     if (!isAgreed) {
-  toast.error("Please agree to the Terms & Conditions before verifying OTP");
-  return;
-}
+      toast.error("Please agree to the Terms & Conditions before verifying OTP");
+      return;
+    }
 
     if (enteredOtp.trim() === otp.trim()) {
       setOtpVerified(true);
@@ -108,9 +115,14 @@ if (!isAgreed) {
     e.preventDefault();
 
     if (!isAgreed) {
-  toast.error("Please agree to the Terms & Conditions before submitting the form");
-  return;
-}
+      toast.error("Please agree to the Terms & Conditions before submitting the form");
+      return;
+    }
+
+    if (!captchaToken) {
+      toast.error("Please complete the CAPTCHA before submitting the form");
+      return;
+    }
 
     const validationErrors = validate();
     setErrors(validationErrors);
@@ -127,7 +139,8 @@ if (!isAgreed) {
    try {
       const response = await axios.post(`${API_URL}/api/contact-response`, {
         ...formData,
-        page: window.location.pathname
+        page: window.location.pathname,
+        captcha_token: captchaToken,
       });
 
         setSuccessModal("Contact form submitted successfully!");
@@ -137,8 +150,9 @@ if (!isAgreed) {
       setEnteredOtp('');
       setOtpSent(false);
       setOtpVerified(false);
-      setIsAgreed(false)
-      setTimer(0); 
+      setIsAgreed(false);
+      setTimer(0);
+      setCaptchaResetKey((current) => current + 1);
         formRef.current?.reset();
 
 
@@ -223,6 +237,8 @@ if (!isAgreed) {
 
           <div className="form-check"><input className="form-check-input border border-secondary" id="agreeCheck" type="checkbox" name="agree" required checked={isAgreed}
     onChange={(e) => setIsAgreed(e.target.checked)}/><label className="form-check-label label-one" htmlFor="agreeCheck"><p>By submitting an enquiry, I authorize Shivalik Ventures to contact me via Call, SMS, RCS, WhatsApp, Email, or any other relevant medium. Also by submitting, I agree to the <a className="sa-txt" href="/terms-and-conditions" data-discover="true"> Terms &amp; Conditions </a>and<a className="sa-txt" href="/privacy-policy" data-discover="true"> Privacy Policy</a>.</p></label></div>
+
+          <CaptchaField onTokenChange={setCaptchaToken} resetKey={captchaResetKey} />
 
            {!otpSent && (
     <button
