@@ -27,7 +27,8 @@ const BrochureModal = ({ show, onClose }) => {
 
   // Load environment variables
   const API_URL = process.env.REACT_APP_API_URL;
-  const API_TOKEN = "68|ncbSSlsNVuTuoPIyYMSFKXZ6UWXMrkgXXWTALQnH008f96ac";
+  // const API_TOKEN = "68|ncbSSlsNVuTuoPIyYMSFKXZ6UWXMrkgXXWTALQnH008f96ac";
+  const API_TOKEN="98|iSNX0GasFAy6KkOmsZ9Xk3oo7z2gHGW2ASgEvsrd79f08c60"
   const TEMPLATE_ID = "1707175318595098816";
   const ENTITY_ID = "1701159921797802436";
 
